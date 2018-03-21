@@ -124,7 +124,7 @@
         default:
             break;
     }
-    //更新圆环
+    //更新圆环位置
     CGAffineTransform transform = CGAffineTransformMakeTranslation(x, y);
     transform = CGAffineTransformRotate(transform, angel);
     
