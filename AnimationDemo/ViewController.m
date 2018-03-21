@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 #import "WFCircleProgressView.h"
+#import "WFSphereWaveProgressView.h"
 
 @interface ViewController ()
 /** 圆环进度条 */
 @property (weak, nonatomic) WFCircleProgressView *progressView;
+/** 球形进度条 */
+@property (weak, nonatomic) WFSphereWaveProgressView *sphereView;
 
 @end
 
@@ -21,8 +24,11 @@
     [super viewDidLoad];
     
     [self createCircleProgressView];
+    
+    [self createSphereProgressView];
 }
 
+#pragma mark - 圆环进度条
 - (void)createCircleProgressView{
     WFCircleProgressView *progress = [[WFCircleProgressView alloc] initWithFrame:CGRectMake(20, 20, 100, 100) lineWidth:20.f progressColor:[UIColor redColor] backgroundColor:[UIColor orangeColor]];
     self.progressView = progress;
@@ -38,6 +44,14 @@
 
 - (void)sliderClick:(UISlider *)slider{
     _progressView.progress = slider.value;
+    _sphereView.progress = slider.value;
+}
+
+#pragma mark - 球形进度条
+- (void)createSphereProgressView{
+    WFSphereWaveProgressView *sphere = [[WFSphereWaveProgressView alloc] initWithFrame:CGRectMake(20, 140, 100, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor greenColor]];
+    [self.view addSubview:sphere];
+    self.sphereView = sphere;
 }
 
 @end

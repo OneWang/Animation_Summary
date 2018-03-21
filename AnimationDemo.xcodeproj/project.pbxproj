@@ -14,6 +14,7 @@
 		0404BFEB20611BB70030EB23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0404BFE920611BB70030EB23 /* LaunchScreen.storyboard */; };
 		0404BFEE20611BB70030EB23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFED20611BB70030EB23 /* main.m */; };
 		0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFF720611D200030EB23 /* WFCircleProgressView.m */; };
+		0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		0404BFED20611BB70030EB23 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0404BFF620611D200030EB23 /* WFCircleProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCircleProgressView.h; sourceTree = "<group>"; };
 		0404BFF720611D200030EB23 /* WFCircleProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleProgressView.m; sourceTree = "<group>"; };
+		0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSphereWaveProgressView.h; sourceTree = "<group>"; };
+		0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSphereWaveProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 			children = (
 				0404BFF620611D200030EB23 /* WFCircleProgressView.h */,
 				0404BFF720611D200030EB23 /* WFCircleProgressView.m */,
+				0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */,
+				0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 				0404BFE320611BB70030EB23 /* ViewController.m in Sources */,
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,
 				0404BFE020611BB70030EB23 /* AppDelegate.m in Sources */,
+				0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
