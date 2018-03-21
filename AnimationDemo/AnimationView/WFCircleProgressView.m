@@ -12,9 +12,8 @@
     CAShapeLayer *_progressLayer;
     UILabel *_progressLabel;
     UIImageView *_endPoint;
+    UIColor *_backColor;
 }
-/** 背景的颜色 */
-@property (strong, nonatomic) UIColor *backColor;
 
 @end
 
@@ -125,11 +124,11 @@
         default:
             break;
     }
-    //更新圆环的frame
-    CGRect rect = _endPoint.frame;
-    rect.origin.x = x + 1;
-    rect.origin.y = y + 1;
-    _endPoint.frame = rect;
+    //更新圆环
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(x, y);
+    transform = CGAffineTransformRotate(transform, angel);
+    
+    _endPoint.transform = transform;
     //移动到最前
     [self bringSubviewToFront:_endPoint];
     _endPoint.hidden = false;
