@@ -8,6 +8,10 @@
 
 #import "WFRefreshHeaderView.h"
 
+@interface WFRefreshHeaderView ()
+
+@end
+
 @implementation WFRefreshHeaderView
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -18,7 +22,7 @@
 }
 
 - (void)setupUI{
-    self.backgroundColor = [UIColor yellowColor];
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)drawRect:(CGRect)rect{
@@ -26,13 +30,17 @@
     [color set];
     
     UIBezierPath *path = [UIBezierPath bezierPath];
-    path.lineWidth = 5.f;
-    path.lineCapStyle = kCGLineCapRound;;
-    path.lineJoinStyle = kCGLineJoinRound;
-    [path moveToPoint:CGPointMake(10, 20)];
-//    [path addQuadCurveToPoint:CGPointMake(90, 85) controlPoint:CGPointMake(60, 80)];
-    [path addCurveToPoint:CGPointMake(10, 10) controlPoint1:CGPointMake(20, 25) controlPoint2:CGPointMake(96, 90)];
-    [path stroke];
+//    path.lineWidth = 1.f;
+//    path.lineCapStyle = kCGLineCapRound;;
+//    path.lineJoinStyle = kCGLineJoinRound;
+    [path moveToPoint:CGPointMake(0, 100)];
+    [path addQuadCurveToPoint:CGPointMake(self.bounds.size.width, 100) controlPoint:CGPointMake(self.bounds.size.width * 0.5, - _offsetY)];
+    [path closePath];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextAddPath(context, path.CGPath);
+    [[UIColor redColor] set];
+    CGContextFillPath(context);
 }
 
 @end

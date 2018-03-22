@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WFRefreshHeaderView : UIView
-
+/** 偏移量 */
+@property (assign, nonatomic) CGFloat offsetY;
 @end

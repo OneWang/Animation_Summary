@@ -11,11 +11,15 @@
 #import "WFSphereWaveProgressView.h"
 #import "WFRefreshHeaderView.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** 圆环进度条 */
 @property (weak, nonatomic) WFCircleProgressView *progressView;
 /** 球形进度条 */
 @property (weak, nonatomic) WFSphereWaveProgressView *sphereView;
+/** tableView */
+@property (strong, nonatomic) UITableView *tableView;
+/** header */
+@property (weak, nonatomic) WFRefreshHeaderView *headerView;
 
 @end
 
@@ -60,7 +64,33 @@
 #pragma mark -
 - (void)createRefreshHeaderView{
     WFRefreshHeaderView *header = [[WFRefreshHeaderView alloc] initWithFrame:CGRectMake(20, 250, 100, 100)];
-    [self.view addSubview:header];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,250, self.view.frame.size.width, self.view.frame.size.height - 250) style:UITableViewStyleGrouped];
+    _headerView = header;
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.tableHeaderView = header;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+}
+
+#pragma mark - UITableViewDelegate,UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identif = @"refresh";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identif];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identif];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"第%zd行",indexPath.row];
+    return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    _headerView.offsetY = scrollView.contentOffset.y;
+    [_headerView setNeedsDisplay];
 }
 
 @end
