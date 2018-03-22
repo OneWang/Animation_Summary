@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "WFCircleProgressView.h"
 #import "WFSphereWaveProgressView.h"
+#import "WFRefreshHeaderView.h"
 
 @interface ViewController ()
 /** 圆环进度条 */
@@ -26,6 +27,8 @@
     [self createCircleProgressView];
     
     [self createSphereProgressView];
+    
+    [self createRefreshHeaderView];
 }
 
 #pragma mark - 圆环进度条
@@ -52,6 +55,12 @@
     WFSphereWaveProgressView *sphere = [[WFSphereWaveProgressView alloc] initWithFrame:CGRectMake(20, 140, 100, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor greenColor]];
     [self.view addSubview:sphere];
     self.sphereView = sphere;
+}
+
+#pragma mark -
+- (void)createRefreshHeaderView{
+    WFRefreshHeaderView *header = [[WFRefreshHeaderView alloc] initWithFrame:CGRectMake(20, 250, 100, 100)];
+    [self.view addSubview:header];
 }
 
 @end
