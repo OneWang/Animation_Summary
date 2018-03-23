@@ -23,6 +23,10 @@
 
 - (void)setupUI{
     self.backgroundColor = [UIColor whiteColor];
+    
+//    CAShapeLayer *waveLayer = [CAShapeLayer layer];
+//    UIView *reference = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
+    
 }
 
 - (void)drawRect:(CGRect)rect{
@@ -41,6 +45,10 @@
     CGContextAddPath(context, path.CGPath);
     [[UIColor redColor] set];
     CGContextFillPath(context);
+}
+
+- (void)wave:(CGFloat)offsetY execute:(CGFloat)execute{
+    
 }
 
 @end
