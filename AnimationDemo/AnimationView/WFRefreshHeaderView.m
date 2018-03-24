@@ -26,7 +26,6 @@
     
 //    CAShapeLayer *waveLayer = [CAShapeLayer layer];
 //    UIView *reference = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
-    
 }
 
 - (void)drawRect:(CGRect)rect{
