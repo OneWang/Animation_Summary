@@ -6,7 +6,31 @@
 //  Copyright © 2018年 Jack. All rights reserved.
 //
 
-#include <metal_stdlib>
-using namespace metal;
+CAAnimation 是iOS动画的一个基础类，属于抽象类不可以直接使用，在使用的使用一般使用CAAnimationGroup、CAPropertyAnimation（CABasicAnimation (CASpringAnimation)和CAKeyframeAnimation）、CATransition三个子类；
 
+常用属性
+CAAnimation中的属性：
+@property(nullable, strong) CAMediaTimingFunction *timingFunction;  动画执行完毕后是否移出动画，默认YES
+@property(nullable, strong) CAMediaTimingFunction *timingFunction;  动画的执行时间规则
+
+CAAnimationGroup中的属性：
+@property(nullable, copy) NSArray<CAAnimation *> *animations;   数组中接收CAAnimation元素
+
+CAPropertyAnimation中的属性：
+@property(nullable, copy) NSString *keyPath;    需要动画的属性值
+@property(getter=isAdditive) BOOL additive;     属性动画是否以当前动画为基础
+@property(getter=isCumulative) BOOL cumulative; 指定动画是否为累加效果，默认为NO
+@property(nullable, strong) CAValueFunction *valueFunction;
+
+duration : 动画的持续时间
+beginTime : 动画的开始时间
+repeatCount : 动画的重复次数
+autoreverses : 执行的动画按照原动画返回执行
+timingFunction : 控制动画的显示节奏系统提供五种值选择，分别是：
+
+kCAMediaTimingFunctionLinear 线性动画
+kCAMediaTimingFunctionEaseIn 先慢后快
+kCAMediaTimingFunctionEaseOut 先快后慢
+kCAMediaTimingFunctionEaseInEaseOut 先慢后快再慢
+kCAMediaTimingFunctionDefault 默认，也属于中间比较快
 

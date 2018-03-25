@@ -15,6 +15,7 @@
 		0404BFEE20611BB70030EB23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFED20611BB70030EB23 /* main.m */; };
 		0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFF720611D200030EB23 /* WFCircleProgressView.m */; };
 		0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */; };
+		04CA49FF2067CCF3004693FC /* AnimationSummary in Sources */ = {isa = PBXBuildFile; fileRef = 04CA49FE2067CCF3004693FC /* AnimationSummary */; };
 		04F7AE332063B0060059A9D8 /* WFRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7AE322063B0060059A9D8 /* WFRefreshHeaderView.m */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		0404BFF720611D200030EB23 /* WFCircleProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleProgressView.m; sourceTree = "<group>"; };
 		0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSphereWaveProgressView.h; sourceTree = "<group>"; };
 		0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSphereWaveProgressView.m; sourceTree = "<group>"; };
+		04CA49FE2067CCF3004693FC /* AnimationSummary */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnimationSummary; sourceTree = "<group>"; };
 		04F7AE312063B0060059A9D8 /* WFRefreshHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFRefreshHeaderView.h; sourceTree = "<group>"; };
 		04F7AE322063B0060059A9D8 /* WFRefreshHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFRefreshHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */,
 				04F7AE312063B0060059A9D8 /* WFRefreshHeaderView.h */,
 				04F7AE322063B0060059A9D8 /* WFRefreshHeaderView.m */,
+				04CA49FE2067CCF3004693FC /* AnimationSummary */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
+				04CA49FF2067CCF3004693FC /* AnimationSummary in Sources */,
 				0404BFE320611BB70030EB23 /* ViewController.m in Sources */,
 				04F7AE332063B0060059A9D8 /* WFRefreshHeaderView.m in Sources */,
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,
