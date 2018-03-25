@@ -40,16 +40,16 @@ CAKeyframeAnimation中的属性：
 
 CASpringAnimation中的属性：
 @property CGFloat mass;
-@property CGFloat stiffness;
-@property CGFloat damping;
-@property CGFloat initialVelocity;
-@property(readonly) CFTimeInterval settlingDuration;
+@property CGFloat stiffness;    刚度系数
+@property CGFloat damping;      阻尼系数
+@property CGFloat initialVelocity;  初始速率
+@property(readonly) CFTimeInterval settlingDuration;    结算时间
 
 CATransition中属性：
-@property(copy) NSString *type;
-@property(nullable, copy) NSString *subtype;
-@property float startProgress;
-@property float endProgress;
+@property(copy) NSString *type;         动画样式
+@property(nullable, copy) NSString *subtype;    转场方式
+@property float startProgress;      开始进度
+@property float endProgress;        结束进度
 
 duration : 动画的持续时间
 beginTime : 动画的开始时间
