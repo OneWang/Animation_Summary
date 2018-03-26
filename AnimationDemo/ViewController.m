@@ -64,6 +64,7 @@
 #pragma mark -
 - (void)createRefreshHeaderView{
     WFRefreshHeaderView *header = [[WFRefreshHeaderView alloc] initWithFrame:CGRectMake(20, 250, 100, 100)];
+    header.backgroundColor = [UIColor yellowColor];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,250, self.view.frame.size.width, self.view.frame.size.height - 250) style:UITableViewStyleGrouped];
     _headerView = header;
     _tableView.backgroundColor = [UIColor whiteColor];

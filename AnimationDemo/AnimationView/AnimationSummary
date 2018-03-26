@@ -28,15 +28,15 @@ CABasicAnimation中的属性：
 @property(nullable, strong) id byValue;     结束值
 
 CAKeyframeAnimation中的属性：
-@property(nullable, copy) NSArray *values;  
-@property(nullable) CGPathRef path;
-@property(nullable, copy) NSArray<NSNumber *> *keyTimes;
-@property(nullable, copy) NSArray<CAMediaTimingFunction *> *timingFunctions;
+@property(nullable, copy) NSArray *values;      关键帧值数组
+@property(nullable) CGPathRef path;             关键帧帧路径，优先级大于values
+@property(nullable, copy) NSArray<NSNumber *> *keyTimes;    没一帧对应的时间
+@property(nullable, copy) NSArray<CAMediaTimingFunction *> *timingFunctions;    每一帧对应的时间曲线函数
 @property(copy) NSString *calculationMode;
-@property(nullable, copy) NSArray<NSNumber *> *tensionValues;
-@property(nullable, copy) NSArray<NSNumber *> *continuityValues;
-@property(nullable, copy) NSArray<NSNumber *> *biasValues;
-@property(nullable, copy) NSString *rotationMode;
+@property(nullable, copy) NSArray<NSNumber *> *tensionValues;   动画的张力
+@property(nullable, copy) NSArray<NSNumber *> *continuityValues;    动画的连续性值
+@property(nullable, copy) NSArray<NSNumber *> *biasValues;      动画的偏斜率
+@property(nullable, copy) NSString *rotationMode;       动画沿路径的旋转方式（默认有两种旋转方式自动旋转和自动翻转，默认为nil）
 
 CASpringAnimation中的属性：
 @property CGFloat mass;
