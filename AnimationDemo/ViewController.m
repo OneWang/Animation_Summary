@@ -90,8 +90,11 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    _headerView.offsetY = scrollView.contentOffset.y;
-    [_headerView setNeedsDisplay];
+    [_headerView startAnimation];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    [_headerView endAnimation];
 }
 
 @end

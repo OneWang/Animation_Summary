@@ -38,13 +38,13 @@
     waveLayer.backgroundColor = [UIColor greenColor].CGColor;
     self.wavaLayer = waveLayer;
     [self.layer addSublayer:waveLayer];
+    _execute = 90.f;
+    
     UIView *reference = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
     _referenceView = reference;
+    reference.center = CGPointMake(self.frame.size.width * 0.5, 100);
     reference.backgroundColor = [UIColor orangeColor];
     [self addSubview:reference];
-    
-    [self startAnimation];
-    [self startDownAnimation];
 }
 
 - (void)drawRect:(CGRect)rect{
@@ -107,7 +107,7 @@
 }
 
 - (void)endAnimation{
-    [self endAnimation];
+    [self endBoundAnimation];
 }
 
 - (void)addDisplay{

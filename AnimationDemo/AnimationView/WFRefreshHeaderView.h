@@ -10,5 +10,11 @@
 
 @interface WFRefreshHeaderView : UIView
 /** 偏移量 */
-@property (assign, nonatomic) CGFloat offsetY;
+//@property (assign, nonatomic) CGFloat offsetY;
+
+- (void)startAnimation;
+- (void)endAnimation;
+
+- (void)startDownAnimation;
+
 @end
