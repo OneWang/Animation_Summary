@@ -10,6 +10,7 @@
 #import "WFCircleProgressView.h"
 #import "WFSphereWaveProgressView.h"
 #import "WFRefreshHeaderView.h"
+#import "WFDisplayView.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** 圆环进度条 */
@@ -20,6 +21,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 /** header */
 @property (weak, nonatomic) WFRefreshHeaderView *headerView;
+/** header */
+@property (weak, nonatomic) WFDisplayView *displayView;
 
 @end
 
@@ -27,12 +30,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"动画";
     
-    [self createCircleProgressView];
+//    [self createCircleProgressView];
+//
+//    [self createSphereProgressView];
+//
+//    [self createRefreshHeaderView];
+    [self createDisplayView];
+}
+
+#pragma mark - 曲线动画
+- (void)createDisplayView{
+    self.view.backgroundColor = [UIColor clearColor];
+    WFDisplayView *v1 = [[WFDisplayView alloc] initWithFrame:CGRectMake( 0, 64, K_Screen_Width, 140)];
+    [v1 setBackgroundColor:[UIColor purpleColor]];
+    _displayView = v1;
+    [self.view addSubview:v1];
     
-    [self createSphereProgressView];
-    
-    [self createRefreshHeaderView];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 140, K_Screen_Width, K_Screen_Height - 64 - 140) style:UITableViewStyleGrouped];
+    [self.view addSubview:tableView];
+//    tableView.backgroundColor = [UIColor whiteColor];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    _tableView = tableView;
 }
 
 #pragma mark - 圆环进度条
@@ -86,11 +107,14 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identif];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"第%zd行",indexPath.row];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [_headerView startAnimation];
+//    [_headerView startAnimation];
+    _displayView.offsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
