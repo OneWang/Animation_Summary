@@ -4,7 +4,7 @@
 //
 //  Created by Jack on 2018/3/28.
 //  Copyright © 2018年 Jack. All rights reserved.
-//
+//  拖拽动画
 
 #import "WFDisplayView.h"
 
@@ -48,7 +48,6 @@
     //移动后位置保持结束后的状态
     animation.fillMode = kCAFillModeForwards;
     animation.removedOnCompletion = NO;
-    
     [self.shapeLayer addAnimation:animation forKey:nil];
 }
 
@@ -71,6 +70,7 @@
 
 - (void)setOffsetY:(CGFloat)offsetY{
     _offsetY = offsetY;
+//    self.frame = CGRectMake(0, 0, self.frame.size.width, offsetY >= 0 ? 140 : 140 + fabs(offsetY));
     y = -offsetY;
     if (offsetY <= 60) {
         [self setNeedsDisplayView];

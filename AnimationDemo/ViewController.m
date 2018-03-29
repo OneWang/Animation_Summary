@@ -11,6 +11,7 @@
 #import "WFSphereWaveProgressView.h"
 #import "WFRefreshHeaderView.h"
 #import "WFDisplayView.h"
+#import "WFElasticityView.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** 圆环进度条 */
@@ -22,7 +23,7 @@
 /** header */
 @property (weak, nonatomic) WFRefreshHeaderView *headerView;
 /** header */
-@property (weak, nonatomic) WFDisplayView *displayView;
+@property (weak, nonatomic) WFElasticityView *displayView;
 
 @end
 
@@ -42,18 +43,20 @@
 
 #pragma mark - 曲线动画
 - (void)createDisplayView{
-    self.view.backgroundColor = [UIColor clearColor];
-    WFDisplayView *v1 = [[WFDisplayView alloc] initWithFrame:CGRectMake( 0, 64, K_Screen_Width, 140)];
-    [v1 setBackgroundColor:[UIColor purpleColor]];
-    _displayView = v1;
-    [self.view addSubview:v1];
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 140, K_Screen_Width, K_Screen_Height - 64 - 140) style:UITableViewStyleGrouped];
+    self.view.backgroundColor = [UIColor whiteColor];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_Screen_Width, K_Screen_Height - 64) style:UITableViewStyleGrouped];
     [self.view addSubview:tableView];
-//    tableView.backgroundColor = [UIColor whiteColor];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.estimatedRowHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
+    tableView.estimatedSectionHeaderHeight = 0;
     _tableView = tableView;
+    
+    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
+    [v1 setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:v1];
+    [tableView addSubview:v1];
 }
 
 #pragma mark - 圆环进度条
@@ -88,6 +91,7 @@
     header.backgroundColor = [UIColor yellowColor];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,250, self.view.frame.size.width, self.view.frame.size.height - 250) style:UITableViewStyleGrouped];
     _headerView = header;
+    _tableView.separatorColor = [UIColor clearColor];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.tableHeaderView = header;
     _tableView.delegate = self;
@@ -107,14 +111,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identif];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"第%zd行",indexPath.row];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.contentView.backgroundColor = [UIColor clearColor];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.000001f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.0000001f;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 //    [_headerView startAnimation];
-    _displayView.offsetY = scrollView.contentOffset.y;
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

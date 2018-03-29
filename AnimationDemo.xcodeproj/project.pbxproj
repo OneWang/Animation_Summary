@@ -14,6 +14,7 @@
 		0404BFEE20611BB70030EB23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFED20611BB70030EB23 /* main.m */; };
 		0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFF720611D200030EB23 /* WFCircleProgressView.m */; };
 		0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */; };
+		04A6D350206C920C005A531B /* WFElasticityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6D34F206C920C005A531B /* WFElasticityView.m */; };
 		04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B92FE2206B417500FECA45 /* WFDisplayView.m */; };
 		04CA49FF2067CCF3004693FC /* AnimationSummary in Sources */ = {isa = PBXBuildFile; fileRef = 04CA49FE2067CCF3004693FC /* AnimationSummary */; };
 		04F7AE332063B0060059A9D8 /* WFRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7AE322063B0060059A9D8 /* WFRefreshHeaderView.m */; };
@@ -33,6 +34,8 @@
 		0404BFF720611D200030EB23 /* WFCircleProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleProgressView.m; sourceTree = "<group>"; };
 		0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSphereWaveProgressView.h; sourceTree = "<group>"; };
 		0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSphereWaveProgressView.m; sourceTree = "<group>"; };
+		04A6D34E206C920C005A531B /* WFElasticityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFElasticityView.h; sourceTree = "<group>"; };
+		04A6D34F206C920C005A531B /* WFElasticityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFElasticityView.m; sourceTree = "<group>"; };
 		04B92FE1206B417500FECA45 /* WFDisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDisplayView.h; sourceTree = "<group>"; };
 		04B92FE2206B417500FECA45 /* WFDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDisplayView.m; sourceTree = "<group>"; };
 		04B92FE4206B42FD00FECA45 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				04CA49FE2067CCF3004693FC /* AnimationSummary */,
 				04B92FE1206B417500FECA45 /* WFDisplayView.h */,
 				04B92FE2206B417500FECA45 /* WFDisplayView.m */,
+				04A6D34E206C920C005A531B /* WFElasticityView.h */,
+				04A6D34F206C920C005A531B /* WFElasticityView.m */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,
 				0404BFE020611BB70030EB23 /* AppDelegate.m in Sources */,
 				0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */,
+				04A6D350206C920C005A531B /* WFElasticityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
