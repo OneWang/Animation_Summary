@@ -18,19 +18,19 @@
 
 @implementation WFDisplayView
 
-//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    CGPoint point = [touches.anyObject locationInView:self];
-//    x = point.x;
-//    y = point.y;
-//    [self setNeedsDisplayView];
-//}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    CGPoint point = [touches.anyObject locationInView:self];
+    x = point.x;
+    y = point.y;
+    [self setNeedsDisplayView];
+}
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     y = 0;
     [self animation];
 }
 
-- (UIBezierPath *)confighPathY:(CGFloat)y X:(CGFloat)x{
+- (UIBezierPath *)configPathY:(CGFloat)y X:(CGFloat)x{
     CGFloat width = self.frame.size.width;
     [self.movePath removeAllPoints];
     [self.movePath moveToPoint:CGPointMake(0,0)];
@@ -63,14 +63,13 @@
     self.shapeLayer.lineWidth = 1.0f;
     self.shapeLayer.strokeColor = [UIColor clearColor].CGColor;
     //让贝塞尔曲线与CAShapeLayer产生联系
-    self.shapeLayer.path = [self confighPathY:y X:x].CGPath;
+    self.shapeLayer.path = [self configPathY:y X:x].CGPath;
     //添加并显示
     [self.layer addSublayer:self.shapeLayer];
 }
 
 - (void)setOffsetY:(CGFloat)offsetY{
     _offsetY = offsetY;
-//    self.frame = CGRectMake(0, 0, self.frame.size.width, offsetY >= 0 ? 140 : 140 + fabs(offsetY));
     y = -offsetY;
     if (offsetY <= 60) {
         [self setNeedsDisplayView];

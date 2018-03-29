@@ -23,7 +23,7 @@
 /** header */
 @property (weak, nonatomic) WFRefreshHeaderView *headerView;
 /** header */
-@property (weak, nonatomic) WFElasticityView *displayView;
+@property (weak, nonatomic) WFDisplayView *displayView;
 
 @end
 
@@ -38,7 +38,8 @@
 //    [self createSphereProgressView];
 //
 //    [self createRefreshHeaderView];
-    [self createDisplayView];
+//    [self createDisplayView];
+    [self creatHeaderDragAnimation];
 }
 
 #pragma mark - 曲线动画
@@ -57,6 +58,22 @@
     [v1 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:v1];
     [tableView addSubview:v1];
+}
+
+- (void)creatHeaderDragAnimation{
+    WFDisplayView *v1 = [[WFDisplayView alloc] initWithFrame:CGRectMake( 0, 64, K_Screen_Width, 140)];
+    v1.backgroundColor = [UIColor yellowColor];
+    _displayView = v1;
+    [self.view addSubview:v1];
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 140, K_Screen_Width, K_Screen_Height - 64 - 140) style:UITableViewStyleGrouped];
+    [self.view addSubview:tableView];
+    tableView.estimatedRowHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
+    tableView.estimatedSectionHeaderHeight = 0;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    _tableView = tableView;
 }
 
 #pragma mark - 圆环进度条
@@ -124,7 +141,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 //    [_headerView startAnimation];
-
+    _displayView.offsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
