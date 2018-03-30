@@ -29,6 +29,9 @@
 @property (strong, nonatomic) UIColor *beforColor;
 /** 后景色 */
 @property (strong, nonatomic) UIColor *backColor;
+/** 头像 */
+@property (weak, nonatomic) UIImageView *headerView;
+
 @end
 
 @implementation WFWaveHeader
@@ -56,6 +59,13 @@
     _secondLayer.fillColor = _beforColor.CGColor;
     _secondLayer.strokeColor = _beforColor.CGColor;
     [self.layer addSublayer:_secondLayer];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.headerView = imageView;
+    [self addSubview:imageView];
+    imageView.backgroundColor = [UIColor redColor];
+    imageView.layer.cornerRadius = 10;
+    imageView.layer.masksToBounds = YES;
 }
 
 //初始化动画数据
@@ -115,6 +125,7 @@
     }
     CGFloat centerX = self.frame.size.width * 0.5;
     CGFloat centerY = _waveAmplitude * sin(_wavePalstance * centerX + _waveOffsetX) + _waveOffsetY;
+    self.headerView.center = CGPointMake(self.frame.size.width * 0.5, centerY - _headerView.frame.size.height * 0.5);
     if (self.callBack) {
         self.callBack(centerY);
     }
