@@ -13,7 +13,6 @@
 /** 进度 */
 @property (assign, nonatomic) CGFloat progress;
 
-
 /**
  初始化方法
 
