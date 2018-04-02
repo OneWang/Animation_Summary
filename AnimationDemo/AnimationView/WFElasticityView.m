@@ -24,7 +24,6 @@ static const CGFloat fixedDistance = -100;
 - (instancetype)initWithBlindScrollView:(UIScrollView *)scrollView{
     if (self = [super initWithFrame:CGRectZero]) {
         _scrollerView = scrollView;
-        [_scrollerView setContentOffset:CGPointMake(0, fixedDistance) animated:NO];
         [self setupUI];
     }
     return self;
@@ -58,11 +57,13 @@ static const CGFloat fixedDistance = -100;
         
         if (_offsetY <= fixedDistance) {
             if (!_scrollerView.isDragging) {
-                [_scrollerView setContentOffset:CGPointMake(0, fixedDistance) animated:NO];
                 [self addElasticityAnimation];
+            }else{
+//                [_scrollerView setContentOffset:CGPointMake(0, fixedDistance) animated:NO];
             }
         }else{
-            [_pathLayer removeAllAnimations];
+            [_scrollerView setContentOffset:CGPointMake(0, fixedDistance) animated:NO];
+//            [_pathLayer removeAllAnimations];
         }
     }
 }

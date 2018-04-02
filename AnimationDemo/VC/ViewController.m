@@ -41,16 +41,13 @@
     tableView.estimatedSectionHeaderHeight = 0;
     _tableView = tableView;
     
-    WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
-    tableView.tableHeaderView = header;
-    header.callBack = ^(CGFloat offsetY) {
-//        NSLog(@"%f",offsetY);
-    };
+//    WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
+//    tableView.tableHeaderView = header;
     
-//    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
-//    [v1 setBackgroundColor:[UIColor whiteColor]];
-//    [self.view addSubview:v1];
-//    [tableView addSubview:v1];
+    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
+    [v1 setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:v1];
+    [tableView addSubview:v1];
 }
 
 - (void)creatHeaderDragAnimation{
