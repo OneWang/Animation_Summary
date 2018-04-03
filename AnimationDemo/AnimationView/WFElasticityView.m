@@ -84,6 +84,7 @@ static const CGFloat fixedDistance = -100;
     return bezierPath.CGPath;
 }
 
+//添加序列帧动画
 - (void)addElasticityAnimation{
     _pathLayer.path = [self calculateAnimationPathWithContentOffsetY:ABS(fixedDistance)];
     NSArray *pathValues = @[
