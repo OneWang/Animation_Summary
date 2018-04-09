@@ -10,6 +10,7 @@
 #import "WFDisplayView.h"
 #import "WFElasticityView.h"
 #import "WFWaveHeader.h"
+#import "WFSubViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** tableView */
@@ -44,10 +45,10 @@
 //    WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
 //    tableView.tableHeaderView = header;
     
-    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
-    [v1 setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:v1];
-    [tableView addSubview:v1];
+//    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
+//    v1.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:v1];
+//    [tableView addSubview:v1];
 }
 
 - (void)creatHeaderDragAnimation{
@@ -89,9 +90,14 @@
     return 0.0000001f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    WFSubViewController *VC = [WFSubViewController new];
+    [self.navigationController pushViewController:VC animated:YES];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 //    [_headerView startAnimation];
-    _displayView.offsetY = scrollView.contentOffset.y;
+//    _displayView.offsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

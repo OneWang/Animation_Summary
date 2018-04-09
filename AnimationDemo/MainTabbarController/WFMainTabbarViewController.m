@@ -9,6 +9,7 @@
 #import "WFMainTabbarViewController.h"
 #import "ViewController.h"
 #import "WFProgressViewController.h"
+#import "WFMainNavigationViewController.h"
 
 @interface WFMainTabbarViewController ()
 
@@ -22,18 +23,13 @@
     
     ViewController *vc = [[ViewController alloc] init];
     vc.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemRecents tag:0];
-    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:vc];
+    WFMainNavigationViewController *nav1 = [[WFMainNavigationViewController alloc] initWithRootViewController:vc];
     [self addChildViewController:nav1];
     
     WFProgressViewController *progressVC = [[WFProgressViewController alloc] init];
     progressVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:1];
-    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:progressVC];
+    WFMainNavigationViewController *nav2 = [[WFMainNavigationViewController alloc] initWithRootViewController:progressVC];
     [self addChildViewController:nav2];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
