@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 //自定义动画对象
-@interface WFPopAnimation ()<UIViewControllerAnimatedTransitioning>
+@interface WFPopAnimation ()<UIViewControllerAnimatedTransitioning,CAAnimationDelegate>
 /** 此代理是想改变系统切换的动画方式 */
 @property (weak, nonatomic) id<UIViewControllerContextTransitioning> transitionContext;
 @end
@@ -30,22 +30,22 @@
     
     NSTimeInterval interval = [self transitionDuration:transitionContext];
     //执行动画
-    [UIView animateWithDuration:interval animations:^{
+    [UIView animateWithDuration:interval delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         fromViewController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width, 0);
     } completion:^(BOOL finished) {
         //动画执行完毕之后这个方法必须调用，否则系统会认为你的其余任何操作都在动画执行过程中；
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
     
-    _transitionContext = transitionContext;
-    //切换动画方式
-    [UIView beginAnimations:@"View Flip" context:nil];
-    [UIView setAnimationDuration:interval];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:containerView cache:YES];
-    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:)];
-    [UIView commitAnimations];
-    [containerView exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
+//    _transitionContext = transitionContext;
+//    //切换动画方式
+//    [UIView beginAnimations:@"View Flip" context:nil];
+//    [UIView setAnimationDuration:interval];
+//    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:containerView cache:YES];
+//    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:)];
+//    [UIView commitAnimations];
+//    [containerView exchangeSubviewAtIndex:0 withSubviewAtIndex:1];
 }
 
 /** 返回动画的执行时间 */

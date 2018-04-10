@@ -52,6 +52,8 @@
 
 #pragma mark ***************************** UIGestureRecognizerDelegate *****************************
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    NSLog(@"是否响应手势：%d",self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue]);
+    NSLog(@"%lu====%d",(unsigned long)self.viewControllers.count,[[self valueForKey:@"_isTransitioning"] boolValue]);
     //这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）
     return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue];
 }

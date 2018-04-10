@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"动画转场";
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor orangeColor];
 }
 
 @end
