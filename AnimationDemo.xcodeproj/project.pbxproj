@@ -22,6 +22,9 @@
 		0495B9E2206E1FB400346289 /* WFProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9E1206E1FB400346289 /* WFProgressViewController.m */; };
 		04A6D350206C920C005A531B /* WFElasticityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6D34F206C920C005A531B /* WFElasticityView.m */; };
 		04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B92FE2206B417500FECA45 /* WFDisplayView.m */; };
+		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
+		04D65E16208061230016D23E /* WFPieChartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E15208061230016D23E /* WFPieChartItem.m */; };
+		04D65E192080AF4F0016D23E /* WFLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E182080AF4F0016D23E /* WFLineChartView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,12 @@
 		04B92FE2206B417500FECA45 /* WFDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDisplayView.m; sourceTree = "<group>"; };
 		04B92FE4206B42FD00FECA45 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		04CA49FE2067CCF3004693FC /* AnimationSummary */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnimationSummary; sourceTree = "<group>"; };
+		04D65E11208044B40016D23E /* WFPieChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPieChartView.h; sourceTree = "<group>"; };
+		04D65E12208044B40016D23E /* WFPieChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPieChartView.m; sourceTree = "<group>"; };
+		04D65E14208061230016D23E /* WFPieChartItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPieChartItem.h; sourceTree = "<group>"; };
+		04D65E15208061230016D23E /* WFPieChartItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPieChartItem.m; sourceTree = "<group>"; };
+		04D65E172080AF4F0016D23E /* WFLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLineChartView.h; sourceTree = "<group>"; };
+		04D65E182080AF4F0016D23E /* WFLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLineChartView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +135,12 @@
 				0495B9DE206E1E7A00346289 /* WFWaveHeader.m */,
 				04558842207B58980052D9B8 /* WFPopAnimation.h */,
 				04558843207B58980052D9B8 /* WFPopAnimation.m */,
+				04D65E11208044B40016D23E /* WFPieChartView.h */,
+				04D65E12208044B40016D23E /* WFPieChartView.m */,
+				04D65E14208061230016D23E /* WFPieChartItem.h */,
+				04D65E15208061230016D23E /* WFPieChartItem.m */,
+				04D65E172080AF4F0016D23E /* WFLineChartView.h */,
+				04D65E182080AF4F0016D23E /* WFLineChartView.m */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -230,13 +245,16 @@
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */,
+				04D65E13208044B40016D23E /* WFPieChartView.m in Sources */,
 				0404BFE320611BB70030EB23 /* ViewController.m in Sources */,
 				0495B9DF206E1E7A00346289 /* WFWaveHeader.m in Sources */,
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,
 				0495B9E2206E1FB400346289 /* WFProgressViewController.m in Sources */,
 				0404BFE020611BB70030EB23 /* AppDelegate.m in Sources */,
+				04D65E16208061230016D23E /* WFPieChartItem.m in Sources */,
 				0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */,
 				0455884D207B6C8C0052D9B8 /* WFSubViewController.m in Sources */,
+				04D65E192080AF4F0016D23E /* WFLineChartView.m in Sources */,
 				04A6D350206C920C005A531B /* WFElasticityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

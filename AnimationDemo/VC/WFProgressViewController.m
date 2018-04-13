@@ -9,6 +9,8 @@
 #import "WFProgressViewController.h"
 #import "WFCircleProgressView.h"
 #import "WFSphereWaveProgressView.h"
+#import "WFPieChartItem.h"
+#import "WFPieChartView.h"
 
 @interface WFProgressViewController ()
 /** 圆环进度条 */
@@ -24,6 +26,7 @@
     
     [self createCircleProgressView];
     [self createSphereProgressView];
+    [self createPieChartView];
 }
 
 #pragma mark - 圆环进度条
@@ -54,4 +57,16 @@
     [self.view addSubview:sphere];
     self.sphereView = sphere;
 }
+
+#pragma mark - 饼状图
+- (void)createPieChartView{
+    NSArray *array = @[[WFPieChartItem wf_pieChartItemWithValue:10 color:[UIColor purpleColor] title:@""],
+                       [WFPieChartItem wf_pieChartItemWithValue:20 color:[UIColor yellowColor] title:@""],
+                       [WFPieChartItem wf_pieChartItemWithValue:40 color:[UIColor greenColor] title:@""]];
+    WFPieChartView *pieChart = [[WFPieChartView alloc] initWithFrame:CGRectMake(100, 350, 200, 200) items:array];
+    pieChart.piePace = 10.f;
+    pieChart.borderWidth = 60.f;
+    [self.view addSubview:pieChart];
+}
+
 @end
