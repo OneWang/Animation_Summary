@@ -65,7 +65,7 @@
                        [WFPieChartItem wf_pieChartItemWithValue:40 color:[UIColor greenColor] title:@""]];
     WFPieChartView *pieChart = [[WFPieChartView alloc] initWithFrame:CGRectMake(100, 350, 200, 200) items:array];
     pieChart.piePace = 10.f;
-    pieChart.borderWidth = 60.f;
+    pieChart.borderWidth = 80.f;
     [self.view addSubview:pieChart];
 }
 

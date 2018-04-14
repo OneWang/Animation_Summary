@@ -29,28 +29,27 @@ static const CGFloat spaceMargin = 20.f;
 //MARK:初始化方法
 - (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.radius = (self.frame.size.width - spaceMargin * 2) * 0.25;
         _itemArray = items;
-        [self initialMaskLayer];
     }
     return self;
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
+    [self initialMaskLayer];
     [self strokePineChart];
 }
 
 //MARK:初始化遮罩层
 - (void)initialMaskLayer{
-    self.radius = (self.frame.size.width - spaceMargin * 2) * 0.25;
     CGPoint center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
     CAShapeLayer *mask = [CAShapeLayer layer];
     self.maskLayer = mask;
     UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:center radius:_radius startAngle:-M_PI_2 endAngle:M_PI_2 * 3 clockwise:YES];
     mask.fillColor = [UIColor clearColor].CGColor;
     mask.strokeColor = [UIColor orangeColor].CGColor;
-    mask.lineWidth = self.frame.size.width * 0.5;
+    mask.lineWidth = _borderWidth;
     mask.path = bezier.CGPath;
     mask.strokeEnd = 0;
     self.layer.mask = mask;
@@ -149,19 +148,21 @@ static const CGFloat spaceMargin = 20.f;
         return;
     }
     //取得触摸点的角度值
-    CGFloat percentage = [self findPercentageOfAngleInCircle:touchPoint fromPoint:center];
+    CGFloat percentage = [self findPercentageOfAngleInCircleCenter:center fromPoint:touchPoint];
     NSInteger index = 0;
     while (percentage > [_percentageArray[index] floatValue]) {
         index ++;
     }
-//    NSLog(@"点击了第%ld个色块%f",index,percentage);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(wf_pieChartView:didClickIndex:)]) {
+        [self.delegate wf_pieChartView:self didClickIndex:index];
+    }
+    NSLog(@"索引值：%ld",index);
 }
 
-- (CGFloat)findPercentageOfAngleInCircle:(CGPoint)center fromPoint:(CGPoint)reference{
+- (CGFloat)findPercentageOfAngleInCircleCenter:(CGPoint)center fromPoint:(CGPoint)reference{
     //Find angle of line Passing In Reference And Center
     CGFloat angleOfLine = atanf((reference.y - center.y) / (reference.x - center.x));
-    NSLog(@"%f",angleOfLine);
-    CGFloat percentage = (angleOfLine + M_PI/2)/(2 * M_PI);
+    CGFloat percentage = (angleOfLine + M_PI_2)/(2 * M_PI);
     return (reference.x - center.x) > 0 ? percentage : percentage + .5;
 }
 
