@@ -10,11 +10,12 @@
 
 @implementation WFPieChartItem
 
-+ (instancetype)wf_pieChartItemWithValue:(CGFloat)progress color:(UIColor *)color title:(NSString *)title{
++ (instancetype)wf_pieChartItemWithValue:(CGFloat)progress color:(UIColor *)color title:(NSString *)title titleColor:(UIColor *)textColor{
     WFPieChartItem *item = [[WFPieChartItem alloc] init];
     item.progress = progress;
     item.color = color;
     item.title = title;
+    item.textColor = textColor;
     return item;
 }
 

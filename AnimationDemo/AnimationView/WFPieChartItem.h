@@ -16,7 +16,9 @@
 @property (assign, nonatomic) CGFloat progress;
 /** 颜色 */
 @property (strong, nonatomic) UIColor *color;
+/** 文字的颜色 */
+@property (strong, nonatomic) UIColor *textColor;
 
-+ (instancetype)wf_pieChartItemWithValue:(CGFloat)progress color:(UIColor *)color title:(NSString *)title;
++ (instancetype)wf_pieChartItemWithValue:(CGFloat)progress color:(UIColor *)color title:(NSString *)title titleColor:(UIColor *)textColor;
 
 @end

@@ -86,6 +86,15 @@ static const CGFloat spaceMargin = 20.f;
         CAShapeLayer *layer = [self drawCicleLayerWithRadius:_radius borderWidth:_borderWidth fillColor:[UIColor clearColor] borderColor:item.color startValue:start endValue:end];
         [self.layer addSublayer:layer];
     }
+    for (int i = 0; i < _itemArray.count; i ++) {
+        CGFloat start = 0.f;
+        if (i != 0) {
+            start = [dataArray[i - 1] floatValue];
+        }
+        CGFloat end = [dataArray[i] floatValue];
+        UILabel *label = [self createCircleDescriptionLabelWithIndex:i start:start end:end];
+        [self addSubview:label];
+    }
     [self addAnimation];
 }
 
@@ -118,6 +127,25 @@ static const CGFloat spaceMargin = 20.f;
     layer.lineWidth     = borderWidth;
     layer.path          = path.CGPath;
     return layer;
+}
+
+- (UILabel *)createCircleDescriptionLabelWithIndex:(NSInteger)index start:(CGFloat)start end:(CGFloat)end{
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    WFPieChartItem *item = _itemArray[index];
+    descriptionLabel.text = [NSString stringWithFormat:@"%.0f%%\n%@",(end - start) * 100,item.title];
+    CGFloat realRadius = _radius + _borderWidth * 0.5;
+    //获取中间点的角度
+    CGFloat angle = (start + end) * 0.5 * M_PI * 2;
+    CGPoint center = CGPointMake(_radius + _borderWidth + spaceMargin + realRadius * 0.6 * sinf(angle), _radius + _borderWidth + spaceMargin - realRadius * 0.6 * cosf(angle));
+    CGSize size = [descriptionLabel.text sizeWithAttributes:@{NSFontAttributeName : descriptionLabel.font}];
+    CGRect frame = CGRectMake(descriptionLabel.frame.origin.x, descriptionLabel.frame.origin.y, size.width, size.height);
+    descriptionLabel.frame = frame;
+    descriptionLabel.numberOfLines = 0;
+    descriptionLabel.font = [UIFont systemFontOfSize:12];
+    descriptionLabel.textColor = item.textColor;
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.center = center;
+    return descriptionLabel;
 }
 
 //MARK:添加动画
@@ -156,9 +184,10 @@ static const CGFloat spaceMargin = 20.f;
     if (self.delegate && [self.delegate respondsToSelector:@selector(wf_pieChartView:didClickIndex:)]) {
         [self.delegate wf_pieChartView:self didClickIndex:index];
     }
-    NSLog(@"索引值：%ld",index);
+    NSLog(@"索引值：%ld",(long)index);
 }
 
+//MARK:计算触摸点所占进度
 - (CGFloat)findPercentageOfAngleInCircleCenter:(CGPoint)center fromPoint:(CGPoint)reference{
     //Find angle of line Passing In Reference And Center
     CGFloat angleOfLine = atanf((reference.y - center.y) / (reference.x - center.x));

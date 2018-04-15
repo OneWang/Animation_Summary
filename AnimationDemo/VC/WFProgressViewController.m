@@ -60,12 +60,12 @@
 
 #pragma mark - 饼状图
 - (void)createPieChartView{
-    NSArray *array = @[[WFPieChartItem wf_pieChartItemWithValue:10 color:[UIColor purpleColor] title:@""],
-                       [WFPieChartItem wf_pieChartItemWithValue:20 color:[UIColor yellowColor] title:@""],
-                       [WFPieChartItem wf_pieChartItemWithValue:40 color:[UIColor greenColor] title:@""]];
+    NSArray *array = @[[WFPieChartItem wf_pieChartItemWithValue:10 color:[UIColor purpleColor] title:@"测试1" titleColor:[UIColor blueColor]],
+                       [WFPieChartItem wf_pieChartItemWithValue:20 color:[UIColor yellowColor] title:@"测试2" titleColor:[UIColor blueColor]],
+                       [WFPieChartItem wf_pieChartItemWithValue:40 color:[UIColor greenColor] title:@"测试3" titleColor:[UIColor blueColor]]];
     WFPieChartView *pieChart = [[WFPieChartView alloc] initWithFrame:CGRectMake(100, 350, 200, 200) items:array];
     pieChart.piePace = 10.f;
-    pieChart.borderWidth = 80.f;
+    pieChart.borderWidth = 40.f;
     [self.view addSubview:pieChart];
 }
 
