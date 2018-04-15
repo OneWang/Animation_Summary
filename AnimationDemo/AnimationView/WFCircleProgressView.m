@@ -8,12 +8,16 @@
 
 #import "WFCircleProgressView.h"
 
-@interface WFCircleProgressView (){
-    CAShapeLayer *_progressLayer;
-    UILabel *_progressLabel;
-    UIImageView *_endPoint;
-    UIColor *_backColor;
-}
+@interface WFCircleProgressView ()
+
+/** 进度条layer */
+@property (strong, nonatomic) CAShapeLayer *progressLayer;
+/** 进度label */
+@property (strong, nonatomic) UILabel *progressLabel;
+/** 结束点的view */
+@property (strong, nonatomic) UIImageView *endView;
+/** 进度条颜色 */
+@property (strong, nonatomic) UIColor *backColor;
 
 @end
 
@@ -71,15 +75,23 @@
     _progressLabel.textAlignment = NSTextAlignmentCenter;
     
     //用于显示结束位置的小点
-    _endPoint = [[UIImageView alloc] init];
-    _endPoint.frame = CGRectMake(0, 0, _lineWidth - 1 * 2,_lineWidth - 1 * 2);
-    _endPoint.hidden = true;
-    _endPoint.backgroundColor = [UIColor blackColor];
-    _endPoint.image = [UIImage imageNamed:@"arrow_right_44px"];
-    _endPoint.layer.masksToBounds = true;
-    _endPoint.layer.cornerRadius = _endPoint.bounds.size.width/2;
-    [self addSubview:_endPoint];
+    _endView = [[UIImageView alloc] init];
+    _endView.frame = CGRectMake(0, 0, _lineWidth - 1 * 2,_lineWidth - 1 * 2);
+    _endView.hidden = true;
+    _endView.backgroundColor = [UIColor blackColor];
+    _endView.image = [UIImage imageNamed:@"arrow_right_44px"];
+    _endView.layer.masksToBounds = true;
+    _endView.layer.cornerRadius = _endView.bounds.size.width/2;
+    [self addSubview:_endView];
+}
 
+- (void)addAnimationLayer:(CAShapeLayer *)layer{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration  = 1.0f;
+    animation.fromValue = @0;
+    animation.toValue   = @1;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [layer addAnimation:animation forKey:nil];
 }
 
 #pragma maark - setter and geter
@@ -90,11 +102,11 @@
     [_progressLayer removeAllAnimations];
     _progressLabel.text = [NSString stringWithFormat:@"%.0f%%",_progress * 100];
     [self updateEndPoint];
+//    [self addAnimationLayer:_progressLayer];
 }
 
 - (void)updateEndPoint{
     CGFloat width = self.frame.size.width;
-    
     //将进度转换成弧度
     CGFloat angel = M_PI * 2 * _progress;
     //半径
@@ -128,12 +140,12 @@
     CGAffineTransform transform = CGAffineTransformMakeTranslation(x, y);
     transform = CGAffineTransformRotate(transform, angel);
     
-    _endPoint.transform = transform;
+    _endView.transform = transform;
     //移动到最前
-    [self bringSubviewToFront:_endPoint];
-    _endPoint.hidden = false;
+    [self bringSubviewToFront:_endView];
+    _endView.hidden = false;
     if (_progress == 0 || _progress == 1) {
-        _endPoint.hidden = true;
+        _endView.hidden = true;
     }
 }
 
