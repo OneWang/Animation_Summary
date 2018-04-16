@@ -11,6 +11,7 @@
 #import "WFElasticityView.h"
 #import "WFWaveHeader.h"
 #import "WFSubViewController.h"
+#import "WFLineChartView.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** tableView */
@@ -49,6 +50,10 @@
 //    v1.backgroundColor = [UIColor whiteColor];
 //    [self.view addSubview:v1];
 //    [tableView addSubview:v1];
+    
+    WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 100, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6"]];
+    lineView.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:lineView];
 }
 
 - (void)creatHeaderDragAnimation{

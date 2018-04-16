@@ -10,4 +10,9 @@
 
 @interface WFLineChartView : UIView
 
+/** X轴所要显示的数据 */
+@property (strong, nonatomic) NSArray<NSString *> *xAxisTitleArray;
+
+- (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray;
+
 @end

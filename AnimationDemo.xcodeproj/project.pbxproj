@@ -14,6 +14,7 @@
 		0404BFEE20611BB70030EB23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFED20611BB70030EB23 /* main.m */; };
 		0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFF720611D200030EB23 /* WFCircleProgressView.m */; };
 		0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */; };
+		0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449BA652084AE88007DA045 /* UIView+WFExtension.m */; };
 		04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558843207B58980052D9B8 /* WFPopAnimation.m */; };
 		0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558849207B6A990052D9B8 /* WFMainNavigationViewController.m */; };
 		0455884D207B6C8C0052D9B8 /* WFSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455884C207B6C8C0052D9B8 /* WFSubViewController.m */; };
@@ -41,6 +42,8 @@
 		0404BFF720611D200030EB23 /* WFCircleProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleProgressView.m; sourceTree = "<group>"; };
 		0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSphereWaveProgressView.h; sourceTree = "<group>"; };
 		0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSphereWaveProgressView.m; sourceTree = "<group>"; };
+		0449BA642084AE88007DA045 /* UIView+WFExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+WFExtension.h"; sourceTree = "<group>"; };
+		0449BA652084AE88007DA045 /* UIView+WFExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+WFExtension.m"; sourceTree = "<group>"; };
 		04558842207B58980052D9B8 /* WFPopAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPopAnimation.h; sourceTree = "<group>"; };
 		04558843207B58980052D9B8 /* WFPopAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPopAnimation.m; sourceTree = "<group>"; };
 		04558848207B6A990052D9B8 /* WFMainNavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFMainNavigationViewController.h; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		0404BFDD20611BB70030EB23 /* AnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				0449BA632084AE5D007DA045 /* Extension */,
 				0495B9D6206E1D3900346289 /* MainTabbarController */,
 				0404BFF520611CBE0030EB23 /* AnimationView */,
 				0404BFDE20611BB70030EB23 /* AppDelegate.h */,
@@ -143,6 +147,15 @@
 				04D65E182080AF4F0016D23E /* WFLineChartView.m */,
 			);
 			path = AnimationView;
+			sourceTree = "<group>";
+		};
+		0449BA632084AE5D007DA045 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0449BA642084AE88007DA045 /* UIView+WFExtension.h */,
+				0449BA652084AE88007DA045 /* UIView+WFExtension.m */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		0495B9D6206E1D3900346289 /* MainTabbarController */ = {
@@ -241,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0495B9DC206E1E5400346289 /* WFMainTabbarViewController.m in Sources */,
+				0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */,
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
