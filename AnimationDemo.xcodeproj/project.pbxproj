@@ -145,14 +145,7 @@
 				0495B9DE206E1E7A00346289 /* WFWaveHeader.m */,
 				04558842207B58980052D9B8 /* WFPopAnimation.h */,
 				04558843207B58980052D9B8 /* WFPopAnimation.m */,
-				04D65E11208044B40016D23E /* WFPieChartView.h */,
-				04D65E12208044B40016D23E /* WFPieChartView.m */,
-				04D65E14208061230016D23E /* WFPieChartItem.h */,
-				04D65E15208061230016D23E /* WFPieChartItem.m */,
-				04D65E172080AF4F0016D23E /* WFLineChartView.h */,
-				04D65E182080AF4F0016D23E /* WFLineChartView.m */,
-				04983E1A20859D05006836E7 /* WFChartModel.h */,
-				04983E1B20859D05006836E7 /* WFChartModel.m */,
+				04983E2020863F1F006836E7 /* WFChartView */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -190,6 +183,21 @@
 				04983E1E2085F4F4006836E7 /* WFChartViewController.m */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		04983E2020863F1F006836E7 /* WFChartView */ = {
+			isa = PBXGroup;
+			children = (
+				04D65E11208044B40016D23E /* WFPieChartView.h */,
+				04D65E12208044B40016D23E /* WFPieChartView.m */,
+				04D65E14208061230016D23E /* WFPieChartItem.h */,
+				04D65E15208061230016D23E /* WFPieChartItem.m */,
+				04D65E172080AF4F0016D23E /* WFLineChartView.h */,
+				04D65E182080AF4F0016D23E /* WFLineChartView.m */,
+				04983E1A20859D05006836E7 /* WFChartModel.h */,
+				04983E1B20859D05006836E7 /* WFChartModel.m */,
+			);
+			path = WFChartView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -43,7 +43,7 @@ static CGFloat dataChartHeight = 0;
 /** 滚动的scrollview */
 @property (strong, nonatomic) UIScrollView *scrollView;
 /** 点的数组 */
-@property (strong, nonatomic) NSArray<WFChartModel *> *dataSource;
+@property (strong, nonatomic) NSArray<WFChartModel *> *dataArray;
 /** 将所有创建的layer层保存在数组中 */
 @property (strong, nonatomic) NSMutableArray<CAShapeLayer *> *firstLayerArray;
 @property (strong, nonatomic) NSMutableArray<CAShapeLayer *> *secondLayerArray;
@@ -70,26 +70,31 @@ static CGFloat dataChartHeight = 0;
 - (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray{
     if (self = [super initWithFrame:frame]) {
         _xAxisTitleArray = titleArray;
-        _xtextHeight = [@"x" sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}].height;
-        dataChartHeight = self.height - _xtextHeight - topMargin - xTextAxisMargin;
-        yAxisMargin = dataChartHeight / yAxisCount;
-        _xOriginPoint = CGPointMake(yAxisToLeft, self.height - _xtextHeight - xTextAxisMargin);
-        yAxisMaxY = MAX(topMargin - yAxisMargin * 0.5, 0);
-        self.xAxisMargin = _orginXAxisMargin = 30;
-        self.originBarWidth = _barWidth = 5;
+        [self initializeData];
     }
     return self;
 }
 
+//MARK:初始化数据
+- (void)initializeData{
+    _xtextHeight = [@"x" sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}].height;
+    dataChartHeight = self.height - _xtextHeight - topMargin - xTextAxisMargin;
+    yAxisMargin = dataChartHeight / yAxisCount;
+    _xOriginPoint = CGPointMake(yAxisToLeft, self.height - _xtextHeight - xTextAxisMargin);
+    yAxisMaxY = MAX(topMargin - yAxisMargin * 0.5, 0);
+    self.xAxisMargin = _orginXAxisMargin = 30;
+    self.originBarWidth = _barWidth = 5;
+}
+
 - (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMaxValue dataSource:(NSArray<WFChartModel *> *)dataSource {
     yAxisMaxValue = yAxisMaxValue;
-    self.dataSource = dataSource;
+    self.dataArray = dataSource;
     [self showChartView];
 }
 
 - (void)showChartView{
     //截取数据
-    [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.plotArray.count > self.xAxisTitleArray.count) {
             obj.plotArray = [obj.plotArray subarrayWithRange:NSMakeRange(0, self.xAxisTitleArray.count)];
         }
@@ -139,7 +144,7 @@ static CGFloat dataChartHeight = 0;
 //MARK:添加头部标题和注释
 - (void)createTopHeaderTitleLabelAndNote{
     __weak typeof(self) weakSelf = self;
-    [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         CGSize size = [model.chartName sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
         CGFloat headerX = weakSelf.width * 0.5 - size.width * 0.5;
         CGRect frame = CGRectMake(headerX, 0, size.width, size.height);
@@ -152,7 +157,7 @@ static CGFloat dataChartHeight = 0;
 - (void)createDisplayLabel{
     if (self.isShopValue) {
         __weak typeof(self) weakSelf = self;
-        [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
             [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (string.floatValue < 0) {
                     string = @"0";
@@ -309,7 +314,7 @@ static CGFloat dataChartHeight = 0;
 #pragma mark ***************************** 绘制折线图上的点和线 *****************************
 - (void)drawLineChartViewPots{
     __weak typeof(self) weakSelf = self;
-    [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button addTarget:self action:@selector(plotClickButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -332,7 +337,7 @@ static CGFloat dataChartHeight = 0;
 - (void)drawLineChartViewLine{
     __weak typeof(self) weakSelf = self;
     if (weakSelf.isFill) {
-        [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
             __block CAShapeLayer *layer = nil;
             UIBezierPath *linePath = [UIBezierPath bezierPath];
             [linePath moveToPoint:CGPointMake(weakSelf.xAxisMargin, weakSelf.xOriginPoint.y)];
@@ -345,7 +350,7 @@ static CGFloat dataChartHeight = 0;
             [weakSelf.scrollView.layer addSublayer:layer];
         }];
     }else{
-        [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
             __block CAShapeLayer *layer = nil;
             UIBezierPath *linePath = [UIBezierPath bezierPath];
             [linePath moveToPoint:CGPointMake(weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:model.plotArray.firstObject])];
@@ -361,14 +366,14 @@ static CGFloat dataChartHeight = 0;
 
 #pragma mark ***************************** 绘制柱状图 *****************************
 - (void)drawBarChartViewBars{
-    NSInteger centerFlag = _dataSource.count * 0.5;
+    NSInteger centerFlag = _dataArray.count * 0.5;
     __weak typeof(self) weakSelf = self;
-    [_dataSource enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idex, BOOL * _Nonnull stop) {
+    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idex, BOOL * _Nonnull stop) {
         [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger i, BOOL * _Nonnull stop) {
             UIBezierPath *barPath = [UIBezierPath bezierPath];
             CGFloat startPointx = 0;
             int n = (int)(idex - centerFlag);
-            if (weakSelf.dataSource.count % 2 == 0) {
+            if (weakSelf.dataArray.count % 2 == 0) {
                 startPointx = (i + 1) * weakSelf.xAxisMargin + (0.5 + n) * weakSelf.barWidth;
             }else{
                 startPointx = (i + 1) * weakSelf.xAxisMargin + n * weakSelf.barWidth;

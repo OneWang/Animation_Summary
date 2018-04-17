@@ -13,8 +13,23 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
     WFChartViewTypeBar
 };
 
-@class WFChartModel;
+@class WFChartModel,WFLineChartView;
+@protocol WFLineChartViewDelegate <NSObject>
+@optional
+- (void)wf_lineChartView:(WFLineChartView *)lineChartView didClickButtonDot:(UIButton *)button;
+@end
+
+@protocol WFLineChartViewDataSource <NSObject>
+@required
+- (void)wf_lineChartView:(WFLineChartView *)lineChartView withChartViewYAxisMaxValue:(CGFloat *)yAxisMaxValue dataSource:(NSArray<WFChartModel *> **)dataSource;
+@end
+
 @interface WFLineChartView : UIView
+
+/** 代理 */
+@property (weak, nonatomic) id<WFLineChartViewDelegate> delegate;
+/** 数据源 */
+@property (weak, nonatomic) id<WFLineChartViewDataSource> dataSource;
 
 /** X轴所要显示的数据 */
 @property (strong, nonatomic) NSArray<NSString *> *xAxisTitleArray;
