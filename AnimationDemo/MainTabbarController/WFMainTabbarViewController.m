@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "WFProgressViewController.h"
 #import "WFMainNavigationViewController.h"
+#import "WFChartViewController.h"
 
 @interface WFMainTabbarViewController ()
 
@@ -30,6 +31,11 @@
     progressVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:1];
     WFMainNavigationViewController *nav2 = [[WFMainNavigationViewController alloc] initWithRootViewController:progressVC];
     [self addChildViewController:nav2];
+    
+    WFChartViewController *chartVC = [[WFChartViewController alloc] init];
+    chartVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:2];
+    WFMainNavigationViewController *nav3 = [[WFMainNavigationViewController alloc] initWithRootViewController:chartVC];
+    [self addChildViewController:nav3];
 }
 
 @end

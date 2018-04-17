@@ -21,6 +21,8 @@
 		0495B9DC206E1E5400346289 /* WFMainTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9DA206E1E5400346289 /* WFMainTabbarViewController.m */; };
 		0495B9DF206E1E7A00346289 /* WFWaveHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9DE206E1E7A00346289 /* WFWaveHeader.m */; };
 		0495B9E2206E1FB400346289 /* WFProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9E1206E1FB400346289 /* WFProgressViewController.m */; };
+		04983E1C20859D05006836E7 /* WFChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04983E1B20859D05006836E7 /* WFChartModel.m */; };
+		04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04983E1E2085F4F4006836E7 /* WFChartViewController.m */; };
 		04A6D350206C920C005A531B /* WFElasticityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6D34F206C920C005A531B /* WFElasticityView.m */; };
 		04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B92FE2206B417500FECA45 /* WFDisplayView.m */; };
 		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
@@ -56,6 +58,10 @@
 		0495B9DE206E1E7A00346289 /* WFWaveHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWaveHeader.m; sourceTree = "<group>"; };
 		0495B9E0206E1FB400346289 /* WFProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFProgressViewController.h; sourceTree = "<group>"; };
 		0495B9E1206E1FB400346289 /* WFProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFProgressViewController.m; sourceTree = "<group>"; };
+		04983E1A20859D05006836E7 /* WFChartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFChartModel.h; sourceTree = "<group>"; };
+		04983E1B20859D05006836E7 /* WFChartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFChartModel.m; sourceTree = "<group>"; };
+		04983E1D2085F4F4006836E7 /* WFChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFChartViewController.h; sourceTree = "<group>"; };
+		04983E1E2085F4F4006836E7 /* WFChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFChartViewController.m; sourceTree = "<group>"; };
 		04A6D34E206C920C005A531B /* WFElasticityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFElasticityView.h; sourceTree = "<group>"; };
 		04A6D34F206C920C005A531B /* WFElasticityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFElasticityView.m; sourceTree = "<group>"; };
 		04B92FE1206B417500FECA45 /* WFDisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDisplayView.h; sourceTree = "<group>"; };
@@ -145,6 +151,8 @@
 				04D65E15208061230016D23E /* WFPieChartItem.m */,
 				04D65E172080AF4F0016D23E /* WFLineChartView.h */,
 				04D65E182080AF4F0016D23E /* WFLineChartView.m */,
+				04983E1A20859D05006836E7 /* WFChartModel.h */,
+				04983E1B20859D05006836E7 /* WFChartModel.m */,
 			);
 			path = AnimationView;
 			sourceTree = "<group>";
@@ -178,6 +186,8 @@
 				0495B9E1206E1FB400346289 /* WFProgressViewController.m */,
 				0455884B207B6C8C0052D9B8 /* WFSubViewController.h */,
 				0455884C207B6C8C0052D9B8 /* WFSubViewController.m */,
+				04983E1D2085F4F4006836E7 /* WFChartViewController.h */,
+				04983E1E2085F4F4006836E7 /* WFChartViewController.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -256,6 +266,7 @@
 				0495B9DC206E1E5400346289 /* WFMainTabbarViewController.m in Sources */,
 				0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */,
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
+				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */,
@@ -264,6 +275,7 @@
 				0495B9DF206E1E7A00346289 /* WFWaveHeader.m in Sources */,
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,
 				0495B9E2206E1FB400346289 /* WFProgressViewController.m in Sources */,
+				04983E1C20859D05006836E7 /* WFChartModel.m in Sources */,
 				0404BFE020611BB70030EB23 /* AppDelegate.m in Sources */,
 				04D65E16208061230016D23E /* WFPieChartItem.m in Sources */,
 				0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */,
