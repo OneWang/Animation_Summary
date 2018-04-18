@@ -220,7 +220,7 @@ static NSInteger yAxisMaxValue = 1000;
     
     [self insertSubview:self.scrollView atIndex:0];
     self.scrollView.frame = CGRectMake(yAxisToLeft, 0, self.width - 10, self.height);
-    self.scrollView.backgroundColor = [UIColor greenColor];
+//    self.scrollView.backgroundColor = [UIColor greenColor];
     
     //添加Y轴提示文字
     CGSize size = [_yAxisTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];

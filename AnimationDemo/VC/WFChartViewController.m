@@ -20,7 +20,6 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 100, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
-    lineView.backgroundColor = [UIColor lightGrayColor];
     lineView.isShowGridding = YES;
     lineView.isShopValue = YES;
     lineView.isAnimation = YES;
