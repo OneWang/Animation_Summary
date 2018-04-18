@@ -25,13 +25,13 @@
     lineView.isShopValue = YES;
     lineView.isAnimation = YES;
     lineView.chartType = WFChartViewTypeBar;
-    lineView.barWidth = 5.f;
-    //    lineView.isFill = YES;
+    lineView.barWidth = 20.f;
+    lineView.headerTitle = @"折线图";
     WFChartModel *model = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"1组"];
     WFChartModel *model1 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"2组"];
     WFChartModel *model2 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"3组"];
     NSArray *dataSource = @[model,model1,model2];
-    [lineView showChartViewWithYAxisMaxValue:1000 dataSource:dataSource];
+    [lineView showChartViewWithYAxisMaxValue:1200 dataSource:dataSource];
     [self.view addSubview:lineView];
 }
 

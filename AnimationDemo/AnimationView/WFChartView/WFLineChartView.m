@@ -11,13 +11,11 @@
 #import "WFChartModel.h"
 
 /** X轴文字的大小 */
-static const CGFloat xAxisFont = 10;
+static const CGFloat axisFont = 10;
 /** 距离顶部的间距 */
 static const CGFloat topMargin = 30;
 /** Y轴显示的label有几个 */
 static const NSInteger yAxisCount = 8;
-/** Y轴显示的最大值 */
-static const NSInteger yAxisMaxValue = 1000;
 /** X,Y轴和文字之间的间距 */
 static const CGFloat yTextAxisMargin = 8;
 static const CGFloat xTextAxisMargin = 5;
@@ -25,6 +23,10 @@ static const CGFloat xTextAxisMargin = 5;
 static const CGFloat axisWidth = 1;
 /** 坐标轴上点的宽和高 */
 static const CGFloat plotWH = 10;
+/** Y轴到左边的间距 */
+static const CGFloat yAxisToLeft = 40;
+/** X轴到右边的间距 */
+static const CGFloat xRightMargin = 15;
 
 /** Y轴文字的间距 */
 static CGFloat yAxisMargin = 0;
@@ -32,12 +34,10 @@ static CGFloat yAxisMargin = 0;
 static CGFloat xAxisMaxX = 0;
 /** Y轴的最大长度 */
 static CGFloat yAxisMaxY = 0;
-/** X轴到右边的间距 */
-static CGFloat xRightMargin = 5;
-/** Y轴到左边的间距 */
-static CGFloat yAxisToLeft = 40;
 /** 数据显示区域 */
 static CGFloat dataChartHeight = 0;
+/** Y轴显示的最大值 */
+static NSInteger yAxisMaxValue = 1000;
 
 @interface WFLineChartView ()<UIScrollViewDelegate,CAAnimationDelegate>
 /** 滚动的scrollview */
@@ -63,6 +63,8 @@ static CGFloat dataChartHeight = 0;
 @property (assign, nonatomic) CGFloat xAxisMargin;
 /** 捏合时记录原先动画flag */
 @property (assign, nonatomic) BOOL orginAnimation;
+/** 柱状图之间的间距 */
+@property (assign, nonatomic) CGFloat barMargin;
 @end
 
 @implementation WFLineChartView
@@ -77,18 +79,26 @@ static CGFloat dataChartHeight = 0;
 
 //MARK:初始化数据
 - (void)initializeData{
-    _xtextHeight = [@"x" sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}].height;
+    _xtextHeight = [@"x" sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}].height;
     dataChartHeight = self.height - _xtextHeight - topMargin - xTextAxisMargin;
     yAxisMargin = dataChartHeight / yAxisCount;
     _xOriginPoint = CGPointMake(yAxisToLeft, self.height - _xtextHeight - xTextAxisMargin);
     yAxisMaxY = MAX(topMargin - yAxisMargin * 0.5, 0);
     self.xAxisMargin = _orginXAxisMargin = 30;
     self.originBarWidth = _barWidth = 5;
+    _xAxisTitle = @"X";
+    _yAxisTitle = @"Y";
+    _barMargin = 20;
 }
 
-- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMaxValue dataSource:(NSArray<WFChartModel *> *)dataSource {
-    yAxisMaxValue = yAxisMaxValue;
+- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource {
+    yAxisMaxValue = yAxisMax;
     self.dataArray = dataSource;
+    if (_chartType == WFChartViewTypeLine) {
+        _headerTitle = @"折线图";
+    }else{
+        _headerTitle = @"柱状图";
+    }
     [self showChartView];
 }
 
@@ -99,6 +109,11 @@ static CGFloat dataChartHeight = 0;
             obj.plotArray = [obj.plotArray subarrayWithRange:NSMakeRange(0, self.xAxisTitleArray.count)];
         }
     }];
+    
+    //设置柱状图的间距大于X轴中文字的间距
+    if (_chartType == WFChartViewTypeBar && _xAxisMargin < _barWidth * _dataArray.count + _barMargin) {
+        self.xAxisMargin = self.orginXAxisMargin = _barWidth * _dataArray.count + _barMargin;
+    }
     
     [self resetDataSouce];
     
@@ -113,7 +128,7 @@ static CGFloat dataChartHeight = 0;
     
     [self drawYaxis];
     [self drawXaxis];
-
+    
     [self createTopHeaderTitleLabelAndNote];
     [self createDisplayLabel];
     
@@ -143,28 +158,38 @@ static CGFloat dataChartHeight = 0;
 
 //MARK:添加头部标题和注释
 - (void)createTopHeaderTitleLabelAndNote{
-    __weak typeof(self) weakSelf = self;
-    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGSize size = [model.chartName sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
-        CGFloat headerX = weakSelf.width * 0.5 - size.width * 0.5;
-        CGRect frame = CGRectMake(headerX, 0, size.width, size.height);
-        CATextLayer *layer = [weakSelf createTextLayerWithString:model.chartName font:15 frame:frame];
-        [self.layer addSublayer:layer];
-    }];
+    CGSize size = [self.headerTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+    CGFloat headerX = self.width * 0.5 - size.width * 0.5;
+    CGRect frame = CGRectMake(headerX, 0, size.width, size.height);
+    CATextLayer *layer = [self createTextLayerWithString:_headerTitle font:15 frame:frame];
+    [self.layer addSublayer:layer];
 }
 
 //MARK:创建每个折线对应点的值
 - (void)createDisplayLabel{
     if (self.isShopValue) {
         __weak typeof(self) weakSelf = self;
-        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
+        int centerFlag = _dataArray.count * 0.5;
+        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idex, BOOL * _Nonnull stop) {
+            [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger i, BOOL * _Nonnull stop) {
                 if (string.floatValue < 0) {
                     string = @"0";
                 }
-                CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10]}];
-                CATextLayer *textLayer = [self createTextLayerWithString:string font:10 frame:CGRectMake((idx + 1) * weakSelf.xAxisMargin - size.width * 0.5, [weakSelf getDotArrayYxaisWithValue:string] - 10 - size.height, size.width, size.height)];
-                [weakSelf.scrollView.layer addSublayer:textLayer];
+                if (weakSelf.chartType == WFChartViewTypeLine) {
+                    CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10]}];
+                    CATextLayer *textLayer = [self createTextLayerWithString:string font:10 frame:CGRectMake((i + 1) * weakSelf.xAxisMargin - size.width * 0.5, [weakSelf getDotArrayYxaisWithValue:string] - 10 - size.height, size.width, size.height)];
+                    [weakSelf.scrollView.layer addSublayer:textLayer];
+                }else{
+                    CGFloat startPointx = 0;
+                    int n = (int)(idex - centerFlag);
+                    if (weakSelf.dataArray.count % 2 == 0) {
+                        startPointx = (i + 1) * weakSelf.xAxisMargin + (0.5 + n) * weakSelf.barWidth;
+                    }else{
+                        startPointx = (i + 1) * weakSelf.xAxisMargin + n * weakSelf.barWidth;
+                    }                    CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10]}];
+                    CATextLayer *textLayer = [self createTextLayerWithString:string font:10 frame:CGRectMake(startPointx - size.width * 0.5, [weakSelf getDotArrayYxaisWithValue:string] - size.height, size.width, size.height)];
+                    [weakSelf.scrollView.layer addSublayer:textLayer];
+                }
             }];
         }];
     }
@@ -180,22 +205,28 @@ static CGFloat dataChartHeight = 0;
     [path addLineToPoint:CGPointMake(yAxisToLeft, yAxisMaxY)];
     [path addLineToPoint:CGPointMake(yAxisToLeft + axisWidth + 4, yAxisMaxY + axisWidth + 4)];
     
-    CAShapeLayer *layer = [self shapeLayerWithPath:path lineWidth:2 fillColor:[UIColor clearColor] strokeColor:[UIColor darkGrayColor]];
+    CAShapeLayer *layer = [self shapeLayerWithPath:path lineWidth:axisWidth fillColor:[UIColor clearColor] strokeColor:[UIColor darkGrayColor]];
     [self.firstLayerArray addObject:layer];
     [self.layer addSublayer:layer];
     
     for (int i = 0; i < yAxisCount + 1; i ++) {
         CGFloat avergValue = yAxisMaxValue / yAxisCount;
         NSString *string = [NSString stringWithFormat:@"%.0f",avergValue * i];
-        CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}];
+        CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
         CGRect frame = CGRectMake(0, topMargin + (yAxisCount - i) * yAxisMargin - size.height * 0.5, yAxisToLeft - yTextAxisMargin, size.height);
-        CATextLayer *textLayer = [self createTextLayerWithString:string font:xAxisFont frame:frame];
+        CATextLayer *textLayer = [self createTextLayerWithString:string font:axisFont frame:frame];
         [self.layer addSublayer:textLayer];
     }
     
     [self insertSubview:self.scrollView atIndex:0];
     self.scrollView.frame = CGRectMake(yAxisToLeft, 0, self.width - 10, self.height);
     self.scrollView.backgroundColor = [UIColor greenColor];
+    
+    //添加Y轴提示文字
+    CGSize size = [_yAxisTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
+    CGRect rect = CGRectMake(yAxisToLeft - size.width * 0.5, yAxisMaxY - size.height, size.width, size.height);
+    CATextLayer *textLayer = [self createTextLayerWithString:_yAxisTitle font:axisFont frame:rect];
+    [self.layer addSublayer:textLayer];
 }
 
 //MARK:画X轴
@@ -203,22 +234,32 @@ static CGFloat dataChartHeight = 0;
     //画轴
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(0, _xOriginPoint.y)];
-    xAxisMaxX = (_xAxisTitleArray.count + 0.5) * self.xAxisMargin;
+    if (_chartType == WFChartViewTypeLine) {
+        xAxisMaxX = (_xAxisTitleArray.count + 0.5) * self.xAxisMargin;
+    }else{
+        xAxisMaxX = (_xAxisTitleArray.count + 1) * self.xAxisMargin;
+    }
     self.scrollView.contentSize = CGSizeMake(xAxisMaxX + xRightMargin + yAxisToLeft, 0);
     [path addLineToPoint:CGPointMake(xAxisMaxX, _xOriginPoint.y)];
     [path addLineToPoint:CGPointMake(xAxisMaxX - axisWidth - 4, _xOriginPoint.y - axisWidth - 4)];
     [path addLineToPoint:CGPointMake(xAxisMaxX, _xOriginPoint.y)];
     [path addLineToPoint:CGPointMake(xAxisMaxX - axisWidth - 4, _xOriginPoint.y + axisWidth + 4)];
-    CAShapeLayer *layer = [self shapeLayerWithPath:path lineWidth:2 fillColor:[UIColor clearColor] strokeColor:[UIColor darkGrayColor]];
+    CAShapeLayer *layer = [self shapeLayerWithPath:path lineWidth:axisWidth fillColor:[UIColor clearColor] strokeColor:[UIColor darkGrayColor]];
     [self.firstLayerArray addObject:layer];
     [self.scrollView.layer addSublayer:layer];
     __weak typeof(self) weakSelf = self;
     [_xAxisTitleArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGSize size = [obj sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}];
+        CGSize size = [obj sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
         CGRect frame = CGRectMake((idx + 1) * weakSelf.xAxisMargin - size.width * 0.5, self.height - size.height, size.width, size.height);
-        CATextLayer *textLayer = [self createTextLayerWithString:obj font:xAxisFont frame:frame];
+        CATextLayer *textLayer = [self createTextLayerWithString:obj font:axisFont frame:frame];
         [weakSelf.scrollView.layer addSublayer:textLayer];
     }];
+    
+    //添加X轴提示文字
+    CGSize size = [_xAxisTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
+    CGRect rect = CGRectMake(xAxisMaxX , _xOriginPoint.y - size.height * 0.5, size.width, size.height);
+    CATextLayer *textLayer = [self createTextLayerWithString:_xAxisTitle font:axisFont frame:rect];
+    [self.scrollView.layer addSublayer:textLayer];
 }
 
 //MARK:绘制辅助线
@@ -227,20 +268,19 @@ static CGFloat dataChartHeight = 0;
     for (int i = 0; i < yAxisCount + 1; i++) {
         CAShapeLayer *yshapeLayer = nil;
         UIBezierPath *ySeparatorPath = [UIBezierPath bezierPath];
+        CGFloat y = topMargin + (yAxisCount - i) * yAxisMargin;
+        [ySeparatorPath moveToPoint:CGPointMake(0, y)];
+        if (_chartType == WFChartViewTypeLine) {
+            [ySeparatorPath addLineToPoint:CGPointMake((_xAxisTitleArray.count + 0.5) * self.xAxisMargin, y)];
+        }else{
+            [ySeparatorPath addLineToPoint:CGPointMake((_xAxisTitleArray.count + 1) * self.xAxisMargin, y)];
+        }
+        yshapeLayer = [self shapeLayerWithPath:ySeparatorPath lineWidth:0.5 fillColor:[UIColor clearColor] strokeColor:[UIColor lightGrayColor]];
+        yshapeLayer.path = ySeparatorPath.CGPath;
         if (_isShowGridding) {
-            CGFloat y = topMargin + (yAxisCount - i) * yAxisMargin;
-            [ySeparatorPath moveToPoint:CGPointMake(0, y)];
-            [ySeparatorPath addLineToPoint:CGPointMake(_xAxisTitleArray.count * self.xAxisMargin, y)];
-            yshapeLayer = [self shapeLayerWithPath:ySeparatorPath lineWidth:0.5 fillColor:[UIColor clearColor] strokeColor:[UIColor lightGrayColor]];
-            yshapeLayer.path = ySeparatorPath.CGPath;
             yshapeLayer.lineDashPattern = @[@3,@3];
             [self.scrollView.layer addSublayer:yshapeLayer];
         }else{
-            CGFloat y = topMargin + (yAxisCount - i) * yAxisMargin;
-            [ySeparatorPath moveToPoint:CGPointMake(0, y)];
-            [ySeparatorPath addLineToPoint:CGPointMake(_xAxisTitleArray.count * self.xAxisMargin, y)];
-            yshapeLayer = [self shapeLayerWithPath:ySeparatorPath lineWidth:0.5 fillColor:[UIColor clearColor] strokeColor:[UIColor lightGrayColor]];
-            yshapeLayer.path = ySeparatorPath.CGPath;
             [self.layer addSublayer:yshapeLayer];
         }
         [self.firstLayerArray addObject:yshapeLayer];
@@ -252,7 +292,7 @@ static CGFloat dataChartHeight = 0;
     for (int i = 0; i < _xAxisTitleArray.count; i++) {
         CAShapeLayer *xshapeLayer = nil;
         UIBezierPath *xSeparatorPath = [UIBezierPath bezierPath];
-        CGSize size = [_xAxisTitleArray[i] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:xAxisFont]}];
+        CGSize size = [_xAxisTitleArray[i] sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
         CGFloat x = (i + 1) * self.xAxisMargin;
         CGFloat y = self.height - size.height - xTextAxisMargin;
         if (_isShowGridding) {

@@ -19,17 +19,17 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 - (void)wf_lineChartView:(WFLineChartView *)lineChartView didClickButtonDot:(UIButton *)button;
 @end
 
-@protocol WFLineChartViewDataSource <NSObject>
-@required
-- (void)wf_lineChartView:(WFLineChartView *)lineChartView withChartViewYAxisMaxValue:(CGFloat *)yAxisMaxValue dataSource:(NSArray<WFChartModel *> **)dataSource;
-@end
-
 @interface WFLineChartView : UIView
 
 /** 代理 */
 @property (weak, nonatomic) id<WFLineChartViewDelegate> delegate;
-/** 数据源 */
-@property (weak, nonatomic) id<WFLineChartViewDataSource> dataSource;
+
+/** 头部标题 */
+@property (copy, nonatomic) NSString *headerTitle;
+/** X轴文字 */
+@property (copy, nonatomic) NSString *xAxisTitle;
+/** Y轴文字 */
+@property (copy, nonatomic) NSString *yAxisTitle;
 
 /** X轴所要显示的数据 */
 @property (strong, nonatomic) NSArray<NSString *> *xAxisTitleArray;
@@ -48,6 +48,6 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 
 - (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray;
 
-- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMaxValue dataSource:(NSArray<WFChartModel *> *)dataSource;
+- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource;
 
 @end
