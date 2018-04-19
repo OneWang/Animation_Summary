@@ -9,8 +9,6 @@
 #import "WFPieChartView.h"
 #import "WFPieChartItem.h"
 
-static const CGFloat spaceMargin = 20.f;
-
 @interface WFPieChartView ()
 /** 数据源数组 */
 @property (strong, nonatomic) NSArray<WFPieChartItem *> *itemArray;
@@ -20,16 +18,16 @@ static const CGFloat spaceMargin = 20.f;
 @property (weak, nonatomic) CAShapeLayer *maskLayer;
 /** 半径 */
 @property (assign, nonatomic) CGFloat radius;
-/** 内环半径 */
-@property (assign, nonatomic) CGFloat innerRadius;
+/** 真实的线宽 */
+@property (assign, nonatomic) CGFloat realWidth;
 @end
 
 @implementation WFPieChartView
 
 //MARK:初始化方法
-- (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items{
+- (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items radius:(CGFloat)radius{
     if (self = [super initWithFrame:frame]) {
-        self.radius = (self.frame.size.width - spaceMargin * 2) * 0.25;
+        self.radius = radius;
         _itemArray = items;
     }
     return self;
@@ -37,6 +35,7 @@ static const CGFloat spaceMargin = 20.f;
 
 - (void)layoutSubviews{
     [super layoutSubviews];
+    self.realWidth = _borderWidth * 2;
     [self initialMaskLayer];
     [self strokePineChart];
 }
@@ -46,10 +45,10 @@ static const CGFloat spaceMargin = 20.f;
     CGPoint center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
     CAShapeLayer *mask = [CAShapeLayer layer];
     self.maskLayer = mask;
-    UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:center radius:_radius startAngle:-M_PI_2 endAngle:M_PI_2 * 3 clockwise:YES];
-    mask.fillColor = [UIColor clearColor].CGColor;
+    UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:center radius:_radius - _realWidth * 0.5 - 1 startAngle:-M_PI_2 endAngle:M_PI_2 * 3 clockwise:YES];
+    mask.fillColor = [UIColor whiteColor].CGColor;
     mask.strokeColor = [UIColor orangeColor].CGColor;
-    mask.lineWidth = _borderWidth;
+    mask.lineWidth = _realWidth;
     mask.path = bezier.CGPath;
     mask.strokeEnd = 0;
     self.layer.mask = mask;
@@ -83,7 +82,7 @@ static const CGFloat spaceMargin = 20.f;
             start = [dataArray[i - 1] floatValue];
         }
         CGFloat end = [dataArray[i] floatValue];
-        CAShapeLayer *layer = [self drawCicleLayerWithRadius:_radius borderWidth:_borderWidth fillColor:[UIColor clearColor] borderColor:item.color startValue:start endValue:end];
+        CAShapeLayer *layer = [self drawCicleLayerWithRadius:_radius borderWidth:_realWidth fillColor:[UIColor clearColor] borderColor:item.color startValue:start endValue:end];
         [self.layer addSublayer:layer];
     }
     for (int i = 0; i < _itemArray.count; i ++) {
@@ -133,10 +132,11 @@ static const CGFloat spaceMargin = 20.f;
     UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     WFPieChartItem *item = _itemArray[index];
     descriptionLabel.text = [NSString stringWithFormat:@"%.0f%%\n%@",(end - start) * 100,item.title];
-    CGFloat realRadius = _radius + _borderWidth * 0.5;
     //获取中间点的角度
     CGFloat angle = (start + end) * 0.5 * M_PI * 2;
-    CGPoint center = CGPointMake(_radius + _borderWidth + spaceMargin + realRadius * 0.6 * sinf(angle), _radius + _borderWidth + spaceMargin - realRadius * 0.6 * cosf(angle));
+    CGFloat centerX = _radius + _radius * 0.5 * sinf(angle) + (self.bounds.size.width - _radius * 2) * 0.5;
+    CGFloat centerY = _radius - _radius * 0.5 * cosf(angle) + (self.bounds.size.width - _radius * 2) * 0.5;
+    CGPoint center = CGPointMake(centerX, centerY);
     CGSize size = [descriptionLabel.text sizeWithAttributes:@{NSFontAttributeName : descriptionLabel.font}];
     CGRect frame = CGRectMake(descriptionLabel.frame.origin.x, descriptionLabel.frame.origin.y, size.width, size.height);
     descriptionLabel.frame = frame;
@@ -172,7 +172,7 @@ static const CGFloat spaceMargin = 20.f;
     CGPoint center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
     //距离中心点的距离
     CGFloat distanceFromCenter = sqrtf(pow(touchPoint.x - center.x, 2.f) + powf(touchPoint.y - center.y, 2.f));
-    if (distanceFromCenter < _radius - _borderWidth * 0.5 || distanceFromCenter > _radius + _borderWidth * 0.5) {
+    if (distanceFromCenter < _radius - _realWidth * 0.5 || distanceFromCenter > _radius) {
         return;
     }
     //取得触摸点的角度值

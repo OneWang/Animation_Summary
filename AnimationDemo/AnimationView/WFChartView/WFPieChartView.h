@@ -29,6 +29,6 @@
  @param items 数据数组
  @return 饼状图
  */
-- (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items;
+- (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items radius:(CGFloat)radius;
 
 @end
