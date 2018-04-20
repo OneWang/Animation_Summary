@@ -33,17 +33,17 @@
 #pragma mark - 曲线动画
 - (void)createDisplayView{
     self.view.backgroundColor = [UIColor lightGrayColor];
-//    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_Screen_Width, K_Screen_Height - 64) style:UITableViewStyleGrouped];
-//    [self.view addSubview:tableView];
-//    tableView.delegate = self;
-//    tableView.dataSource = self;
-//    tableView.estimatedRowHeight = 0;
-//    tableView.estimatedSectionFooterHeight = 0;
-//    tableView.estimatedSectionHeaderHeight = 0;
-//    _tableView = tableView;
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_Screen_Width, K_Screen_Height - 64) style:UITableViewStyleGrouped];
+    [self.view addSubview:tableView];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.estimatedRowHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
+    tableView.estimatedSectionHeaderHeight = 0;
+    _tableView = tableView;
     
-//    WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
-//    tableView.tableHeaderView = header;
+    WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
+    tableView.tableHeaderView = header;
     
 //    WFElasticityView *v1 = [[WFElasticityView alloc] initWithBlindScrollView:_tableView];
 //    v1.backgroundColor = [UIColor whiteColor];
