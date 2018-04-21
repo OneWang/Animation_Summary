@@ -177,7 +177,7 @@ static NSInteger yAxisMaxValue = 1000;
                 }
                 if (weakSelf.chartType == WFChartViewTypeLine) {
                     CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10]}];
-                    CATextLayer *textLayer = [self createTextLayerWithString:string font:10 frame:CGRectMake((i + 1) * weakSelf.xAxisMargin - size.width * 0.5, [weakSelf getDotArrayYxaisWithValue:string] - 10 - size.height, size.width, size.height)];
+                    CATextLayer *textLayer = [self createTextLayerWithString:string font:10 frame:CGRectMake((i + 1) * weakSelf.xAxisMargin - size.width * 0.5, [weakSelf getDotArrayYxaisWithValue:string] - 5 - size.height, size.width, size.height)];
                     [weakSelf.scrollView.layer addSublayer:textLayer];
                 }else{
                     CGFloat startPointx = 0;
@@ -220,7 +220,6 @@ static NSInteger yAxisMaxValue = 1000;
     
     [self insertSubview:self.scrollView atIndex:0];
     self.scrollView.frame = CGRectMake(yAxisToLeft, 0, self.width - 10, self.height);
-//    self.scrollView.backgroundColor = [UIColor greenColor];
     
     //添加Y轴提示文字
     CGSize size = [_yAxisTitle sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
@@ -364,6 +363,8 @@ static NSInteger yAxisMaxValue = 1000;
             button.backgroundColor = model.color;
             button.layer.cornerRadius = plotWH * 0.5;
             button.layer.masksToBounds = YES;
+            [button setTitle:string forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:0];
             [weakSelf.scrollView addSubview:button];
             [weakSelf.allViewsArray addObject:button];
         }];
@@ -371,12 +372,12 @@ static NSInteger yAxisMaxValue = 1000;
 }
 
 - (void)plotClickButton:(UIButton *)button{
-    
+    NSLog(@"%@",button.titleLabel.text);
 }
 
 - (void)drawLineChartViewLine{
     __weak typeof(self) weakSelf = self;
-    if (weakSelf.isFill) {
+    if (self.isFill) {
         [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
             __block CAShapeLayer *layer = nil;
             UIBezierPath *linePath = [UIBezierPath bezierPath];
@@ -390,18 +391,53 @@ static NSInteger yAxisMaxValue = 1000;
             [weakSelf.scrollView.layer addSublayer:layer];
         }];
     }else{
-        [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-            __block CAShapeLayer *layer = nil;
-            UIBezierPath *linePath = [UIBezierPath bezierPath];
-            [linePath moveToPoint:CGPointMake(weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:model.plotArray.firstObject])];
-            [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
-                [linePath addLineToPoint:CGPointMake((idx + 1) * weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:string])];
+        if (self.isCurve) {
+            [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block CAShapeLayer *layer = nil;
+                UIBezierPath *linePath = [UIBezierPath bezierPath];
+                [linePath moveToPoint:CGPointMake(weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:model.plotArray.firstObject])];
+                [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (idx >= model.plotArray.count - 1) {
+                        return;
+                    }
+                    CGPoint start = CGPointMake((idx + 1) * weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:string]);
+                    CGPoint end = CGPointMake((idx + 2) * weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:model.plotArray[idx + 1]]);
+                    CGPoint middlePoint = CGPointMake((end.x + start.x) * 0.5, (end.y + start.y) * 0.5);
+                    [linePath addQuadCurveToPoint:middlePoint controlPoint:[weakSelf findMiddleControlPointBetweenStartPoints:middlePoint andEndPoints:start]];
+                    [linePath addQuadCurveToPoint:end controlPoint:[weakSelf findMiddleControlPointBetweenStartPoints:middlePoint andEndPoints:end]];
+                }];
+                layer = [weakSelf shapeLayerWithPath:linePath lineWidth:2.f fillColor:[UIColor clearColor] strokeColor:[UIColor orangeColor]];
+                [weakSelf.secondLayerArray addObject:layer];
+                [weakSelf.scrollView.layer addSublayer:layer];
             }];
-            layer = [weakSelf shapeLayerWithPath:linePath lineWidth:2.f fillColor:[UIColor clearColor] strokeColor:[UIColor orangeColor]];
-            [weakSelf.secondLayerArray addObject:layer];
-            [weakSelf.scrollView.layer addSublayer:layer];
-        }];
+        }else{        
+            [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block CAShapeLayer *layer = nil;
+                UIBezierPath *linePath = [UIBezierPath bezierPath];
+                [linePath moveToPoint:CGPointMake(weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:model.plotArray.firstObject])];
+                [model.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull string, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [linePath addLineToPoint:CGPointMake((idx + 1) * weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:string])];
+                }];
+                layer = [weakSelf shapeLayerWithPath:linePath lineWidth:2.f fillColor:[UIColor clearColor] strokeColor:[UIColor orangeColor]];
+                [weakSelf.secondLayerArray addObject:layer];
+                [weakSelf.scrollView.layer addSublayer:layer];
+            }];
+        }
     }
+}
+
+//MARK:控制点的X为中间点的X值，Y值为结束点的Y值
+- (CGPoint)findMiddleControlPointBetweenStartPoints:(CGPoint)start andEndPoints:(CGPoint)end{
+    //先找到中间点
+    CGPoint middlePoint = CGPointMake((end.x + start.x) * 0.5, (end.y + start.y) * 0.5);
+    //结束点和中间点Y值的差
+    CGFloat distanceY = ABS(end.y - middlePoint.y);
+    if (start.y < end.y) {  //开始点低于结束点
+        middlePoint.y += distanceY;
+    }else if (start.y > end.y){     //开始点高于结束点
+        middlePoint.y -= distanceY;
+    }
+    return middlePoint;
 }
 
 #pragma mark ***************************** 绘制柱状图 *****************************

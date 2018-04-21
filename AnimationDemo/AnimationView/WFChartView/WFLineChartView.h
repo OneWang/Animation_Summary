@@ -45,6 +45,8 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 @property (assign, nonatomic) CGFloat barWidth;
 /** 图形 */
 @property (assign, nonatomic) WFChartViewType chartType;
+/** 是否需要是曲线 */
+@property (assign, nonatomic) BOOL isCurve;
 
 - (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray;
 
