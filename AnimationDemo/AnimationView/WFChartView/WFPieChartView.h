@@ -22,7 +22,8 @@
 @property (assign, nonatomic) CGFloat borderWidth;
 /** 代理 */
 @property (weak, nonatomic) id<WFPieChartViewDelegate> delegate;
-
+/** 数据源数组 */
+@property (strong, nonatomic) NSArray<WFPieChartItem *> *itemArray;
 /**
  初始化饼状图
  @param frame frame大小
@@ -30,5 +31,5 @@
  @return 饼状图
  */
 - (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items radius:(CGFloat)radius;
-
+- (instancetype)initWithFrame:(CGRect)frame radius:(CGFloat)radius;
 @end

@@ -10,8 +10,6 @@
 #import "WFPieChartItem.h"
 
 @interface WFPieChartView ()
-/** 数据源数组 */
-@property (strong, nonatomic) NSArray<WFPieChartItem *> *itemArray;
 /** 转换后的数据源数组 */
 @property (strong, nonatomic) NSMutableArray *percentageArray;
 /** 遮罩动画层 */
@@ -33,8 +31,23 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame radius:(CGFloat)radius{
+    if (self = [super initWithFrame:frame]) {
+        self.radius = radius;
+    }
+    return self;
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
+//    self.realWidth = _borderWidth * 2;
+//    [self initialMaskLayer];
+//    [self strokePineChart];
+}
+
+- (void)setItemArray:(NSArray<WFPieChartItem *> *)itemArray{
+    _itemArray = itemArray;
+    [self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     self.realWidth = _borderWidth * 2;
     [self initialMaskLayer];
     [self strokePineChart];
