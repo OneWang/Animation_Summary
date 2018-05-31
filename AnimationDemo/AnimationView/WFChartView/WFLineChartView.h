@@ -35,10 +35,12 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 @property (strong, nonatomic) NSArray<NSString *> *xAxisTitleArray;
 /** 是否显示网格 */
 @property (assign, nonatomic) BOOL isShowGridding;
+/** 是否按照10的倍数来显示（这种只能在一组数据的时候去设置） */
+@property (assign, nonatomic) BOOL isShowInteger;
 /** 是否填充 */
 @property (assign, nonatomic) BOOL isFill;
 /** 是否显示每个点的值 */
-@property (assign, nonatomic) BOOL isShopValue;
+@property (assign, nonatomic) BOOL isShowValue;
 /** 是否显示动画 */
 @property (assign, nonatomic) BOOL isAnimation;
 /** bar的宽度 */

@@ -9,6 +9,7 @@
 #import "WFLineChartView.h"
 #import "UIView+WFExtension.h"
 #import "WFChartModel.h"
+#import <math.h>
 
 /** X轴文字的大小 */
 static const CGFloat axisFont = 10;
@@ -37,7 +38,7 @@ static CGFloat yAxisMaxY = 0;
 /** 数据显示区域 */
 static CGFloat dataChartHeight = 0;
 /** Y轴显示的最大值 */
-static NSInteger yAxisMaxValue = 1000;
+static NSInteger yAxisMaxValue = 100;
 
 @interface WFLineChartView ()<UIScrollViewDelegate,CAAnimationDelegate>
 /** 滚动的scrollview */
@@ -92,7 +93,19 @@ static NSInteger yAxisMaxValue = 1000;
 }
 
 - (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource {
-    yAxisMaxValue = yAxisMax;
+    if (dataSource.count == 1) {
+        if (self.isShowInteger) {
+            [dataSource.firstObject.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.integerValue > yAxisMaxValue) {
+                    yAxisMaxValue = obj.integerValue;
+                }
+            }];
+        }else{
+            yAxisMaxValue = yAxisMax;
+        }
+    }else{
+        yAxisMaxValue = yAxisMax;
+    }
     self.dataArray = dataSource;
     if (_chartType == WFChartViewTypeLine) {
         _headerTitle = @"折线图";
@@ -167,7 +180,7 @@ static NSInteger yAxisMaxValue = 1000;
 
 //MARK:创建每个折线对应点的值
 - (void)createDisplayLabel{
-    if (self.isShopValue) {
+    if (self.isShowValue) {
         __weak typeof(self) weakSelf = self;
         int centerFlag = _dataArray.count * 0.5;
         [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull model, NSUInteger idex, BOOL * _Nonnull stop) {

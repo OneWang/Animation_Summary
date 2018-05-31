@@ -21,16 +21,17 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 100, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
     lineView.isShowGridding = YES;
-//    lineView.isShopValue = YES;
+//    lineView.isShowValue = YES;
     lineView.isAnimation = YES;
     lineView.isCurve = YES;
     lineView.chartType = WFChartViewTypeLine;
     lineView.barWidth = 20.f;
     lineView.headerTitle = @"折线图";
+    lineView.isShowInteger = YES;
     WFChartModel *model = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"1组"];
-    WFChartModel *model1 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"2组"];
-    WFChartModel *model2 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"3组"];
-    NSArray *dataSource = @[model,model1,model2];
+//    WFChartModel *model1 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"2组"];
+//    WFChartModel *model2 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"3组"];
+    NSArray *dataSource = @[model];
     [lineView showChartViewWithYAxisMaxValue:1200 dataSource:dataSource];
     [self.view addSubview:lineView];
 }
