@@ -92,6 +92,7 @@ static NSInteger yAxisMaxValue = 100;
     _barMargin = 20;
 }
 
+//设置数据源源和Y轴的最大值
 - (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource {
     if (dataSource.count == 1) {
         if (self.isShowInteger) {
