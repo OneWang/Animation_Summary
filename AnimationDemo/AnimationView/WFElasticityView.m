@@ -54,7 +54,6 @@ static const CGFloat fixedDistance = -100;
         if (_scrollerView.dragging || _offsetY > fixedDistance) {
             _pathLayer.path = [self calculateAnimationPathWithContentOffsetY:-self.offsetY];
         }
-        
         if (_offsetY <= fixedDistance) {
             if (!_scrollerView.isDragging) {
                 [self addElasticityAnimation];

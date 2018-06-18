@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self createCircleProgressView];
     [self createSphereProgressView];
     [self createPieChartView];

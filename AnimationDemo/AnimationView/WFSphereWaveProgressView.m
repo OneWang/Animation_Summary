@@ -170,7 +170,6 @@
 
 /**
  开启一个定时器
- 
  @param target 定时器持有者(考虑到当使用定时器的对象销毁了但是并没有手动对定时器进行释放)
  @param timeInterval 执行间隔时间
  @param handler 重复执行事件

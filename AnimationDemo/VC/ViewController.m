@@ -24,9 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"动画";
-    
-    [self createDisplayView];
-    
+    [self createDisplayView];    
 //    [self creatHeaderDragAnimation];
 }
 
@@ -49,7 +47,6 @@
 //    v1.backgroundColor = [UIColor whiteColor];
 //    [self.view addSubview:v1];
 //    [tableView addSubview:v1];
-
 }
 
 - (void)creatHeaderDragAnimation{
