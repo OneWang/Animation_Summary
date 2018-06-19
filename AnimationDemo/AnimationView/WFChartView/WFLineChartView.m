@@ -155,7 +155,6 @@ static NSInteger yAxisMaxValue = 100;
         [self.textArray makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
         [self.textArray removeAllObjects];
     }
-    
     if (self.allViewsArray.count) {
         [self.allViewsArray makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [self.allViewsArray removeAllObjects];
@@ -569,7 +568,6 @@ static NSInteger yAxisMaxValue = 100;
             self.isAnimation = self.orginAnimation;
         }
             break;
-            
         default:
             break;
     }
