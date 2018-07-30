@@ -11,6 +11,13 @@
 @class WFPieChartItem,WFPieChartView;
 @protocol WFPieChartViewDelegate <NSObject>
 @optional
+
+/**
+ 点击事件
+
+ @param pieChartView 饼状图
+ @param index 索引值
+ */
 - (void)wf_pieChartView:(WFPieChartView *)pieChartView didClickIndex:(NSInteger)index;
 @end
 

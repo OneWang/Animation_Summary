@@ -16,6 +16,13 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 @class WFChartModel,WFLineChartView;
 @protocol WFLineChartViewDelegate <NSObject>
 @optional
+
+/**
+ 点击事件
+
+ @param lineChartView 折线图
+ @param button 对应按钮
+ */
 - (void)wf_lineChartView:(WFLineChartView *)lineChartView didClickButtonDot:(UIButton *)button;
 @end
 

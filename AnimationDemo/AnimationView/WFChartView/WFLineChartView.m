@@ -107,6 +107,9 @@ static NSInteger yAxisMaxValue = 100;
     }else{
         yAxisMaxValue = yAxisMax;
     }
+    if (_isShowInteger) {
+        yAxisMaxValue = 10 - yAxisMaxValue % 10 + yAxisMaxValue;
+    }
     self.dataArray = dataSource;
     if (_chartType == WFChartViewTypeLine) {
         _headerTitle = @"折线图";
