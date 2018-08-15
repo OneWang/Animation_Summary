@@ -24,8 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"动画";
-    [self createDisplayView];    
-//    [self creatHeaderDragAnimation];
+//    [self createDisplayView];    
+    [self creatHeaderDragAnimation];
 }
 
 #pragma mark - 曲线动画

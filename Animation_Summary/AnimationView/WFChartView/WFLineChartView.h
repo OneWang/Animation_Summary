@@ -57,6 +57,13 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 /** 是否需要是曲线 */
 @property (assign, nonatomic) BOOL isCurve;
 
+/**
+ 初始化
+
+ @param frame  frame
+ @param titleArray X 轴显示
+ @return 实例对象
+ */
 - (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray;
 
 - (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource;

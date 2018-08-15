@@ -92,7 +92,7 @@
     //初始化运动路径
     CGMutablePathRef path = CGPathCreateMutable();
     //设置起始位置
-    CGPathMoveToPoint(path, nil, 0, _waveOffsetY);
+    CGPathMoveToPoint(path, nil, -1, _waveOffsetY);
     //初始化波浪其实Y为偏距
     CGFloat y = _waveOffsetY;
     //正弦曲线公式为： y=Acos(ωx+φ)+k;
@@ -115,7 +115,7 @@
     //初始化运动路径
     CGMutablePathRef path = CGPathCreateMutable();
     //设置起始位置
-    CGPathMoveToPoint(path, nil, 0, _waveOffsetY);
+    CGPathMoveToPoint(path, nil, -1, _waveOffsetY);
     //初始化波浪其实Y为偏距
     CGFloat y = _waveOffsetY;
     //正弦曲线公式为： y=Asin(ωx+φ)+k;

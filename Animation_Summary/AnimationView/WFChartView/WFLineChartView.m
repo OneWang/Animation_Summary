@@ -181,6 +181,16 @@ static NSInteger yAxisMaxValue = 100;
     [self.layer addSublayer:layer];
 }
 
+- (void)setIsShowValue:(BOOL)isShowValue{
+    _isShowValue = isShowValue;
+    [self showChartView];
+}
+
+- (void)setIsCurve:(BOOL)isCurve{
+    _isCurve = isCurve;
+    [self showChartView];
+}
+
 //MARK:创建每个折线对应点的值
 - (void)createDisplayLabel{
     if (self.isShowValue) {
