@@ -93,23 +93,11 @@ static NSInteger yAxisMaxValue = 100;
 }
 
 //设置数据源源和Y轴的最大值
-- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource {
-    if (dataSource.count == 1) {
-        if (self.isShowInteger) {
-            [dataSource.firstObject.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.integerValue > yAxisMaxValue) {
-                    yAxisMaxValue = obj.integerValue;
-                }
-            }];
-        }else{
-            yAxisMaxValue = yAxisMax;
-        }
-    }else{
-        yAxisMaxValue = yAxisMax;
-    }
-    if (_isShowInteger) {
-        yAxisMaxValue = 10 - yAxisMaxValue % 10 + yAxisMaxValue;
-    }
+- (void)showChartViewWithDataSource:(NSArray<WFChartModel *> *)dataSource {
+    NSAssert(dataSource.count != 0, @"数据源数组不能为空");
+    //获取 Y 轴的最大值
+    [self getYAxisMaxValue];
+    
     self.dataArray = dataSource;
     if (_chartType == WFChartViewTypeLine) {
         _headerTitle = @"折线图";
@@ -119,8 +107,23 @@ static NSInteger yAxisMaxValue = 100;
     [self showChartView];
 }
 
+- (void)getYAxisMaxValue{
+    yAxisMaxValue = 0;
+    [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.plotArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.integerValue > yAxisMaxValue) {
+                yAxisMaxValue = obj.integerValue;
+            }
+        }];
+    }];
+    
+    if (_isShowInteger) {
+        yAxisMaxValue = 10 - yAxisMaxValue % 10 + yAxisMaxValue;
+    }
+}
+
 - (void)showChartView{
-    //截取数据
+    //截取数据，防止数组越界
     [_dataArray enumerateObjectsUsingBlock:^(WFChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.plotArray.count > self.xAxisTitleArray.count) {
             obj.plotArray = [obj.plotArray subarrayWithRange:NSMakeRange(0, self.xAxisTitleArray.count)];
@@ -131,6 +134,12 @@ static NSInteger yAxisMaxValue = 100;
     if (_chartType == WFChartViewTypeBar && _xAxisMargin < _barWidth * _dataArray.count + _barMargin) {
         self.xAxisMargin = self.orginXAxisMargin = _barWidth * _dataArray.count + _barMargin;
     }
+    
+    if (_isShowInteger) {
+        yAxisMaxValue = 10 - yAxisMaxValue % 10 + yAxisMaxValue;
+    }
+    
+    [self getYAxisMaxValue];
     
     [self resetDataSouce];
     
@@ -191,6 +200,11 @@ static NSInteger yAxisMaxValue = 100;
     [self showChartView];
 }
 
+- (void)setIsDash:(BOOL)isDash{
+    _isDash = isDash;
+    [self showChartView];
+}
+
 //MARK:创建每个折线对应点的值
 - (void)createDisplayLabel{
     if (self.isShowValue) {
@@ -235,11 +249,26 @@ static NSInteger yAxisMaxValue = 100;
     [self.firstLayerArray addObject:layer];
     [self.layer addSublayer:layer];
     
-    for (int i = 0; i < yAxisCount + 1; i ++) {
-        CGFloat avergValue = yAxisMaxValue / yAxisCount;
-        NSString *string = [NSString stringWithFormat:@"%.0f",avergValue * i];
+    NSInteger avergValue;
+    if (_isShowInteger) {
+        avergValue = yAxisMaxValue / yAxisCount;
+        if (avergValue % 10 > 5) {
+            avergValue = avergValue + (10 - avergValue % 10);
+        }else{
+            avergValue = avergValue - avergValue % 10;
+        }
+    }else{
+        avergValue = yAxisMaxValue / yAxisCount;
+    }
+    for (int i = 0; i <= yAxisCount; i ++) {
+        NSInteger value = yAxisMaxValue - avergValue * i;
+        if (i == yAxisCount) {
+            value = 0;
+        }
+        NSString *string = [NSString stringWithFormat:@"%zd", value];
         CGSize size = [string sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:axisFont]}];
-        CGRect frame = CGRectMake(0, topMargin + (yAxisCount - i) * yAxisMargin - size.height * 0.5, yAxisToLeft - yTextAxisMargin, size.height);
+        CGFloat originY = topMargin + (yAxisCount - i) * yAxisMargin - size.height * 0.5;
+        CGRect frame = CGRectMake(0 ,self.height - originY, yAxisToLeft - yTextAxisMargin, size.height);
         CATextLayer *textLayer = [self createTextLayerWithString:string font:axisFont frame:frame];
         [self.layer addSublayer:textLayer];
     }
@@ -433,6 +462,9 @@ static NSInteger yAxisMaxValue = 100;
                     [linePath addQuadCurveToPoint:end controlPoint:[weakSelf findMiddleControlPointBetweenStartPoints:middlePoint andEndPoints:end]];
                 }];
                 layer = [weakSelf shapeLayerWithPath:linePath lineWidth:2.f fillColor:[UIColor clearColor] strokeColor:[UIColor orangeColor]];
+                if (self.isDash) {
+                    layer.lineDashPattern = @[@3,@3];
+                }
                 [weakSelf.secondLayerArray addObject:layer];
                 [weakSelf.scrollView.layer addSublayer:layer];
             }];
@@ -445,6 +477,9 @@ static NSInteger yAxisMaxValue = 100;
                     [linePath addLineToPoint:CGPointMake((idx + 1) * weakSelf.xAxisMargin, [weakSelf getDotArrayYxaisWithValue:string])];
                 }];
                 layer = [weakSelf shapeLayerWithPath:linePath lineWidth:2.f fillColor:[UIColor clearColor] strokeColor:[UIColor orangeColor]];
+                if (self.isDash) {
+                    layer.lineDashPattern = @[@3,@3];
+                }
                 [weakSelf.secondLayerArray addObject:layer];
                 [weakSelf.scrollView.layer addSublayer:layer];
             }];

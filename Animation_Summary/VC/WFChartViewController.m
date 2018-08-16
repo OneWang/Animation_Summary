@@ -49,7 +49,17 @@
     tiplabel2.frame = CGRectMake(switchButton.frame.size.width + 150, 0, 140, 40);
     tiplabel2.textAlignment = NSTextAlignmentCenter;
     
-    WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 50, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
+    UISwitch *switchDash = [[UISwitch alloc] init];
+    [contentView addSubview:switchDash];
+    switchDash.frame = CGRectMake(0, 50, 0, 0);
+    [switchDash addTarget:self action:@selector(showDash:) forControlEvents:UIControlEventValueChanged];
+    UILabel *tiplabel3 = [[UILabel alloc] init];
+    [contentView addSubview:tiplabel3];
+    tiplabel3.text = @"是否显示为虚线";
+    tiplabel3.frame = CGRectMake(switchDash.frame.size.width, 50, 140, 40);
+    tiplabel3.textAlignment = NSTextAlignmentCenter;
+    
+    WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 100, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
     lineView.isShowGridding = YES;
     self.lineView = lineView;
     lineView.isAnimation = YES;
@@ -57,9 +67,11 @@
     lineView.barWidth = 20.f;
     lineView.headerTitle = @"折线图";
     lineView.isShowInteger = YES;
+    
+    lineView.isDash = YES;
     WFChartModel *model = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"1组"];
     NSArray *dataSource = @[model];
-    [lineView showChartViewWithYAxisMaxValue:1200 dataSource:dataSource];
+    [lineView showChartViewWithDataSource:dataSource];
     [contentView addSubview:lineView];
     
     [self createCubeChart];
@@ -81,8 +93,16 @@
     }
 }
 
+- (void)showDash:(UISwitch *)button{
+    if (button.isOn) {
+        _lineView.isDash = YES;
+    }else{
+        _lineView.isDash = NO;
+    }
+}
+
 - (void)createCubeChart{
-    WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 400, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
+    WFLineChartView *lineView = [[WFLineChartView alloc] initWithFrame:CGRectMake(0, 450, K_Screen_Width, 300) xTitleArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12"]];
     lineView.isShowGridding = YES;
     lineView.isAnimation = YES;
     lineView.chartType = WFChartViewTypeBar;
@@ -93,7 +113,7 @@
     WFChartModel *model1 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"2组"];
     WFChartModel *model2 = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"3组"];
     NSArray *dataSource = @[model,model1,model2];
-    [lineView showChartViewWithYAxisMaxValue:1200 dataSource:dataSource];
+    [lineView showChartViewWithDataSource:dataSource];
     [_contentView addSubview:lineView];
 }
 

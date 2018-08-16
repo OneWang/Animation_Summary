@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
 @property (assign, nonatomic) BOOL isShowValue;
 /** 是否显示动画 */
 @property (assign, nonatomic) BOOL isAnimation;
+/** 是否显示为虚线 */
+@property (nonatomic, assign) BOOL isDash;
 /** bar的宽度 */
 @property (assign, nonatomic) CGFloat barWidth;
 /** 图形 */
@@ -66,6 +68,11 @@ typedef NS_ENUM(NSInteger, WFChartViewType) {
  */
 - (instancetype)initWithFrame:(CGRect)frame xTitleArray:(NSArray *)titleArray;
 
-- (void)showChartViewWithYAxisMaxValue:(CGFloat)yAxisMax dataSource:(NSArray<WFChartModel *> *)dataSource;
+/**
+ 设置数据源
+
+ @param dataSource 数据源数组
+ */
+- (void)showChartViewWithDataSource:(NSArray<WFChartModel *> *)dataSource;
 
 @end
