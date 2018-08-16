@@ -11,6 +11,7 @@
 #import "WFSphereWaveProgressView.h"
 #import "WFPieChartItem.h"
 #import "WFPieChartView.h"
+#import "WFCircleAnimationView.h"
 
 @interface WFProgressViewController ()
 /** 圆环进度条 */
@@ -26,6 +27,14 @@
     [self createCircleProgressView];
     [self createSphereProgressView];
     [self createPieChartView];
+    [self createCilcleAnimationView];
+    
+}
+
+#pragma mark - 圆形动画
+- (void)createCilcleAnimationView{
+    WFCircleAnimationView *circleView = [[WFCircleAnimationView alloc] initWithFrame:CGRectMake(220, 240, 100, 100)];
+    [self.view addSubview:circleView];
 }
 
 #pragma mark - 圆环进度条

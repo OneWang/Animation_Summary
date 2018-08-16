@@ -28,6 +28,7 @@
 		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
 		04D65E16208061230016D23E /* WFPieChartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E15208061230016D23E /* WFPieChartItem.m */; };
 		04D65E192080AF4F0016D23E /* WFLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E182080AF4F0016D23E /* WFLineChartView.m */; };
+		AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,8 @@
 		04D65E15208061230016D23E /* WFPieChartItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPieChartItem.m; sourceTree = "<group>"; };
 		04D65E172080AF4F0016D23E /* WFLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLineChartView.h; sourceTree = "<group>"; };
 		04D65E182080AF4F0016D23E /* WFLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLineChartView.m; sourceTree = "<group>"; };
+		AAF6B81E21255A6000738A9E /* WFCircleAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCircleAnimationView.h; sourceTree = "<group>"; };
+		AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleAnimationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 		0404BFF520611CBE0030EB23 /* AnimationView */ = {
 			isa = PBXGroup;
 			children = (
+				AAF6B81E21255A6000738A9E /* WFCircleAnimationView.h */,
+				AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */,
 				0404BFF620611D200030EB23 /* WFCircleProgressView.h */,
 				0404BFF720611D200030EB23 /* WFCircleProgressView.m */,
 				0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */,
@@ -275,6 +280,7 @@
 				0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */,
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
 				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
+				AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */,

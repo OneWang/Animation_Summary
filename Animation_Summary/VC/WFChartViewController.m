@@ -68,7 +68,7 @@
     lineView.headerTitle = @"折线图";
     lineView.isShowInteger = YES;
     
-    lineView.isDash = YES;
+    lineView.isDash = NO;
     WFChartModel *model = [WFChartModel modelWithColor:RandomColor plots:[self randomArrayWithCount:12] project:@"1组"];
     NSArray *dataSource = @[model];
     [lineView showChartViewWithDataSource:dataSource];

@@ -26,7 +26,7 @@
 - (instancetype)initWithFrame:(CGRect)frame items:(NSArray<WFPieChartItem *> *)items radius:(CGFloat)radius{
     if (self = [super initWithFrame:frame]) {
         self.radius = radius;
-        _itemArray = items;
+        self.itemArray = items;
     }
     return self;
 }
@@ -40,9 +40,10 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-//    self.realWidth = _borderWidth * 2;
-//    [self initialMaskLayer];
-//    [self strokePineChart];
+    [self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    self.realWidth = _borderWidth * 2;
+    [self initialMaskLayer];
+    [self strokePineChart];
 }
 
 - (void)setItemArray:(NSArray<WFPieChartItem *> *)itemArray{

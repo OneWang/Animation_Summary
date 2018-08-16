@@ -4,4 +4,5 @@
 ![image 折线图](https://github.com/OneWang/AnimationDemo/blob/master/Screenshots/折线图.png)
 ![image 柱状图](https://github.com/OneWang/AnimationDemo/blob/master/Screenshots/柱状图.png)
 ![image 曲线图](https://github.com/OneWang/AnimationDemo/blob/master/Screenshots/曲线.png)
+![image 曲线图](https://github.com/OneWang/AnimationDemo/blob/master/Screenshots/图表.png)
 

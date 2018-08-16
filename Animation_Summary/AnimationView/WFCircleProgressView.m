@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIImageView *endView;
 /** 进度条颜色 */
 @property (strong, nonatomic) UIColor *backColor;
+/** 渐变层 */
+@property (nonatomic, weak) CAGradientLayer *gradientLayer;
 
 @end
 
@@ -67,6 +69,15 @@
     _progressLayer.strokeEnd = 0;
     [self.layer addSublayer:_progressLayer];
     
+    //添加渐变色
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    _gradientLayer = gradientLayer;
+    gradientLayer.colors = @[(__bridge id)[UIColor redColor].CGColor, (__bridge id)[UIColor greenColor].CGColor];
+    gradientLayer.frame = self.bounds;
+    [backLayer addSublayer:gradientLayer];
+    gradientLayer.mask = _progressLayer;
+    
+    //设置显示进度 label
     _progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     [self addSubview:_progressLabel];
     _progressLabel.text = @"0%";
@@ -97,6 +108,7 @@
 #pragma maark - setter and geter
 - (void)setProgress:(CGFloat)progress{
     _progress = progress;
+    _gradientLayer.locations = @[@(0),@(progress)];
     _progressLayer.strokeColor = _progressColor.CGColor;
     _progressLayer.strokeEnd = progress;
     [_progressLayer removeAllAnimations];
