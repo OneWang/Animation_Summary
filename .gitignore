@@ -28,6 +28,7 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 *.idea
+*.DS_Store
  .gitignore
 
 # CocoaPods
