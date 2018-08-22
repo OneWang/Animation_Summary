@@ -42,20 +42,20 @@
     [super layoutSubviews];
     [self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     self.realWidth = _borderWidth * 2;
-    [self initialMaskLayer];
-    [self strokePineChart];
+    [self p_initialMaskLayer];
+    [self p_strokePineChart];
 }
 
 - (void)setItemArray:(NSArray<WFPieChartItem *> *)itemArray{
     _itemArray = itemArray;
     [self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     self.realWidth = _borderWidth * 2;
-    [self initialMaskLayer];
-    [self strokePineChart];
+    [self p_initialMaskLayer];
+    [self p_strokePineChart];
 }
 
 //MARK:初始化遮罩层
-- (void)initialMaskLayer{
+- (void)p_initialMaskLayer{
     CGPoint center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
     CAShapeLayer *mask = [CAShapeLayer layer];
     self.maskLayer = mask;
@@ -69,7 +69,7 @@
 }
 
 //MARK:转换数据
-- (NSArray *)convertDataArray:(NSArray<WFPieChartItem *> *)dataArray{
+- (NSArray *)p_convertDataArray:(NSArray<WFPieChartItem *> *)dataArray{
     //计算数组中progress的和
     CGFloat totalCount = [[dataArray valueForKeyPath:@"@sum.progress"] floatValue];
     __weak typeof(self) weakSelf = self;
@@ -86,9 +86,9 @@
 }
 
 //MARK:绘制饼状图
-- (void)strokePineChart{
+- (void)p_strokePineChart{
     self.piePace = _itemArray.count < 3 ? 0 : _piePace;
-    NSArray *dataArray = [self convertDataArray:_itemArray];
+    NSArray *dataArray = [self p_convertDataArray:_itemArray];
     for (int i = 0; i < _itemArray.count; i ++) {
         WFPieChartItem *item = _itemArray[i];
         CGFloat start = 0.f;
@@ -96,7 +96,7 @@
             start = [dataArray[i - 1] floatValue];
         }
         CGFloat end = [dataArray[i] floatValue];
-        CAShapeLayer *layer = [self drawCicleLayerWithRadius:_radius borderWidth:_realWidth fillColor:[UIColor clearColor] borderColor:item.color startValue:start endValue:end];
+        CAShapeLayer *layer = [self p_drawCicleLayerWithRadius:_radius borderWidth:_realWidth fillColor:[UIColor clearColor] borderColor:item.color startValue:start endValue:end];
         [self.layer addSublayer:layer];
     }
     for (int i = 0; i < _itemArray.count; i ++) {
@@ -105,10 +105,10 @@
             start = [dataArray[i - 1] floatValue];
         }
         CGFloat end = [dataArray[i] floatValue];
-        UILabel *label = [self createCircleDescriptionLabelWithIndex:i start:start end:end];
+        UILabel *label = [self p_createCircleDescriptionLabelWithIndex:i start:start end:end];
         [self addSubview:label];
     }
-    [self addAnimation];
+    [self p_addAnimation];
 }
 
 /**
@@ -120,7 +120,7 @@
  @param start 开始点
  @param end 结束点
  */
-- (CAShapeLayer *)drawCicleLayerWithRadius:(CGFloat)radius
+- (CAShapeLayer *)p_drawCicleLayerWithRadius:(CGFloat)radius
                                borderWidth:(CGFloat)borderWidth
                                  fillColor:(UIColor *)fillColor
                                borderColor:(UIColor *)borderColor
@@ -142,7 +142,7 @@
     return layer;
 }
 
-- (UILabel *)createCircleDescriptionLabelWithIndex:(NSInteger)index start:(CGFloat)start end:(CGFloat)end{
+- (UILabel *)p_createCircleDescriptionLabelWithIndex:(NSInteger)index start:(CGFloat)start end:(CGFloat)end{
     UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     WFPieChartItem *item = _itemArray[index];
     descriptionLabel.text = [NSString stringWithFormat:@"%.0f%%\n%@",(end - start) * 100,item.title];
@@ -163,7 +163,7 @@
 }
 
 //MARK:添加动画
-- (void)addAnimation{
+- (void)p_addAnimation{
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animation.duration = 1.f;
     animation.fromValue = [NSNumber numberWithFloat:0.f];
@@ -190,7 +190,7 @@
         return;
     }
     //取得触摸点的角度值
-    CGFloat percentage = [self findPercentageOfAngleInCircleCenter:center fromPoint:touchPoint];
+    CGFloat percentage = [self p_findPercentageOfAngleInCircleCenter:center fromPoint:touchPoint];
     NSInteger index = 0;
     while (percentage > [_percentageArray[index] floatValue]) {
         index ++;
@@ -202,7 +202,7 @@
 }
 
 //MARK:计算触摸点所占进度
-- (CGFloat)findPercentageOfAngleInCircleCenter:(CGPoint)center fromPoint:(CGPoint)reference{
+- (CGFloat)p_findPercentageOfAngleInCircleCenter:(CGPoint)center fromPoint:(CGPoint)reference{
     //Find angle of line Passing In Reference And Center
     CGFloat angleOfLine = atanf((reference.y - center.y) / (reference.x - center.x));
     CGFloat percentage = (angleOfLine + M_PI_2)/(2 * M_PI);
