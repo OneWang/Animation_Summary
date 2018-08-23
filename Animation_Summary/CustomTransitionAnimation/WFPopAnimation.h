@@ -9,7 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface WFPopAnimation : NSObject
+
+/** to转场时间 默认0.5 */
+@property (nonatomic, assign) NSTimeInterval toDuration;
+/** back转场时间 默认0.5 */
+@property (nonatomic, assign) NSTimeInterval backDuration;
 
 @end
 
@@ -20,4 +26,4 @@
 - (void)handleControllerPop:(UIPanGestureRecognizer *)recognizer;
 
 @end
-
+NS_ASSUME_NONNULL_END

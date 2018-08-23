@@ -8,6 +8,7 @@
 
 #import "WFPopAnimation.h"
 #import <UIKit/UIKit.h>
+#import "WFPresentationController.h"
 
 //自定义动画对象
 @interface WFPopAnimation ()<UIViewControllerAnimatedTransitioning,CAAnimationDelegate>
