@@ -28,6 +28,7 @@
 		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
 		04D65E16208061230016D23E /* WFPieChartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E15208061230016D23E /* WFPieChartItem.m */; };
 		04D65E192080AF4F0016D23E /* WFLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E182080AF4F0016D23E /* WFLineChartView.m */; };
+		AA826413212EBD0200E0FC10 /* WFPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA826412212EBD0200E0FC10 /* WFPresentationController.m */; };
 		AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,8 @@
 		04D65E15208061230016D23E /* WFPieChartItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPieChartItem.m; sourceTree = "<group>"; };
 		04D65E172080AF4F0016D23E /* WFLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFLineChartView.h; sourceTree = "<group>"; };
 		04D65E182080AF4F0016D23E /* WFLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFLineChartView.m; sourceTree = "<group>"; };
+		AA826411212EBD0200E0FC10 /* WFPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPresentationController.h; sourceTree = "<group>"; };
+		AA826412212EBD0200E0FC10 /* WFPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPresentationController.m; sourceTree = "<group>"; };
 		AAF6B81E21255A6000738A9E /* WFCircleAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCircleAnimationView.h; sourceTree = "<group>"; };
 		AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleAnimationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +112,7 @@
 		0404BFDD20611BB70030EB23 /* Animation_Summary */ = {
 			isa = PBXGroup;
 			children = (
+				AA826410212EBCCD00E0FC10 /* CustomTransitionAnimation */,
 				0449BA632084AE5D007DA045 /* Extension */,
 				0495B9D6206E1D3900346289 /* MainTabbarController */,
 				0404BFF520611CBE0030EB23 /* AnimationView */,
@@ -148,8 +152,6 @@
 				04A6D34F206C920C005A531B /* WFElasticityView.m */,
 				0495B9DD206E1E7A00346289 /* WFWaveHeader.h */,
 				0495B9DE206E1E7A00346289 /* WFWaveHeader.m */,
-				04558842207B58980052D9B8 /* WFPopAnimation.h */,
-				04558843207B58980052D9B8 /* WFPopAnimation.m */,
 				04983E2020863F1F006836E7 /* WFChartView */,
 			);
 			path = AnimationView;
@@ -203,6 +205,17 @@
 				04983E1B20859D05006836E7 /* WFChartModel.m */,
 			);
 			path = WFChartView;
+			sourceTree = "<group>";
+		};
+		AA826410212EBCCD00E0FC10 /* CustomTransitionAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				04558842207B58980052D9B8 /* WFPopAnimation.h */,
+				04558843207B58980052D9B8 /* WFPopAnimation.m */,
+				AA826411212EBD0200E0FC10 /* WFPresentationController.h */,
+				AA826412212EBD0200E0FC10 /* WFPresentationController.m */,
+			);
+			path = CustomTransitionAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +294,7 @@
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
 				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
 				AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */,
+				AA826413212EBD0200E0FC10 /* WFPresentationController.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */,
