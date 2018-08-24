@@ -28,8 +28,8 @@
     panGesture.delegate = self;
     panGesture.maximumNumberOfTouches = 1;
     
-//    _transition = [[WFNavigationInteractiveTransition alloc] initWithViewController:self];
-//    [panGesture addTarget:_transition action:@selector(handleControllerPop:)];
+    _transition = [[WFNavigationInteractiveTransition alloc] initWithViewController:self];
+    [panGesture addTarget:_transition action:@selector(handleControllerPop:)];
     
 //    //获取系统手势的target数组
 //    NSMutableArray *_targets = [self.interactivePopGestureRecognizer valueForKey:@"_targets"];
