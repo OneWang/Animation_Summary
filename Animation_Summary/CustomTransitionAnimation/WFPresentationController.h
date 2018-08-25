@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Jack. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface WFPresentationController : UIPresentationController
+@interface WFPresentationController : UIPresentationController<UIViewControllerTransitioningDelegate>
 
 @end
