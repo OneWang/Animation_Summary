@@ -119,7 +119,7 @@
 				0449BA632084AE5D007DA045 /* Extension */,
 				0495B9D6206E1D3900346289 /* MainTabbarController */,
 				0404BFF520611CBE0030EB23 /* AnimationView */,
-				0495B9E3206E1FBD00346289 /* VC */,
+				0495B9E3206E1FBD00346289 /* SubViewController */,
 				0404BFF420611BCA0030EB23 /* Config */,
 			);
 			path = Animation_Summary;
@@ -180,7 +180,7 @@
 			path = MainTabbarController;
 			sourceTree = "<group>";
 		};
-		0495B9E3206E1FBD00346289 /* VC */ = {
+		0495B9E3206E1FBD00346289 /* SubViewController */ = {
 			isa = PBXGroup;
 			children = (
 				0404BFE120611BB70030EB23 /* ViewController.h */,
@@ -192,7 +192,7 @@
 				04983E1D2085F4F4006836E7 /* WFChartViewController.h */,
 				04983E1E2085F4F4006836E7 /* WFChartViewController.m */,
 			);
-			path = VC;
+			path = SubViewController;
 			sourceTree = "<group>";
 		};
 		04983E2020863F1F006836E7 /* WFChartView */ = {
