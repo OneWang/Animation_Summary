@@ -28,7 +28,6 @@
     [self createSphereProgressView];
     [self createPieChartView];
     [self createCilcleAnimationView];
-    
 }
 
 #pragma mark - 圆形动画

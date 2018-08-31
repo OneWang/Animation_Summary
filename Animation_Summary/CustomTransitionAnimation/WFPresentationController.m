@@ -231,18 +231,12 @@ static CGFloat const kCornerRadius = 16.f;
 
 #pragma mark -
 #pragma mark UIViewControllerAnimatedTransitioning
-
 //| ----------------------------------------------------------------------------
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
     return [transitionContext isAnimated] ? 0.35 : 0;
 }
 
 //| ----------------------------------------------------------------------------
-//  The presentation animation is tightly integrated with the overall
-//  presentation so it makes the most sense to implement
-//  <UIViewControllerAnimatedTransitioning> in the presentation controller
-//  rather than in a separate object.
-//
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -256,21 +250,6 @@ static CGFloat const kCornerRadius = 16.f;
     //      fromView = The presented view.
     //      toView   = The presenting view.
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
-    // If NO is returned from -shouldRemovePresentersView, the view associated
-    // with UITransitionContextFromViewKey is nil during presentation.  This
-    // intended to be a hint that your animator should NOT be manipulating the
-    // presenting view controller's view.  For a dismissal, the -presentedView
-    // is returned.
-    //
-    // Why not allow the animator manipulate the presenting view controller's
-    // view at all times?  First of all, if the presenting view controller's
-    // view is going to stay visible after the animation finishes during the
-    // whole presentation life cycle there is no need to animate it at all — it
-    // just stays where it is.  Second, if the ownership for that view
-    // controller is transferred to the presentation controller, the
-    // presentation controller will most likely not know how to layout that
-    // view controller's view when needed, for example when the orientation
-    // changes, but the original owner of the presenting view controller does.
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     
     BOOL isPresenting = (fromViewController == self.presentingViewController);

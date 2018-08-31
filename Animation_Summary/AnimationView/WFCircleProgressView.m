@@ -88,10 +88,10 @@
     //用于显示结束位置的小点
     _endView = [[UIImageView alloc] init];
     _endView.frame = CGRectMake(0, 0, _lineWidth - 1 * 2,_lineWidth - 1 * 2);
-    _endView.hidden = true;
+    _endView.hidden = YES;
     _endView.backgroundColor = [UIColor blackColor];
     _endView.image = [UIImage imageNamed:@"arrow_right_44px"];
-    _endView.layer.masksToBounds = true;
+    _endView.layer.masksToBounds = YES;
     _endView.layer.cornerRadius = _endView.bounds.size.width/2;
     [self addSubview:_endView];
 }
