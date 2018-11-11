@@ -11,6 +11,7 @@
 #import "WFProgressViewController.h"
 #import "WFMainNavigationViewController.h"
 #import "WFChartViewController.h"
+#import "WFNavigationViewController.h"
 
 @interface WFMainTabbarViewController ()
 
@@ -36,6 +37,11 @@
     chartVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:2];
     WFMainNavigationViewController *nav3 = [[WFMainNavigationViewController alloc] initWithRootViewController:chartVC];
     [self addChildViewController:nav3];
+    
+    WFNavigationViewController *testNavigationVC = [[WFNavigationViewController alloc] init];
+    testNavigationVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:3];
+    WFMainNavigationViewController *nav4 = [[WFMainNavigationViewController alloc] initWithRootViewController:testNavigationVC];
+    [self addChildViewController:nav4];
 }
 
 @end

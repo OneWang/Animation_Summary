@@ -20,16 +20,16 @@
     [super viewDidLoad];
 
     //首先将系统的手势关闭掉
-    self.interactivePopGestureRecognizer.enabled = NO;
+//    self.interactivePopGestureRecognizer.enabled = NO;
     
     //创建自定义手势
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] init];
-    [self.interactivePopGestureRecognizer.view addGestureRecognizer:panGesture];
-    panGesture.delegate = self;
-    panGesture.maximumNumberOfTouches = 1;
-    
-    _transition = [[WFNavigationInteractiveTransition alloc] initWithViewController:self];
-    [panGesture addTarget:_transition action:@selector(handleControllerPop:)];
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] init];
+//    [self.interactivePopGestureRecognizer.view addGestureRecognizer:panGesture];
+//    panGesture.delegate = self;
+//    panGesture.maximumNumberOfTouches = 1;
+//
+//    _transition = [[WFNavigationInteractiveTransition alloc] initWithViewController:self];
+//    [panGesture addTarget:_transition action:@selector(handleControllerPop:)];
     
 //    //获取系统手势的target数组
 //    NSMutableArray *_targets = [self.interactivePopGestureRecognizer valueForKey:@"_targets"];
@@ -43,6 +43,7 @@
 //    [panGesture addTarget:navigationInteractiveTransition action:handleTransition];
 }
 
+/**
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
@@ -57,5 +58,6 @@
     //这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）
     return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue];
 }
+*/
 
 @end

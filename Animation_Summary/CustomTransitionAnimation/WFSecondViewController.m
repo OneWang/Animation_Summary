@@ -59,7 +59,7 @@
 
 
 //| ----------------------------------------------------------------------------
-- (IBAction)sliderValueChange:(UISlider *)sender
+- (void)sliderValueChange:(UISlider *)sender
 {
     self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, sender.value);
 }
@@ -70,7 +70,7 @@
 //| ----------------------------------------------------------------------------
 //! Action for unwinding from the presented view controller (C).
 //
-- (IBAction)unwindToCustomPresentationSecondViewController:(UIStoryboardSegue *)sender
+- (void)unwindToCustomPresentationSecondViewController:(UIStoryboardSegue *)sender
 { }
 
 
