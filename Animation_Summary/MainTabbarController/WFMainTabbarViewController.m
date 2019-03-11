@@ -42,6 +42,13 @@
     testNavigationVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:3];
     WFMainNavigationViewController *nav4 = [[WFMainNavigationViewController alloc] initWithRootViewController:testNavigationVC];
     [self addChildViewController:nav4];
+    
+    NSString *string = @"asdfg";
+    for (NSInteger i = string.length; i > 0; i --) {
+        for (NSInteger j = 0; j <= string.length - i; j ++) {
+            NSLog(@"j = %zd; i = %zd ; %@",j , i, [string substringWithRange:NSMakeRange(j, i)]);
+        }
+    }
 }
 
 @end
