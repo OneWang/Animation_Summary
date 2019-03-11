@@ -26,6 +26,7 @@
 		04A6D350206C920C005A531B /* WFElasticityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6D34F206C920C005A531B /* WFElasticityView.m */; };
 		04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B92FE2206B417500FECA45 /* WFDisplayView.m */; };
 		04BD359622369D490063A1CD /* WFGestureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BD359522369D490063A1CD /* WFGestureView.m */; };
+		04BD359922369EA60063A1CD /* WFGestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BD359822369EA60063A1CD /* WFGestureViewController.m */; };
 		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
 		04D65E16208061230016D23E /* WFPieChartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E15208061230016D23E /* WFPieChartItem.m */; };
 		04D65E192080AF4F0016D23E /* WFLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E182080AF4F0016D23E /* WFLineChartView.m */; };
@@ -75,6 +76,8 @@
 		04B92FE4206B42FD00FECA45 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		04BD359422369D490063A1CD /* WFGestureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFGestureView.h; sourceTree = "<group>"; };
 		04BD359522369D490063A1CD /* WFGestureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFGestureView.m; sourceTree = "<group>"; };
+		04BD359722369EA60063A1CD /* WFGestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFGestureViewController.h; sourceTree = "<group>"; };
+		04BD359822369EA60063A1CD /* WFGestureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFGestureViewController.m; sourceTree = "<group>"; };
 		04CA49FE2067CCF3004693FC /* AnimationSummary */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnimationSummary; sourceTree = "<group>"; };
 		04D65E11208044B40016D23E /* WFPieChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPieChartView.h; sourceTree = "<group>"; };
 		04D65E12208044B40016D23E /* WFPieChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFPieChartView.m; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				04EE619E2197FDC30048E442 /* WFNavigationViewController.m */,
 				04EE61A02197FEC10048E442 /* WFNavigationSubViewController.h */,
 				04EE61A12197FEC10048E442 /* WFNavigationSubViewController.m */,
+				04BD359722369EA60063A1CD /* WFGestureViewController.h */,
+				04BD359822369EA60063A1CD /* WFGestureViewController.m */,
 			);
 			path = SubViewController;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				0495B9DC206E1E5400346289 /* WFMainTabbarViewController.m in Sources */,
 				0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */,
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
+				04BD359922369EA60063A1CD /* WFGestureViewController.m in Sources */,
 				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
 				AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */,
 				AA826413212EBD0200E0FC10 /* WFPresentationController.m in Sources */,

@@ -12,6 +12,7 @@
 #import "WFMainNavigationViewController.h"
 #import "WFChartViewController.h"
 #import "WFNavigationViewController.h"
+#import "WFGestureViewController.h"
 
 @interface WFMainTabbarViewController ()
 
@@ -42,6 +43,11 @@
     testNavigationVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:3];
     WFMainNavigationViewController *nav4 = [[WFMainNavigationViewController alloc] initWithRootViewController:testNavigationVC];
     [self addChildViewController:nav4];
+    
+    WFGestureViewController *gestureVC = [[WFGestureViewController alloc] init];
+    gestureVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:4];
+    WFMainNavigationViewController *nav5 = [[WFMainNavigationViewController alloc] initWithRootViewController:gestureVC];
+    [self addChildViewController:nav5];
     
     NSString *string = @"asdfg";
     for (NSInteger i = string.length; i > 0; i --) {
