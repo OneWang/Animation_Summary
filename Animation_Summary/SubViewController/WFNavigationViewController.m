@@ -8,6 +8,7 @@
 
 #import "WFNavigationViewController.h"
 #import "WFNavigationSubViewController.h"
+#import "WFFlexibleButton.h"
 
 @interface WFNavigationViewController ()
 
@@ -19,6 +20,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view.
+    
+    WFFlexibleButton *button = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(10, 50, 50, 50)];
+    [self.view addSubview:button];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
