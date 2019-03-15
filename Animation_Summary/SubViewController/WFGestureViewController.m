@@ -7,7 +7,7 @@
 //
 
 #import "WFGestureViewController.h"
-#import "WFGestureView.h"
+#import "WFCardContentView.h"
 
 @interface WFGestureViewController ()
 

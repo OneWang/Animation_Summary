@@ -29,6 +29,20 @@
     self.navigationItem.title = @"动画";
 //    [self createDisplayView];    
     [self creatHeaderDragAnimation];
+    
+    NSDate *today = [NSDate date];
+    NSDate *compareDay = nil;
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *beginDate = @"2019-03-15 18:23:12";
+    if (beginDate) {
+        compareDay = [dateFormater dateFromString:beginDate];
+        if ([compareDay compare:today] == NSOrderedDescending) {
+            NSLog(@"%@小于%@",compareDay,today);
+        }
+    }
+
 }
 
 #pragma mark - 曲线动画
