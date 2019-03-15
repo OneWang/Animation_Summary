@@ -9,6 +9,12 @@
 #import "WFCardContainerView.h"
 #import "WFCardContentView.h"
 
+static const NSInteger kCardVisibleCount = 3;
+
+@interface WFCardContainerView ()
+
+@end
+
 @implementation WFCardContainerView
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -19,7 +25,13 @@
 }
 
 - (void)p_createChildViews{
-    
+    if (_dataSource && [_dataSource respondsToSelector:@selector(numberOfCountsInContainerView:)] && [_dataSource respondsToSelector:@selector(cardContainView:cardForAtIndex:)]) {
+        NSInteger count = [_dataSource numberOfCountsInContainerView:self];
+        NSInteger showCount = count <= kCardVisibleCount ? count : kCardVisibleCount;
+        if (count) {
+            
+        }
+    }
 }
 
 @end
