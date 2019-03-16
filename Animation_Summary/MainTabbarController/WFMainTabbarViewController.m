@@ -12,7 +12,7 @@
 #import "WFMainNavigationViewController.h"
 #import "WFChartViewController.h"
 #import "WFNavigationViewController.h"
-#import "WFGestureViewController.h"
+#import "WFCardAnimationViewController.h"
 
 @interface WFMainTabbarViewController ()
 
@@ -44,7 +44,7 @@
     WFMainNavigationViewController *nav4 = [[WFMainNavigationViewController alloc] initWithRootViewController:testNavigationVC];
     [self addChildViewController:nav4];
     
-    WFGestureViewController *gestureVC = [[WFGestureViewController alloc] init];
+    WFCardAnimationViewController *gestureVC = [[WFCardAnimationViewController alloc] init];
     gestureVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMore tag:4];
     WFMainNavigationViewController *nav5 = [[WFMainNavigationViewController alloc] initWithRootViewController:gestureVC];
     [self addChildViewController:nav5];

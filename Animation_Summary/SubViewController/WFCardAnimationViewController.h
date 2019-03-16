@@ -1,5 +1,5 @@
 //
-//  WFGestureViewController.h
+//  WFCardAnimationViewController.h
 //  Animation_Summary
 //
 //  Created by Jack on 2019/3/11.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WFGestureViewController : UIViewController
+@interface WFCardAnimationViewController : UIViewController
 
 @end
 
