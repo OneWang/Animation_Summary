@@ -20,12 +20,6 @@ static const CGFloat kSecondCardViewScale = 1.04f;
 ///卡片之间的距离
 static const CGFloat kCardViewDistance = 15.f;
 
-typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
-    WFCardContainerViewDragDefault     = 0,
-    WFCardContainerViewDragLeft        = 1 << 0,
-    WFCardContainerViewDragRight       = 1 << 1
-};
-
 @interface WFCardContainerView ()
 
 /** 当前加载的第几个卡片 */
@@ -121,7 +115,12 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
 
 #pragma mark - target action
 - (void)p_tapCardView:(UITapGestureRecognizer *)tapGesture{
-    
+    CGPoint touchPoint = [tapGesture locationInView:self];
+    if (touchPoint.x > K_Screen_Width * 0.5) {
+        NSLog(@"点击右边");
+    }else{
+        NSLog(@"点击左边");
+    }
 }
 
 - (void)p_panCardView:(UIPanGestureRecognizer *)panGesture{
@@ -134,9 +133,7 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
         cardView.center = movintPoint;
         cardView.transform = CGAffineTransformRotate(cardView.originalTransform, (panGesture.view.origin.x - self.cardCenterPoint.x) / self.cardCenterPoint.x * (M_PI_4 / 12));
         [panGesture setTranslation:CGPointZero inView:self];
-        NSLog(@"%@",NSStringFromCGPoint(movintPoint));
         float widthRatio = (panGesture.view.center.x - self.cardCenterPoint.x) / self.cardCenterPoint.x;
-//        float heightRatio = (panGesture.view.center.y - self.cardCenterPoint.y) / self.cardCenterPoint.y;
         
         [self p_handleDifferentDirection:widthRatio];
         
@@ -147,12 +144,15 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
         } else if (widthRatio == 0) {
             self.dragDirection = WFCardContainerViewDragDefault;
         }
-    }
-    if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
+        if ([self.delegate respondsToSelector:@selector(cardContainerView:dragDirection:)]) {
+            [self.delegate cardContainerView:self dragDirection:self.dragDirection];
+        }
+    }else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
         float widthRatio = (panGesture.view.center.x - self.cardCenterPoint.x) / self.cardCenterPoint.x;
-        float moveWidth  = (panGesture.view.center.x  - self.cardCenterPoint.x);
+        float moveWidth  = (panGesture.view.center.x - self.cardCenterPoint.x);
         float moveHeight = (panGesture.view.center.y - self.cardCenterPoint.y);
         WFCardContentView *cardView = (WFCardContentView *)panGesture.view;
+        NSLog(@"%f",fabs(widthRatio));
         [self p_finishedPanGesture:cardView direction:self.dragDirection scale:(moveWidth / moveHeight) disappear:fabs(widthRatio) > 0.5];
     }
 }

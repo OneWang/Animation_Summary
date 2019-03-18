@@ -10,10 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
+    WFCardContainerViewDragDefault     = 0,
+    WFCardContainerViewDragLeft        = 1 << 0,
+    WFCardContainerViewDragRight       = 1 << 1
+};
+
 @class WFCardContainerView,WFCardContentView;
 @protocol WFCardContainerViewDelegate <NSObject>
 
-//- (void)
+- (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction;
 
 @end
 
@@ -21,7 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)numberOfCountsInContainerView:(WFCardContainerView *)containView;
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (WFCardContentView *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index;
 
 @end
