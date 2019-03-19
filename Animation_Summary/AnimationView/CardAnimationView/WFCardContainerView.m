@@ -129,21 +129,38 @@ static const CGFloat kCardViewDistance = 15.f;
     }else if (panGesture.state == UIGestureRecognizerStateChanged){
         WFCardContentView *cardView = (WFCardContentView *)panGesture.view;
         CGPoint point = [panGesture translationInView:self];
+        CGPoint beginPoint = [panGesture locationInView:self];
+        //点击位置偏上
+        BOOL isUp = beginPoint.y < (cardView.height * 0.5);
         CGPoint movintPoint = CGPointMake(panGesture.view.center.x + point.x, panGesture.view.center.y + point.y);
         cardView.center = movintPoint;
-        cardView.transform = CGAffineTransformRotate(cardView.originalTransform, (panGesture.view.origin.x - self.cardCenterPoint.x) / self.cardCenterPoint.x * (M_PI_4 / 12));
         [panGesture setTranslation:CGPointZero inView:self];
         float widthRatio = (panGesture.view.center.x - self.cardCenterPoint.x) / self.cardCenterPoint.x;
         
-        [self p_handleDifferentDirection:widthRatio];
+        [self p_handleDifferentScale:widthRatio];
         
-        if (widthRatio > 0) {
+        CGFloat roation = 0.f;
+        if (widthRatio > 0) { //喜欢
             self.dragDirection = WFCardContainerViewDragRight;
-        } if (widthRatio < 0) {
+            if (isUp) {
+                roation = M_PI_2;
+            }else{
+                roation = -M_PI_2;
+            }
+        } if (widthRatio < 0) { //讨厌
             self.dragDirection = WFCardContainerViewDragLeft;
+            if (isUp) {
+                roation = -M_PI_2;
+            }else{
+                roation = M_PI_2;
+            }
         } else if (widthRatio == 0) {
             self.dragDirection = WFCardContainerViewDragDefault;
         }
+        
+        CGFloat ratio = (movintPoint.x - K_Screen_Width * 0.5) / K_Screen_Width;
+        cardView.transform = CGAffineTransformRotate(cardView.originalTransform, ratio * roation * 0.1);
+        
         if ([self.delegate respondsToSelector:@selector(cardContainerView:dragDirection:)]) {
             [self.delegate cardContainerView:self dragDirection:self.dragDirection];
         }
@@ -182,7 +199,7 @@ static const CGFloat kCardViewDistance = 15.f;
     }
 }
 
-- (void)p_handleDifferentDirection:(CGFloat)scale{
+- (void)p_handleDifferentScale:(CGFloat)scale{
     if (!self.isMoving) {
         self.isMoving = YES;
         [self p_createChildViews];

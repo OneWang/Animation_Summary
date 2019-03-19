@@ -40,5 +40,8 @@
     return view;
 }
 
+- (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction{
+    
+}
 
 @end
