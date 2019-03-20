@@ -11,7 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WFCardContentView : UIView
-@property (nonatomic, assign) CGAffineTransform originalTransform;
+
+@property (nonatomic, readonly, copy, nullable) NSString *reuseIdentifier;
+
+- (instancetype)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)identifier NS_DESIGNATED_INITIALIZER;
+
 @end
 
 NS_ASSUME_NONNULL_END

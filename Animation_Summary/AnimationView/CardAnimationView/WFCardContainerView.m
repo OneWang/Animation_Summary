@@ -36,6 +36,8 @@ static const CGFloat kCardViewDistance = 15.f;
 @property (nonatomic, assign) CGPoint cardCenterPoint;
 /** 滑动的方向 */
 @property (nonatomic, assign) WFCardContainerViewDragDirection dragDirection;
+/** 缓存 */
+@property (nonatomic, strong) NSCache *containersCache;
 
 @end
 
@@ -46,6 +48,11 @@ static const CGFloat kCardViewDistance = 15.f;
     [self p_resetCardViewsLayout];
 }
 
+- (WFCardContentView *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier{
+    return [self.containersCache objectForKey:identifier];
+}
+
+#pragma mark - private method
 - (void)p_createChildViews{
     if (_dataSource && [_dataSource respondsToSelector:@selector(numberOfCountsInContainerView:)] && [_dataSource respondsToSelector:@selector(cardContainView:cardForAtIndex:)]) {
         NSInteger count = [_dataSource numberOfCountsInContainerView:self];
@@ -65,10 +72,8 @@ static const CGFloat kCardViewDistance = 15.f;
                 [self addSubview:cardView];
                 [self sendSubviewToBack:cardView];
                 cardView.tag = self.loadingIndex;
-                ///缓存当前的cardview
                 [self.currentCardArray addObject:cardView];
                 
-                ///添加手势
                 UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_tapCardView:)];
                 [cardView addGestureRecognizer:tapGesture];
                 
@@ -109,7 +114,6 @@ static const CGFloat kCardViewDistance = 15.f;
                 self.lastFrame = frame;
             }
         }
-        cardView.originalTransform = cardView.transform;
     }];
 }
 
@@ -159,8 +163,8 @@ static const CGFloat kCardViewDistance = 15.f;
         }
         
         CGFloat ratio = (movintPoint.x - K_Screen_Width * 0.5) / K_Screen_Width;
-        cardView.transform = CGAffineTransformRotate(cardView.originalTransform, ratio * roation * 0.1);
-        
+        cardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, ratio * roation * 0.1);
+        NSLog(@"%@",cardView);
         if ([self.delegate respondsToSelector:@selector(cardContainerView:dragDirection:)]) {
             [self.delegate cardContainerView:self dragDirection:self.dragDirection];
         }
@@ -169,7 +173,6 @@ static const CGFloat kCardViewDistance = 15.f;
         float moveWidth  = (panGesture.view.center.x - self.cardCenterPoint.x);
         float moveHeight = (panGesture.view.center.y - self.cardCenterPoint.y);
         WFCardContentView *cardView = (WFCardContentView *)panGesture.view;
-        NSLog(@"%f",fabs(widthRatio));
         [self p_finishedPanGesture:cardView direction:self.dragDirection scale:(moveWidth / moveHeight) disappear:fabs(widthRatio) > 0.5];
     }
 }
@@ -192,6 +195,8 @@ static const CGFloat kCardViewDistance = 15.f;
             cardView.center = CGPointMake(K_Screen_Width * flag, K_Screen_Width * flag / scale + self.cardCenterPoint.y);
         } completion:^(BOOL finished) {
             [cardView removeFromSuperview];
+            cardView.transform = CGAffineTransformIdentity;
+            [self.containersCache setObject:cardView forKey:cardView.reuseIdentifier];
         }];
         [self.currentCardArray removeObject:cardView];
         self.isMoving = NO;
@@ -233,6 +238,13 @@ static const CGFloat kCardViewDistance = 15.f;
         _currentCardArray = [NSMutableArray array];
     }
     return _currentCardArray;
+}
+
+- (NSCache *)containersCache{
+    if (!_containersCache) {
+        _containersCache = [[NSCache alloc] init];
+    }
+    return _containersCache;
 }
 
 @end

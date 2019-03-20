@@ -88,10 +88,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identif = @"refresh";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identif];
+    static NSString *identifier = @"refresh";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identif];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"第%ld行",(long)indexPath.row];
     return cell;

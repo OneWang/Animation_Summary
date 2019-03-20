@@ -36,7 +36,11 @@
 }
 
 - (WFCardContentView *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index{
-    WFCardContentView *view = [[WFCardContentView alloc] initWithFrame:containView.bounds];
+    static NSString * const idenfitier = @"WFCardContainerView";
+    WFCardContentView *view = [containView dequeueReusableCardContentViewWithIdentifier:idenfitier];
+    if (!view) {
+        view = [[WFCardContentView alloc] initWithFrame:containView.bounds reuseIdentifier:idenfitier];
+    }
     return view;
 }
 

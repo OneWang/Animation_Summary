@@ -8,13 +8,26 @@
 
 #import "WFCardContentView.h"
 
+@interface WFCardContentView ()
+
+@end
+
 @implementation WFCardContentView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)identifier{
     if (self = [super initWithFrame:frame]) {
+        _reuseIdentifier = identifier;
         [self p_createChildViews];
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    return [self initWithFrame:self.frame reuseIdentifier:self.reuseIdentifier];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    return [self initWithFrame:self.frame reuseIdentifier:self.reuseIdentifier];
 }
 
 - (void)p_createChildViews{
