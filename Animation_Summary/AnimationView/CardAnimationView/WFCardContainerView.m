@@ -247,4 +247,9 @@ static const CGFloat kCardViewDistance = 15.f;
     return _containersCache;
 }
 
+- (void)setDataSource:(id<WFCardContainerViewDataSource>)dataSource{
+    _dataSource = dataSource;
+    [self reloadData];
+}
+
 @end

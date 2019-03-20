@@ -20,7 +20,6 @@
     self.container = [[WFCardContainerView alloc] initWithFrame:CGRectMake(0, 88, K_Screen_Width, K_Screen_Height)];
     self.container.delegate = self;
     self.container.dataSource = self;
-    [_container reloadData];
     [self.view addSubview:self.container];
 }
 
