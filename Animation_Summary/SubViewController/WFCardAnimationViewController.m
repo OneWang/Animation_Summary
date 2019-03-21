@@ -7,8 +7,9 @@
 //
 
 #import "WFCardAnimationViewController.h"
-#import "WFCardContentView.h"
+#import "WFCardContentCell.h"
 #import "WFCardContainerView.h"
+#import "WFCardTestCell.h"
 
 @interface WFCardAnimationViewController ()<WFCardContainerViewDelegate,WFCardContainerViewDataSource>
 @property (nonatomic, strong) WFCardContainerView *container;
@@ -34,13 +35,22 @@
     return 10;
 }
 
-- (WFCardContentView *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index{
+- (WFCardContentCell *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index{
     static NSString * const idenfitier = @"WFCardContainerView";
-    WFCardContentView *view = [containView dequeueReusableCardContentViewWithIdentifier:idenfitier];
+    WFCardTestCell *view = [containView dequeueReusableCardContentViewWithIdentifier:idenfitier];
     if (!view) {
-        view = [[WFCardContentView alloc] initWithFrame:containView.bounds reuseIdentifier:idenfitier];
+        view = [[WFCardTestCell alloc] initWithStyle:WFCardContentCellStyleDefault reuseIdentifier:idenfitier];
     }
+    view.text = [NSString stringWithFormat:@"奥迪%zd",index];
     return view;
+}
+
+- (CGSize)cardContainerView:(WFCardContainerView *)containerView sizeForCardAtIndex:(NSInteger)index{
+    if (index == 0) {
+        return CGSizeMake(100, 100);
+    }else{
+        return CGSizeMake(200, 200);
+    }
 }
 
 - (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction{

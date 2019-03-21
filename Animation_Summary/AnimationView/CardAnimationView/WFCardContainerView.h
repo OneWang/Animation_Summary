@@ -16,18 +16,20 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
     WFCardContainerViewDragRight       = 1 << 1
 };
 
-@class WFCardContainerView,WFCardContentView;
+@class WFCardContainerView,WFCardContentCell;
 @protocol WFCardContainerViewDelegate <NSObject>
 @optional
 - (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction;
 
+- (CGSize)cardContainerView:(WFCardContainerView *)containerView sizeForCardAtIndex:(NSInteger)index;
+
 @end
 
 @protocol WFCardContainerViewDataSource <NSObject>
-
+@required
 - (NSInteger)numberOfCountsInContainerView:(WFCardContainerView *)containView;
 
-- (WFCardContentView *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index;
+- (WFCardContentCell *)cardContainView:(WFCardContainerView *)containView cardForAtIndex:(NSInteger)index;
 
 @end
 
@@ -37,7 +39,7 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
 @property (nonatomic, weak, nullable) id<WFCardContainerViewDelegate> delegate;
 
 - (void)reloadData;
-- (WFCardContentView *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier;
+- (nullable __kindof WFCardContentCell *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier;
 
 @end
 

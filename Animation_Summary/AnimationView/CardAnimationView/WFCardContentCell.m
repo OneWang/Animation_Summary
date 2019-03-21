@@ -1,33 +1,34 @@
 //
-//  WFCardContentView.m
+//  WFCardContentCell.m
 //  Animation_Summary
 //
 //  Created by Jack on 2019/3/11.
 //  Copyright © 2019 Jack. All rights reserved.
 //
 
-#import "WFCardContentView.h"
+#import "WFCardContentCell.h"
 
-@interface WFCardContentView ()
-
+@interface WFCardContentCell ()
+@property (nonatomic, assign) WFCardContentCellStyle style;
 @end
 
-@implementation WFCardContentView
+@implementation WFCardContentCell
 
-- (instancetype)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)identifier{
-    if (self = [super initWithFrame:frame]) {
+- (instancetype)initWithStyle:(WFCardContentCellStyle)style reuseIdentifier:(NSString *)identifier{
+    if (self = [super initWithFrame:self.frame]) {
         _reuseIdentifier = identifier;
+        _style = style;
         [self p_createChildViews];
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
-    return [self initWithFrame:self.frame reuseIdentifier:self.reuseIdentifier];
+    return [self initWithStyle:_style reuseIdentifier:_reuseIdentifier];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
-    return [self initWithFrame:self.frame reuseIdentifier:self.reuseIdentifier];
+    return [self initWithStyle:_style reuseIdentifier:_reuseIdentifier];
 }
 
 - (void)p_createChildViews{

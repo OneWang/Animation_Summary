@@ -7,7 +7,7 @@
 //
 
 #import "WFCardContainerView.h"
-#import "WFCardContentView.h"
+#import "WFCardContentCell.h"
 #import "UIView+WFExtension.h"
 
 ///可显示卡片数目
@@ -25,7 +25,7 @@ static const CGFloat kCardViewDistance = 15.f;
 /** 当前加载的第几个卡片 */
 @property (nonatomic, assign) NSInteger loadingIndex;
 /** 当前显示的卡片view */
-@property (nonatomic, strong) NSMutableArray<WFCardContentView *> *currentCardArray;
+@property (nonatomic, strong) NSMutableArray<WFCardContentCell *> *currentCardArray;
 /** 当前是否在拖动 */
 @property (nonatomic, assign) BOOL isMoving;
 /** 第一个card的frame */
@@ -48,7 +48,7 @@ static const CGFloat kCardViewDistance = 15.f;
     [self p_resetCardViewsLayout];
 }
 
-- (WFCardContentView *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier{
+- (nullable __kindof WFCardContentCell *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier{
     return [self.containersCache objectForKey:identifier];
 }
 
@@ -59,8 +59,13 @@ static const CGFloat kCardViewDistance = 15.f;
         NSInteger showCount = count <= kCardVisibleCount ? count : kCardVisibleCount;
         if (_loadingIndex < count) {
             for (NSInteger i = self.currentCardArray.count; i < (self.isMoving ? showCount + 1 : showCount); i ++) {
-                WFCardContentView *cardView = [self.dataSource cardContainView:self cardForAtIndex:self.loadingIndex];
-                cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, self.width - kContainerViewMerge * 2, self.width - kContainerViewMerge * 2);
+                WFCardContentCell *cardView = [self.dataSource cardContainView:self cardForAtIndex:self.loadingIndex];
+                if (_delegate && [_delegate respondsToSelector:@selector(cardContainerView:sizeForCardAtIndex:)]) {
+                    CGSize size = [_delegate cardContainerView:self sizeForCardAtIndex:self.loadingIndex];
+                    cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, size.width, size.height);
+                }else{
+                    cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, self.width - kContainerViewMerge * 2, self.width - kContainerViewMerge * 2);
+                }
                 if (self.loadingIndex >= 3) {
                     cardView.frame = self.lastFrame;
                 }else{
@@ -97,7 +102,7 @@ static const CGFloat kCardViewDistance = 15.f;
 }
 
 - (void)p_resetCardViewsLayout{
-    [self.currentCardArray enumerateObjectsUsingBlock:^(WFCardContentView * _Nonnull cardView, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.currentCardArray enumerateObjectsUsingBlock:^(WFCardContentCell * _Nonnull cardView, NSUInteger idx, BOOL * _Nonnull stop) {
         cardView.transform = CGAffineTransformIdentity;
         CGRect frame = self.firstFrame;
         if (idx == 0) {
@@ -106,10 +111,12 @@ static const CGFloat kCardViewDistance = 15.f;
         }else if (idx == 1){
             frame.origin.y = frame.origin.y + kCardViewDistance;
             cardView.frame = frame;
+//            cardView.top = cardView.top + kCardViewDistance;
             cardView.transform = CGAffineTransformScale(CGAffineTransformIdentity, kSecondCardViewScale, kSecondCardViewScale);
         }else if (idx == 2){
             frame.origin.y = frame.origin.y + kCardViewDistance * 2;
             cardView.frame = frame;
+//            cardView.top = cardView.top + kCardViewDistance;
             if (CGRectIsEmpty(self.lastFrame)) {
                 self.lastFrame = frame;
             }
@@ -131,7 +138,7 @@ static const CGFloat kCardViewDistance = 15.f;
     if (panGesture.state == UIGestureRecognizerStateBegan) {
         
     }else if (panGesture.state == UIGestureRecognizerStateChanged){
-        WFCardContentView *cardView = (WFCardContentView *)panGesture.view;
+        WFCardContentCell *cardView = (WFCardContentCell *)panGesture.view;
         CGPoint point = [panGesture translationInView:self];
         CGPoint beginPoint = [panGesture locationInView:self];
         //点击位置偏上
@@ -172,16 +179,16 @@ static const CGFloat kCardViewDistance = 15.f;
         float widthRatio = (panGesture.view.center.x - self.cardCenterPoint.x) / self.cardCenterPoint.x;
         float moveWidth  = (panGesture.view.center.x - self.cardCenterPoint.x);
         float moveHeight = (panGesture.view.center.y - self.cardCenterPoint.y);
-        WFCardContentView *cardView = (WFCardContentView *)panGesture.view;
+        WFCardContentCell *cardView = (WFCardContentCell *)panGesture.view;
         [self p_finishedPanGesture:cardView direction:self.dragDirection scale:(moveWidth / moveHeight) disappear:fabs(widthRatio) > 0.5];
     }
 }
 
-- (void)p_finishedPanGesture:(WFCardContentView *)cardView direction:(WFCardContainerViewDragDirection)direction scale:(CGFloat)scale disappear:(BOOL)disappear {
+- (void)p_finishedPanGesture:(WFCardContentCell *)cardView direction:(WFCardContainerViewDragDirection)direction scale:(CGFloat)scale disappear:(BOOL)disappear {
     if (!disappear) {
         if (self.dataSource && [self.dataSource respondsToSelector:@selector(numberOfCountsInContainerView:)]) {
             if (self.isMoving && self.loadingIndex < [self.dataSource numberOfCountsInContainerView:self]) {
-                WFCardContentView *lastView = self.currentCardArray.lastObject;
+                WFCardContentCell *lastView = self.currentCardArray.lastObject;
                 self.loadingIndex = lastView.tag;
                 [lastView removeFromSuperview];
                 [self.currentCardArray removeObject:lastView];
@@ -219,7 +226,7 @@ static const CGFloat kCardViewDistance = 15.f;
     CGFloat tPoor = sPoor / (0.5 / scale);
     CGFloat yPoor = kCardViewDistance / (0.5 / scale);
     
-    [self.currentCardArray enumerateObjectsUsingBlock:^(WFCardContentView * _Nonnull cardView, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.currentCardArray enumerateObjectsUsingBlock:^(WFCardContentCell * _Nonnull cardView, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 1) {
             CGAffineTransform scale = CGAffineTransformScale(CGAffineTransformIdentity, tPoor + kSecondCardViewScale, tPoor + kSecondCardViewScale);
             CGAffineTransform translate = CGAffineTransformTranslate(scale, 0, -yPoor);
@@ -233,7 +240,7 @@ static const CGFloat kCardViewDistance = 15.f;
 }
 
 #pragma mark - setter and getter
-- (NSMutableArray<WFCardContentView *> *)currentCardArray{
+- (NSMutableArray<WFCardContentCell *> *)currentCardArray{
     if (!_currentCardArray) {
         _currentCardArray = [NSMutableArray array];
     }

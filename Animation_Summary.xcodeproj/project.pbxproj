@@ -18,6 +18,7 @@
 		04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558843207B58980052D9B8 /* WFPopAnimation.m */; };
 		0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558849207B6A990052D9B8 /* WFMainNavigationViewController.m */; };
 		0455884D207B6C8C0052D9B8 /* WFSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455884C207B6C8C0052D9B8 /* WFSubViewController.m */; };
+		045B35D92243C5D80059F3B8 /* WFCardTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B35D82243C5D80059F3B8 /* WFCardTestCell.m */; };
 		0495B9DC206E1E5400346289 /* WFMainTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9DA206E1E5400346289 /* WFMainTabbarViewController.m */; };
 		0495B9DF206E1E7A00346289 /* WFWaveHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9DE206E1E7A00346289 /* WFWaveHeader.m */; };
 		0495B9E2206E1FB400346289 /* WFProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495B9E1206E1FB400346289 /* WFProgressViewController.m */; };
@@ -25,7 +26,7 @@
 		04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04983E1E2085F4F4006836E7 /* WFChartViewController.m */; };
 		04A6D350206C920C005A531B /* WFElasticityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6D34F206C920C005A531B /* WFElasticityView.m */; };
 		04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B92FE2206B417500FECA45 /* WFDisplayView.m */; };
-		04BD359622369D490063A1CD /* WFCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BD359522369D490063A1CD /* WFCardContentView.m */; };
+		04BD359622369D490063A1CD /* WFCardContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BD359522369D490063A1CD /* WFCardContentCell.m */; };
 		04BD359922369EA60063A1CD /* WFCardAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BD359822369EA60063A1CD /* WFCardAnimationViewController.m */; };
 		04D65E13208044B40016D23E /* WFPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E12208044B40016D23E /* WFPieChartView.m */; };
 		04D65E16208061230016D23E /* WFPieChartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D65E15208061230016D23E /* WFPieChartItem.m */; };
@@ -61,6 +62,8 @@
 		04558849207B6A990052D9B8 /* WFMainNavigationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFMainNavigationViewController.m; sourceTree = "<group>"; };
 		0455884B207B6C8C0052D9B8 /* WFSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSubViewController.h; sourceTree = "<group>"; };
 		0455884C207B6C8C0052D9B8 /* WFSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSubViewController.m; sourceTree = "<group>"; };
+		045B35D72243C5D80059F3B8 /* WFCardTestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCardTestCell.h; sourceTree = "<group>"; };
+		045B35D82243C5D80059F3B8 /* WFCardTestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCardTestCell.m; sourceTree = "<group>"; };
 		0495B9DA206E1E5400346289 /* WFMainTabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMainTabbarViewController.m; sourceTree = "<group>"; };
 		0495B9DB206E1E5400346289 /* WFMainTabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMainTabbarViewController.h; sourceTree = "<group>"; };
 		0495B9DD206E1E7A00346289 /* WFWaveHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWaveHeader.h; sourceTree = "<group>"; };
@@ -76,8 +79,8 @@
 		04B92FE1206B417500FECA45 /* WFDisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFDisplayView.h; sourceTree = "<group>"; };
 		04B92FE2206B417500FECA45 /* WFDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFDisplayView.m; sourceTree = "<group>"; };
 		04B92FE4206B42FD00FECA45 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		04BD359422369D490063A1CD /* WFCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCardContentView.h; sourceTree = "<group>"; };
-		04BD359522369D490063A1CD /* WFCardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCardContentView.m; sourceTree = "<group>"; };
+		04BD359422369D490063A1CD /* WFCardContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCardContentCell.h; sourceTree = "<group>"; };
+		04BD359522369D490063A1CD /* WFCardContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCardContentCell.m; sourceTree = "<group>"; };
 		04BD359722369EA60063A1CD /* WFCardAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFCardAnimationViewController.h; sourceTree = "<group>"; };
 		04BD359822369EA60063A1CD /* WFCardAnimationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCardAnimationViewController.m; sourceTree = "<group>"; };
 		04CA49FE2067CCF3004693FC /* AnimationSummary */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnimationSummary; sourceTree = "<group>"; };
@@ -240,10 +243,12 @@
 		04BD359322369D160063A1CD /* CardAnimationView */ = {
 			isa = PBXGroup;
 			children = (
-				04BD359422369D490063A1CD /* WFCardContentView.h */,
-				04BD359522369D490063A1CD /* WFCardContentView.m */,
+				04BD359422369D490063A1CD /* WFCardContentCell.h */,
+				04BD359522369D490063A1CD /* WFCardContentCell.m */,
 				AAD03C30223B4D6C0037D498 /* WFCardContainerView.h */,
 				AAD03C31223B4D6C0037D498 /* WFCardContainerView.m */,
+				045B35D72243C5D80059F3B8 /* WFCardTestCell.h */,
+				045B35D82243C5D80059F3B8 /* WFCardTestCell.m */,
 			);
 			path = CardAnimationView;
 			sourceTree = "<group>";
@@ -339,11 +344,12 @@
 				04BD359922369EA60063A1CD /* WFCardAnimationViewController.m in Sources */,
 				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
 				AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */,
+				045B35D92243C5D80059F3B8 /* WFCardTestCell.m in Sources */,
 				AA826413212EBD0200E0FC10 /* WFPresentationController.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				04EE61A22197FEC10048E442 /* WFNavigationSubViewController.m in Sources */,
-				04BD359622369D490063A1CD /* WFCardContentView.m in Sources */,
+				04BD359622369D490063A1CD /* WFCardContentCell.m in Sources */,
 				0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */,
 				04D65E13208044B40016D23E /* WFPieChartView.m in Sources */,
 				04EE619F2197FDC30048E442 /* WFNavigationViewController.m in Sources */,
