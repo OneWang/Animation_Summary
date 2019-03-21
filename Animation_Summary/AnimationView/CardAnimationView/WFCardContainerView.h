@@ -18,7 +18,7 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
 
 @class WFCardContainerView,WFCardContentView;
 @protocol WFCardContainerViewDelegate <NSObject>
-
+@optional
 - (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction;
 
 @end
