@@ -37,6 +37,7 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
 @property (nonatomic, weak, nullable) id<WFCardContainerViewDelegate> delegate;
 
 - (void)reloadData;
+- (WFCardContentView *)dequeueReusableCardContentViewWithIdentifier:(NSString *)identifier;
 
 @end
 
