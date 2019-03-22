@@ -109,11 +109,11 @@ static const CGFloat kCardViewDistance = 15.f;
             cardView.frame = frame;
             cardView.transform = CGAffineTransformScale(CGAffineTransformIdentity, kFirstCardViewScale, kFirstCardViewScale);
         }else if (idx == 1){
-            frame.origin.y = frame.origin.y + kCardViewDistance;
+            frame.origin.y = frame.origin.y + (self.cardSpace ? self.cardSpace : kCardViewDistance);
             cardView.frame = frame;
             cardView.transform = CGAffineTransformScale(CGAffineTransformIdentity, kSecondCardViewScale, kSecondCardViewScale);
         }else if (idx == 2){
-            frame.origin.y = frame.origin.y + kCardViewDistance * 2;
+            frame.origin.y = frame.origin.y + (self.cardSpace ? self.cardSpace : kCardViewDistance) * 2;
             cardView.frame = frame;
             if (CGRectIsEmpty(self.lastFrame)) {
                 self.lastFrame = frame;

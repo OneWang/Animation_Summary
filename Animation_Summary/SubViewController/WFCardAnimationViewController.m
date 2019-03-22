@@ -19,6 +19,7 @@
 
 - (void)loadUI {
     self.container = [[WFCardContainerView alloc] initWithFrame:CGRectMake(0, 88, K_Screen_Width, K_Screen_Height)];
+    self.container.cardSpace = 40;
     self.container.delegate = self;
     self.container.dataSource = self;
     [self.view addSubview:self.container];
@@ -45,13 +46,9 @@
     return view;
 }
 
-- (CGSize)cardContainerView:(WFCardContainerView *)containerView sizeForCardAtIndex:(NSInteger)index{
-    if (index == 0) {
-        return CGSizeMake(100, 100);
-    }else{
-        return CGSizeMake(200, 200);
-    }
-}
+//- (CGSize)cardContainerView:(WFCardContainerView *)containerView sizeForCardAtIndex:(NSInteger)index{
+//    return CGSizeMake(100, 100);
+//}
 
 - (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction{
     
