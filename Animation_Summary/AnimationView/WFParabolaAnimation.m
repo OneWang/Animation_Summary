@@ -7,12 +7,75 @@
 //
 
 #import "WFParabolaAnimation.h"
-#import <UIKit/UIKit.h>
 
 @implementation WFParabolaAnimation
 
-+ (void)addParabolaAnimation:(UIView *)animationView startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint{
++ (void)addParabolaAnimation:(UIImage *)animationView startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint completion:(void (^)(BOOL))completion{
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.contents = (id)animationView.CGImage;
+    shapeLayer.frame = CGRectMake(startPoint.x - 20, startPoint.y - 20, 40, 40);
     
+    UIViewController *currentVC = [self getCurrentVC];
+    [currentVC.view.layer addSublayer:shapeLayer];
+    
+    //------- 创建移动轨迹 -------//
+    UIBezierPath *movePath = [UIBezierPath bezierPath];
+    [movePath moveToPoint:startPoint];
+    [movePath addQuadCurveToPoint:endPoint controlPoint:CGPointMake(200,100)];
+    // 轨迹动画
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    CGFloat durationTime = 1; // 动画时间1秒
+    pathAnimation.duration = durationTime;
+    pathAnimation.removedOnCompletion = NO;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.path = movePath.CGPath;
+    
+    //------- 创建缩小动画 -------//
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:0.5];
+    scaleAnimation.duration = 1.0;
+    scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    scaleAnimation.removedOnCompletion = NO;
+    scaleAnimation.fillMode = kCAFillModeForwards;
+    
+    // 添加轨迹动画
+    [shapeLayer addAnimation:pathAnimation forKey:nil];
+    // 添加缩小动画
+    [shapeLayer addAnimation:scaleAnimation forKey:nil];
+    
+    //------- 动画结束后执行 -------//
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(durationTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [shapeLayer removeFromSuperlayer];
+        completion(YES);
+    });
 }
+
++ (UIViewController *)getCurrentVC {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    return currentVC;
+}
+
++ (UIViewController *)getCurrentVCFrom:(UIViewController*)rootVC {
+    UIViewController *currentVC;
+    if([rootVC presentedViewController]) {
+        // 视图是被presented出来的
+        rootVC = [rootVC presentedViewController];
+    }
+    
+    if([rootVC isKindOfClass:[UITabBarController class]]) {
+        // 根视图为UITabBarController
+        currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
+    }else if([rootVC isKindOfClass:[UINavigationController class]]){
+        // 根视图为UINavigationController
+        currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
+    }else{
+        // 根视图为非导航类
+        currentVC = rootVC;
+    }
+    return currentVC;
+}
+
 
 @end

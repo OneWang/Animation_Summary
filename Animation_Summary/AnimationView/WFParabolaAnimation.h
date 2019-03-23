@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WFParabolaAnimation : NSObject
+
++ (void)addParabolaAnimation:(UIImage *)animationView startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint completion:(void (^)(BOOL))completion;
 
 @end
 
