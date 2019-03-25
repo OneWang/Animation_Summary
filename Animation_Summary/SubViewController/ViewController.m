@@ -39,10 +39,12 @@
     if (beginDate) {
         compareDay = [dateFormater dateFromString:beginDate];
         if ([compareDay compare:today] == NSOrderedDescending) {
+            NSLog(@"%@大于%@",compareDay,today);
+        }else if ([compareDay compare:today] == NSOrderedAscending){
             NSLog(@"%@小于%@",compareDay,today);
+        }else{
         }
     }
-
 }
 
 #pragma mark - 曲线动画

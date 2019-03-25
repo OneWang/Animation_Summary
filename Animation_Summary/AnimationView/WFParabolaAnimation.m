@@ -18,19 +18,16 @@
     UIViewController *currentVC = [self getCurrentVC];
     [currentVC.view.layer addSublayer:shapeLayer];
     
-    //------- 创建移动轨迹 -------//
     UIBezierPath *movePath = [UIBezierPath bezierPath];
     [movePath moveToPoint:startPoint];
     [movePath addQuadCurveToPoint:endPoint controlPoint:CGPointMake(200,100)];
-    // 轨迹动画
     CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    CGFloat durationTime = 1; // 动画时间1秒
+    CGFloat durationTime = 1;
     pathAnimation.duration = durationTime;
     pathAnimation.removedOnCompletion = NO;
     pathAnimation.fillMode = kCAFillModeForwards;
     pathAnimation.path = movePath.CGPath;
     
-    //------- 创建缩小动画 -------//
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
     scaleAnimation.toValue = [NSNumber numberWithFloat:0.5];
@@ -39,12 +36,9 @@
     scaleAnimation.removedOnCompletion = NO;
     scaleAnimation.fillMode = kCAFillModeForwards;
     
-    // 添加轨迹动画
     [shapeLayer addAnimation:pathAnimation forKey:nil];
-    // 添加缩小动画
     [shapeLayer addAnimation:scaleAnimation forKey:nil];
     
-    //------- 动画结束后执行 -------//
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(durationTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [shapeLayer removeFromSuperlayer];
         completion(YES);
