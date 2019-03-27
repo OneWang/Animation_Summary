@@ -40,7 +40,7 @@
     [self.addButton setTitle:@"加入购物车" forState:UIControlStateNormal];
     [self.addButton addTarget:self action:@selector(addButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.shoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 220 - 50 - 20, 550, 50, 50)];
+    self.shoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 220 - 50 - 120, 550, 50, 50)];
     [self.view addSubview:self.shoppingCartButton];
     [self.shoppingCartButton setImage:[UIImage imageNamed:@"cart"] forState:UIControlStateNormal];
     [self.shoppingCartButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
