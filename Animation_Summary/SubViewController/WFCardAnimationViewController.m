@@ -50,7 +50,7 @@
 //    return CGSizeMake(100, 100);
 //}
 
-- (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction{
+- (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction didSelectIndex:(NSInteger)index{
     
 }
 

@@ -169,10 +169,6 @@ static const CGFloat kCardViewDistance = 15.f;
         
         CGFloat ratio = (movintPoint.x - K_Screen_Width * 0.5) / K_Screen_Width;
         cardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, ratio * roation * 0.1);
-        NSLog(@"%@",cardView);
-        if ([self.delegate respondsToSelector:@selector(cardContainerView:dragDirection:)]) {
-            [self.delegate cardContainerView:self dragDirection:self.dragDirection];
-        }
     }else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
         float widthRatio = (panGesture.view.center.x - self.cardCenterPoint.x) / self.cardCenterPoint.x;
         float moveWidth  = (panGesture.view.center.x - self.cardCenterPoint.x);
@@ -206,6 +202,9 @@ static const CGFloat kCardViewDistance = 15.f;
         [self.currentCardArray removeObject:cardView];
         self.isMoving = NO;
         [self p_resetVisibleCardViews];
+        if ([self.delegate respondsToSelector:@selector(cardContainerView:dragDirection:didSelectIndex:)]) {
+            [self.delegate cardContainerView:self dragDirection:self.dragDirection didSelectIndex:cardView.tag];
+        }
     }
 }
 
