@@ -32,7 +32,7 @@
     NSMutableArray<UIView *> *snapshotArray = [NSMutableArray array];
     [sourceListArray enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *snapshotView = [obj snapshotViewAfterScreenUpdates:NO];
-        [snapshotView convertRect:obj.frame fromView:obj.superview];
+        snapshotView.frame = [containerView convertRect:obj.frame fromView:obj.superview];
         [snapshotArray addObject:snapshotView];
     }];
     
