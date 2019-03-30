@@ -14,6 +14,9 @@
 		0404BFEE20611BB70030EB23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFED20611BB70030EB23 /* main.m */; };
 		0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404BFF720611D200030EB23 /* WFCircleProgressView.m */; };
 		0404C0012062471A0030EB23 /* WFSphereWaveProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */; };
+		04092A13224F5BEA00299797 /* WFTransitionEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04092A12224F5BEA00299797 /* WFTransitionEnter.m */; };
+		04092A16224F5DB000299797 /* UIViewController+WFTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04092A15224F5DB000299797 /* UIViewController+WFTransitionAnimation.m */; };
+		04092A19224F65A500299797 /* WFTransitionExit.m in Sources */ = {isa = PBXBuildFile; fileRef = 04092A18224F65A500299797 /* WFTransitionExit.m */; };
 		0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449BA652084AE88007DA045 /* UIView+WFExtension.m */; };
 		04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558843207B58980052D9B8 /* WFPopAnimation.m */; };
 		0455884A207B6A990052D9B8 /* WFMainNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04558849207B6A990052D9B8 /* WFMainNavigationViewController.m */; };
@@ -55,6 +58,12 @@
 		0404BFF720611D200030EB23 /* WFCircleProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFCircleProgressView.m; sourceTree = "<group>"; };
 		0404BFFF2062471A0030EB23 /* WFSphereWaveProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFSphereWaveProgressView.h; sourceTree = "<group>"; };
 		0404C0002062471A0030EB23 /* WFSphereWaveProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFSphereWaveProgressView.m; sourceTree = "<group>"; };
+		04092A11224F5BEA00299797 /* WFTransitionEnter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFTransitionEnter.h; sourceTree = "<group>"; };
+		04092A12224F5BEA00299797 /* WFTransitionEnter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTransitionEnter.m; sourceTree = "<group>"; };
+		04092A14224F5DB000299797 /* UIViewController+WFTransitionAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WFTransitionAnimation.h"; sourceTree = "<group>"; };
+		04092A15224F5DB000299797 /* UIViewController+WFTransitionAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WFTransitionAnimation.m"; sourceTree = "<group>"; };
+		04092A17224F65A500299797 /* WFTransitionExit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFTransitionExit.h; sourceTree = "<group>"; };
+		04092A18224F65A500299797 /* WFTransitionExit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WFTransitionExit.m; sourceTree = "<group>"; };
 		0449BA642084AE88007DA045 /* UIView+WFExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+WFExtension.h"; sourceTree = "<group>"; };
 		0449BA652084AE88007DA045 /* UIView+WFExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+WFExtension.m"; sourceTree = "<group>"; };
 		04558842207B58980052D9B8 /* WFPopAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WFPopAnimation.h; sourceTree = "<group>"; };
@@ -166,6 +175,7 @@
 		0404BFF520611CBE0030EB23 /* AnimationView */ = {
 			isa = PBXGroup;
 			children = (
+				04092A0D224F55BF00299797 /* WeChatReadAnimation */,
 				04BD359322369D160063A1CD /* CardAnimationView */,
 				AAF6B81E21255A6000738A9E /* WFCircleAnimationView.h */,
 				AAF6B81F21255A6000738A9E /* WFCircleAnimationView.m */,
@@ -187,6 +197,19 @@
 				045B35DB22452D690059F3B8 /* WFParabolaAnimation.m */,
 			);
 			path = AnimationView;
+			sourceTree = "<group>";
+		};
+		04092A0D224F55BF00299797 /* WeChatReadAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				04092A11224F5BEA00299797 /* WFTransitionEnter.h */,
+				04092A12224F5BEA00299797 /* WFTransitionEnter.m */,
+				04092A17224F65A500299797 /* WFTransitionExit.h */,
+				04092A18224F65A500299797 /* WFTransitionExit.m */,
+				04092A14224F5DB000299797 /* UIViewController+WFTransitionAnimation.h */,
+				04092A15224F5DB000299797 /* UIViewController+WFTransitionAnimation.m */,
+			);
+			path = WeChatReadAnimation;
 			sourceTree = "<group>";
 		};
 		0449BA632084AE5D007DA045 /* Extension */ = {
@@ -346,12 +369,14 @@
 				AAD03C32223B4D6C0037D498 /* WFCardContainerView.m in Sources */,
 				0449BA662084AE88007DA045 /* UIView+WFExtension.m in Sources */,
 				04B92FE3206B417500FECA45 /* WFDisplayView.m in Sources */,
+				04092A13224F5BEA00299797 /* WFTransitionEnter.m in Sources */,
 				04BD359922369EA60063A1CD /* WFCardAnimationViewController.m in Sources */,
 				04983E1F2085F4F4006836E7 /* WFChartViewController.m in Sources */,
 				AAF6B82021255A6000738A9E /* WFCircleAnimationView.m in Sources */,
 				045B35DC22452D690059F3B8 /* WFParabolaAnimation.m in Sources */,
 				045B35D92243C5D80059F3B8 /* WFCardTestCell.m in Sources */,
 				AA826413212EBD0200E0FC10 /* WFPresentationController.m in Sources */,
+				04092A19224F65A500299797 /* WFTransitionExit.m in Sources */,
 				0404BFF820611D200030EB23 /* WFCircleProgressView.m in Sources */,
 				04558844207B58980052D9B8 /* WFPopAnimation.m in Sources */,
 				04EE61A22197FEC10048E442 /* WFNavigationSubViewController.m in Sources */,
@@ -360,6 +385,7 @@
 				04D65E13208044B40016D23E /* WFPieChartView.m in Sources */,
 				04EE619F2197FDC30048E442 /* WFNavigationViewController.m in Sources */,
 				0404BFE320611BB70030EB23 /* ViewController.m in Sources */,
+				04092A16224F5DB000299797 /* UIViewController+WFTransitionAnimation.m in Sources */,
 				AAD03B91223A02670037D498 /* WFFlexibleButton.m in Sources */,
 				0495B9DF206E1E7A00346289 /* WFWaveHeader.m in Sources */,
 				0404BFEE20611BB70030EB23 /* main.m in Sources */,

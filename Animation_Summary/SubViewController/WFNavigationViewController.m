@@ -10,6 +10,7 @@
 #import "WFNavigationSubViewController.h"
 #import "WFFlexibleButton.h"
 #import "WFParabolaAnimation.h"
+#import "UIViewController+WFTransitionAnimation.h"
 
 @interface WFNavigationViewController ()
 
@@ -32,15 +33,24 @@
     [self setUpUI];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self registerNavigationViewControllerDelegate];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self removeNavigationViewControllerDelegate];
+}
 
 - (void)setUpUI {
-    self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 220, 550, 120, 50)];
+    self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 120, 550, 120, 50)];
     [self.view addSubview:self.addButton];
     self.addButton.backgroundColor = [UIColor redColor];
     [self.addButton setTitle:@"加入购物车" forState:UIControlStateNormal];
     [self.addButton addTarget:self action:@selector(addButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.shoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 220 - 50 - 120, 550, 50, 50)];
+    self.shoppingCartButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 120 - 50 - 120, 550, 50, 50)];
     [self.view addSubview:self.shoppingCartButton];
     [self.shoppingCartButton setImage:[UIImage imageNamed:@"cart"] forState:UIControlStateNormal];
     [self.shoppingCartButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -54,6 +64,23 @@
     self.goodsNumLabel.layer.cornerRadius = 7;
     self.goodsNumLabel.clipsToBounds = YES;
     self.goodsNumLabel.text = @"99+";
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 250, 100, 150)];
+    [imageView setImage:[UIImage imageNamed:@"arrow_right_44px"]];
+    [self.view addSubview:imageView];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(150, 250, 100, 100)];
+    [view setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:view];
+    
+    UIButton *normalButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [normalButton setTitle:@"跳转页面3" forState:UIControlStateNormal];
+    [normalButton setBackgroundColor:[UIColor blackColor]];
+    [normalButton addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:normalButton];
+    
+    [self setSourceView:imageView andTag:@"imageView"];
+    [self setSourceView:view andTag:@"view"];
 }
 
 - (void)addButtonClicked:(UIButton *)sender {
@@ -69,14 +96,8 @@
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    WFNavigationSubViewController *subVC = [[WFNavigationSubViewController alloc] init];
-    [self.navigationController pushViewController:subVC animated:YES];
+- (void)onClick:(id)sender {
+    [self.navigationController pushViewController:[[WFNavigationSubViewController alloc] init] animated:YES];
 }
 
 @end
