@@ -60,8 +60,8 @@ static const CGFloat kCardViewDistance = 15.f;
         if (_loadingIndex < count) {
             for (NSInteger i = self.currentCardArray.count; i < (self.isMoving ? showCount + 1 : showCount); i ++) {
                 WFCardContentCell *cardView = [self.dataSource cardContainView:self cardForAtIndex:self.loadingIndex];
-                if (_delegate && [_delegate respondsToSelector:@selector(cardContainerView:sizeForCardAtIndex:)]) {
-                    CGSize size = [_delegate cardContainerView:self sizeForCardAtIndex:self.loadingIndex];
+                if (_delegate && [_delegate respondsToSelector:@selector(cardContainViewForCardSizeWithContaninView:)]) {
+                    CGSize size = [_delegate cardContainViewForCardSizeWithContaninView:self];
                     cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, size.width, size.height);
                 }else{
                     cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, self.width - kContainerViewMerge * 2, self.width - kContainerViewMerge * 2);

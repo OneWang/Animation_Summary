@@ -46,9 +46,9 @@
     return view;
 }
 
-//- (CGSize)cardContainerView:(WFCardContainerView *)containerView sizeForCardAtIndex:(NSInteger)index{
-//    return CGSizeMake(100, 100);
-//}
+- (CGSize)cardContainViewForCardSizeWithContaninView:(WFCardContainerView *)containView{
+    return CGSizeMake(100, 100);
+}
 
 - (void)cardContainerView:(WFCardContainerView *)containerView dragDirection:(WFCardContainerViewDragDirection)direction didSelectIndex:(NSInteger)index{
     
