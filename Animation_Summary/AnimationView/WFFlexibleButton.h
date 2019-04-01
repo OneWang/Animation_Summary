@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WFFlexibleButton : UIView
-
+@property (nonatomic, assign) CGFloat buttonSpace;
 @end
 
 NS_ASSUME_NONNULL_END

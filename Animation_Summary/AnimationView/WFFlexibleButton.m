@@ -20,6 +20,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        _buttonSpace = 10;
         [self p_createChildViews];
     }
     return self;
@@ -54,7 +55,7 @@
     if (button.selected) {
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                obj.center = CGPointMake(50 * (idx + 1) + 25 , 25);
+                obj.center = CGPointMake((50 + self.buttonSpace) * (idx + 1) + 25, 25);
             }];
             self.frame = CGRectMake(self.origin.x, self.origin.y, self.width + 200, self.height);
         } completion:nil];

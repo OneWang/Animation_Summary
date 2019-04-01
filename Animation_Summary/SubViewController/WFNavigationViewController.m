@@ -27,7 +27,7 @@
     self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view.
     
-    WFFlexibleButton *button = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(10, 50, 50, 50)];
+    WFFlexibleButton *button = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(10, 500, 50, 50)];
     [self.view addSubview:button];
     
     [self setUpUI];
