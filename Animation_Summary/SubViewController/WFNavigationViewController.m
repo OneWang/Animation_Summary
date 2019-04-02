@@ -11,6 +11,7 @@
 #import "WFFlexibleButton.h"
 #import "WFParabolaAnimation.h"
 #import "UIViewController+WFTransitionAnimation.h"
+#import "UIView+WFExtension.h"
 
 @interface WFNavigationViewController ()
 
@@ -24,11 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view.
-    
-    WFFlexibleButton *button = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(10, 500, 50, 50)];
-    [self.view addSubview:button];
     
     [self setUpUI];
 }
@@ -81,6 +78,14 @@
     
     [self setSourceView:imageView andTag:@"imageView"];
     [self setSourceView:view andTag:@"view"];
+    
+    UILabel *homeLabel = [self createHomeButtonView];
+    WFFlexibleButton *upMenuView = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(self.view.width - homeLabel.width - 20.f,
+                                                                                          self.view.height - homeLabel.height - 100.f,homeLabel.width,homeLabel.height) flexibleDirection:WFFlexibleButtonUp];
+    upMenuView.backgroundColor = [UIColor purpleColor];
+    upMenuView.contentView = homeLabel;
+    upMenuView.buttonArray = [self createDemoButtonArray];
+    [self.view addSubview:upMenuView];
 }
 
 - (void)addButtonClicked:(UIButton *)sender {
@@ -98,6 +103,39 @@
 
 - (void)onClick:(id)sender {
     [self.navigationController pushViewController:[[WFNavigationSubViewController alloc] init] animated:YES];
+}
+
+- (UILabel *)createHomeButtonView {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, 40.f, 40.f)];
+    label.text = @"Tap";
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.layer.cornerRadius = label.frame.size.height / 2.f;
+    label.backgroundColor = [UIColor greenColor];
+    label.clipsToBounds = YES;
+    return label;
+}
+
+- (NSArray *)createDemoButtonArray {
+    NSMutableArray *buttonsMutable = [[NSMutableArray alloc] init];
+    int i = 0;
+    for (NSString *title in @[@"A", @"B", @"C", @"D", @"E", @"F"]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitle:title forState:UIControlStateNormal];
+        button.frame = CGRectMake(0.f, 0.f, 30.f, 30.f);
+        button.layer.cornerRadius = button.frame.size.height / 2.f;
+        button.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.5f];
+        button.clipsToBounds = YES;
+        button.tag = i++;
+        [button addTarget:self action:@selector(dwBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [buttonsMutable addObject:button];
+    }
+    return [buttonsMutable copy];
+}
+
+- (void)dwBtnClick:(UIButton *)sender {
+    NSLog(@"DWButton tapped, tag: %ld", (long)sender.tag);
 }
 
 @end

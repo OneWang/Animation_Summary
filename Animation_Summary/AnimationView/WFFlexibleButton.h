@@ -10,8 +10,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger,WFFlexibleButtonDirecrion) {
+    WFFlexibleButtonUp,
+    WFFlexibleButtonDown,
+    WFFlexibleButtonRight,
+    WFFlexibleButtonLeft
+};
+
 @interface WFFlexibleButton : UIView
-@property (nonatomic, assign) CGFloat buttonSpace;
+
+@property(nonatomic, assign) CGFloat buttonSpace;
+
+@property(nonatomic, strong) UIView *contentView;
+
+@property(nonatomic, assign) WFFlexibleButtonDirecrion flexibleDirection;
+
+@property(nonatomic, strong) NSArray<UIButton *> *buttonArray;
+
+@property(nonatomic, assign) CGFloat animationDuration;
+
+- (instancetype)initWithFrame:(CGRect)frame flexibleDirection:(WFFlexibleButtonDirecrion)direction;
+
 @end
 
 NS_ASSUME_NONNULL_END
