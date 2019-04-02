@@ -82,7 +82,6 @@
     UILabel *homeLabel = [self createHomeButtonView];
     WFFlexibleButton *upMenuView = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(self.view.width - homeLabel.width - 20.f,
                                                                                           self.view.height - homeLabel.height - 100.f,homeLabel.width,homeLabel.height) flexibleDirection:WFFlexibleButtonUp];
-    upMenuView.backgroundColor = [UIColor purpleColor];
     upMenuView.contentView = homeLabel;
     upMenuView.buttonArray = [self createDemoButtonArray];
     [self.view addSubview:upMenuView];
@@ -111,7 +110,7 @@
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.cornerRadius = label.frame.size.height / 2.f;
-    label.backgroundColor = [UIColor greenColor];
+    label.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.5f];
     label.clipsToBounds = YES;
     return label;
 }

@@ -19,17 +19,13 @@ typedef NS_ENUM(NSInteger,WFFlexibleButtonDirecrion) {
 
 @interface WFFlexibleButton : UIView
 
+@property(nonatomic, assign) BOOL collapseAfterSelection;
 @property(nonatomic, assign) CGFloat buttonSpace;
-
 @property(nonatomic, strong) UIView *contentView;
-
-@property(nonatomic, assign) WFFlexibleButtonDirecrion flexibleDirection;
-
 @property(nonatomic, strong) NSArray<UIButton *> *buttonArray;
-
 @property(nonatomic, assign) CGFloat animationDuration;
 
-- (instancetype)initWithFrame:(CGRect)frame flexibleDirection:(WFFlexibleButtonDirecrion)direction;
+- (instancetype)initWithFrame:(CGRect)frame flexibleDirection:(WFFlexibleButtonDirecrion)direction NS_DESIGNATED_INITIALIZER;
 
 @end
 

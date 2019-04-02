@@ -19,7 +19,8 @@ static CGFloat const kAnimationDuration = 0.25f;
 @property(nonatomic, assign) CGFloat defaultAlpha;
 @property(nonatomic, assign) BOOL contentAnimationing;
 @property(nonatomic, assign) BOOL isCollapsed;
-@property(nonatomic, assign) BOOL collapseAfterSelection;
+@property(nonatomic, assign) WFFlexibleButtonDirecrion flexibleDirection;
+
 
 @end
 
@@ -27,6 +28,21 @@ static CGFloat const kAnimationDuration = 0.25f;
 
 - (instancetype)initWithFrame:(CGRect)frame flexibleDirection:(WFFlexibleButtonDirecrion)direction{
     if (self = [super initWithFrame:frame]) {
+        [self p_setupDefault];
+        _flexibleDirection = direction;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [self initWithFrame:self.frame flexibleDirection:_flexibleDirection]) {
+        [self p_setupDefault];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [self initWithFrame:frame flexibleDirection:_flexibleDirection]) {
         [self p_setupDefault];
     }
     return self;
@@ -40,8 +56,10 @@ static CGFloat const kAnimationDuration = 0.25f;
     _lastFrame = self.frame;
     _isCollapsed = YES;
     _collapseAfterSelection = YES;
+    _animationDuration = kAnimationDuration;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_tap:)];
     tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
     [self addGestureRecognizer:tap];
 }
 
@@ -120,6 +138,10 @@ static CGFloat const kAnimationDuration = 0.25f;
         }
         self.userInteractionEnabled = YES;
     }];
+    
+    if (weakSelf.flexibleDirection == WFFlexibleButtonUp || weakSelf.flexibleDirection == WFFlexibleButtonLeft) {
+        weakSelf.buttonArray = [self p_reverseButtonArray];
+    }
     
     [_buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
         NSInteger lastIndex = weakSelf.buttonArray.count - (idx + 1);
@@ -202,6 +224,10 @@ static CGFloat const kAnimationDuration = 0.25f;
         NSInteger lastIndex = weakSelf.buttonArray.count - 1 - idx;
         UIButton *lastButton = weakSelf.buttonArray[lastIndex];
         
+        if (weakSelf.flexibleDirection == WFFlexibleButtonUp || weakSelf.flexibleDirection == WFFlexibleButtonLeft) {
+            lastButton = obj;
+        }
+        
         CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         scaleAnimation.duration = weakSelf.animationDuration;
         scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -254,6 +280,15 @@ static CGFloat const kAnimationDuration = 0.25f;
     }];
     [CATransaction commit];
     _isCollapsed = YES;
+}
+
+- (NSArray *)p_reverseButtonArray{
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (NSInteger i = _buttonArray.count - 1; i >= 0; i --) {
+        UIButton *button = _buttonArray[i];
+        [tempArray addObject:button];
+    }
+    return tempArray;
 }
 
 - (void)p_prepareForButtonUnfold{
