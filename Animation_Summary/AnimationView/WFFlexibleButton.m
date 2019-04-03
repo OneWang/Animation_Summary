@@ -147,7 +147,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         NSInteger lastIndex = weakSelf.buttonArray.count - (idx + 1);
         UIButton *lastButton = weakSelf.buttonArray[lastIndex];
         button.hidden = NO;
-        
         CGPoint originPosition,finalPoition;
         switch (weakSelf.flexibleDirection) {
             case WFFlexibleButtonUp:
@@ -187,7 +186,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         positionAnimation.fillMode = kCAFillModeForwards;
         positionAnimation.removedOnCompletion = NO;
         [lastButton.layer addAnimation:positionAnimation forKey:@"positionAnimation"];
-        
         lastButton.layer.position = finalPoition;
         
         CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -201,7 +199,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         [lastButton.layer addAnimation:scaleAnimation forKey:@"scaleAnimation"];
         lastButton.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
     }];
-    
     [CATransaction commit];
     _isCollapsed = NO;
 }
@@ -223,7 +220,6 @@ static CGFloat const kAnimationDuration = 0.25f;
     [_buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSInteger lastIndex = weakSelf.buttonArray.count - 1 - idx;
         UIButton *lastButton = weakSelf.buttonArray[lastIndex];
-        
         if (weakSelf.flexibleDirection == WFFlexibleButtonUp || weakSelf.flexibleDirection == WFFlexibleButtonLeft) {
             lastButton = obj;
         }
