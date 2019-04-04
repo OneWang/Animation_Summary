@@ -21,7 +21,6 @@ static CGFloat const kAnimationDuration = 0.25f;
 @property(nonatomic, assign) BOOL isCollapsed;
 @property(nonatomic, assign) WFFlexibleButtonDirecrion flexibleDirection;
 
-
 @end
 
 @implementation WFFlexibleButton
@@ -57,6 +56,8 @@ static CGFloat const kAnimationDuration = 0.25f;
     _isCollapsed = YES;
     _collapseAfterSelection = YES;
     _animationDuration = kAnimationDuration;
+    self.layer.cornerRadius = 3.f;
+    self.layer.masksToBounds = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_tap:)];
     tap.delegate = self;
     tap.cancelsTouchesInView = NO;
@@ -208,12 +209,12 @@ static CGFloat const kAnimationDuration = 0.25f;
     [CATransaction begin];
     [CATransaction setAnimationDuration:_animationDuration];
     [CATransaction setCompletionBlock:^{
-        self.frame = self.lastFrame;
         for (UIButton *button in self.buttonArray) {
             button.hidden = YES;
             button.transform = CGAffineTransformIdentity;
         }
         self.userInteractionEnabled = YES;
+        self.frame = self.lastFrame;
     }];
     
     __weak __typeof(self)weakSelf = self;
@@ -297,9 +298,11 @@ static CGFloat const kAnimationDuration = 0.25f;
     switch (_flexibleDirection) {
         case WFFlexibleButtonUp:
         {
-            _contentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-            self.top = self.top - height;
-            self.height = self.height + height;
+            [UIView animateWithDuration:.3f delay:0.f options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.contentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+                self.top = self.top - height;
+                self.height = self.height + height;
+            } completion:nil];
         }
             break;
         case WFFlexibleButtonDown:
@@ -324,7 +327,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         default:
             break;
     }
-    
 }
 
 - (void)p_setUpHighLighted:(BOOL)highlighted{
@@ -361,6 +363,7 @@ static CGFloat const kAnimationDuration = 0.25f;
     if (_contentView != contentView) {
         _contentView = contentView;
         [self addSubview:contentView];
+        self.backgroundColor = self.contentView.backgroundColor;
     }
 }
 
@@ -370,26 +373,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         [self addSubview:obj];
         obj.hidden = YES;
     }];
-}
-
-- (void)p_buttonClick:(UIButton *)button{
-    __weak __typeof(self)weakSelf = self;
-    if (button.selected) {
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [weakSelf.buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                obj.center = CGPointMake((50 + weakSelf.buttonSpace) * (idx + 1) + 25, 25);
-            }];
-            weakSelf.frame = CGRectMake(weakSelf.origin.x, weakSelf.origin.y, weakSelf.width + 200, weakSelf.height);
-        } completion:nil];
-    }else{
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [weakSelf.buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                obj.center = CGPointMake(50 * 0.5, 25);
-            }];
-//            weakSelf.frame = CGRectMake(weakSelf.origin.x, weakSelf.origin.y, weakSelf.lastWidth, weakSelf.height);
-        } completion:nil];
-    }
-    button.selected = !button.selected;
 }
 
 @end
