@@ -209,12 +209,12 @@ static CGFloat const kAnimationDuration = 0.25f;
     [CATransaction begin];
     [CATransaction setAnimationDuration:_animationDuration];
     [CATransaction setCompletionBlock:^{
+        self.frame = self.lastFrame;
         for (UIButton *button in self.buttonArray) {
             button.hidden = YES;
             button.transform = CGAffineTransformIdentity;
         }
         self.userInteractionEnabled = YES;
-        self.frame = self.lastFrame;
     }];
     
     __weak __typeof(self)weakSelf = self;
@@ -233,7 +233,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         scaleAnimation.beginTime = CACurrentMediaTime() + (weakSelf.animationDuration / weakSelf.buttonArray.count * idx) + 0.03;
         scaleAnimation.removedOnCompletion = NO;
         scaleAnimation.fillMode = kCAFillModeForwards;
-        
         [lastButton.layer addAnimation:scaleAnimation forKey:@"scaleAnimation"];
         lastButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
         
