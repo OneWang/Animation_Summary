@@ -15,11 +15,13 @@
 #import "WFPresentationController.h"
 #import "WFSecondViewController.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 /** tableView */
 @property (strong, nonatomic) UITableView *tableView;
 /** header */
 @property (weak, nonatomic) WFDisplayView *displayView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @end
 
 @implementation ViewController
@@ -69,24 +71,55 @@
 }
 
 - (void)creatHeaderDragAnimation{
-    WFDisplayView *v1 = [[WFDisplayView alloc] initWithFrame:CGRectMake( 0, 64, K_Screen_Width, 140)];
-    v1.backgroundColor = [UIColor yellowColor];
-    _displayView = v1;
-    [self.view addSubview:v1];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake((K_Screen_Width - 30) * 0.5, 250);
+    layout.minimumLineSpacing = 10.f;
+    layout.minimumInteritemSpacing = 10.f;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 + 140, K_Screen_Width, K_Screen_Height - 64 - 140) collectionViewLayout:layout];
+    [self.view addSubview:collectionView];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    _collectionView = collectionView;
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 140, K_Screen_Width, K_Screen_Height - 64 - 140) style:UITableViewStyleGrouped];
-    [self.view addSubview:tableView];
-    tableView.estimatedRowHeight = 0;
-    tableView.estimatedSectionFooterHeight = 0;
-    tableView.estimatedSectionHeaderHeight = 0;
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    _tableView = tableView;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (int i = 0; i < 20; i ++) {
+            [self.dataArray addObject:@"1"];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    });
+}
+
+#pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
+    cell.backgroundColor = RandomColor;
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.item == 0) {
+        [UIView animateWithDuration:0.3 animations:^{
+            cell.transform = CGAffineTransformMakeRotation(0.1);
+        }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                cell.transform = CGAffineTransformMakeRotation(-0.1);
+            }];
+        });
+    }
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -115,6 +148,12 @@
     [self presentViewController:secondVC animated:YES completion:nil];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [UIView animateWithDuration:0.3 animations:^{
+        cell.transform = CGAffineTransformMakeRotation(0.1);
+    }];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     WFSubViewController *VC = [WFSubViewController new];
     [self.navigationController pushViewController:VC animated:YES];
@@ -127,6 +166,13 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 //    [_headerView endAnimation];
+}
+
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
 }
 
 @end
