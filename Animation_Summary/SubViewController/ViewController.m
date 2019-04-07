@@ -159,15 +159,6 @@
     [self.navigationController pushViewController:VC animated:YES];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    [_headerView startAnimation];
-//    _displayView.offsetY = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [_headerView endAnimation];
-}
-
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
