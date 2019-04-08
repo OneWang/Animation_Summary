@@ -29,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"动画";
-//    [self createDisplayView];    
     [self creatHeaderDragAnimation];
     
     NSDate *today = [NSDate date];
