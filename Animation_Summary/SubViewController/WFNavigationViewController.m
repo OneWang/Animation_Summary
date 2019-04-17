@@ -82,8 +82,8 @@
     UILabel *homeLabel = [self createHomeButtonView];
     WFFlexibleButton *upMenuView = [[WFFlexibleButton alloc] initWithFrame:CGRectMake(self.view.width - homeLabel.width - 20.f,
                                                                                           self.view.height - homeLabel.height - 100.f,homeLabel.width,homeLabel.height) flexibleDirection:WFFlexibleButtonUp];
-    upMenuView.contentView = homeLabel;
     upMenuView.buttonArray = [self createDemoButtonArray];
+    upMenuView.contentView = homeLabel;
     [self.view addSubview:upMenuView];
 }
 
