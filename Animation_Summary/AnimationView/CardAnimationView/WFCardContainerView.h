@@ -37,6 +37,7 @@ typedef NS_OPTIONS(NSInteger, WFCardContainerViewDragDirection) {
 
 @property (nonatomic, weak, nullable) id<WFCardContainerViewDataSource> dataSource;
 @property (nonatomic, weak, nullable) id<WFCardContainerViewDelegate> delegate;
+@property (nonatomic, strong, readonly) NSArray<__kindof WFCardContentCell *> *visibleArray;
 
 @property (nonatomic) CGFloat cardSpace;
 @property (nonatomic) CGFloat scale;

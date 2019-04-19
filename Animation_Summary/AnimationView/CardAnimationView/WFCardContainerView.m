@@ -38,6 +38,7 @@ static const CGFloat kCardViewDistance = 15.f;
 @property (nonatomic, assign) WFCardContainerViewDragDirection dragDirection;
 /** 缓存 */
 @property (nonatomic, strong) NSCache *containersCache;
+@property (nonatomic, strong) NSMutableArray *visible;
 
 @end
 
@@ -60,6 +61,7 @@ static const CGFloat kCardViewDistance = 15.f;
         if (_loadingIndex < count) {
             for (NSInteger i = self.currentCardArray.count; i < (self.isMoving ? showCount + 1 : showCount); i ++) {
                 WFCardContentCell *cardView = [self.dataSource cardContainView:self cardForAtIndex:self.loadingIndex];
+                [self.visible addObject:cardView];
                 if (_delegate && [_delegate respondsToSelector:@selector(cardContainViewForCardSizeWithContaninView:)]) {
                     CGSize size = [_delegate cardContainViewForCardSizeWithContaninView:self];
                     cardView.frame = CGRectMake(kContainerViewMerge, kContainerViewMerge, size.width, size.height);
@@ -254,6 +256,17 @@ static const CGFloat kCardViewDistance = 15.f;
 - (void)setDataSource:(id<WFCardContainerViewDataSource>)dataSource{
     _dataSource = dataSource;
     [self reloadData];
+}
+
+- (NSMutableArray *)visible{
+    if (!_visible) {
+        _visible = [NSMutableArray array];
+    }
+    return _visible;
+}
+
+- (NSArray<WFCardContentCell *> *)visibleArray{
+    return self.visible;
 }
 
 @end
