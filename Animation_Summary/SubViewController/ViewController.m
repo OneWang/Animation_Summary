@@ -14,6 +14,7 @@
 #import "WFMainTabbarViewController.h"
 #import "WFPresentationController.h"
 #import "WFSecondViewController.h"
+#import "WFPhotoBrowseViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 /** tableView */
@@ -29,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"动画";
-    [self creatHeaderDragAnimation];
+    [self createDisplayView];
     
     NSDate *today = [NSDate date];
     NSDate *compareDay = nil;
@@ -59,6 +60,13 @@
     tableView.estimatedSectionFooterHeight = 0;
     tableView.estimatedSectionHeaderHeight = 0;
     _tableView = tableView;
+    
+    for (int i = 0; i < 20; i ++) {
+        [self.dataArray addObject:@"1"];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     
     WFWaveHeader *header = [[WFWaveHeader alloc] initWithFrame:CGRectMake(0, 0, K_Screen_Width, 100) backgroundColor:[UIColor yellowColor] beforColor:[UIColor purpleColor]];
     tableView.tableHeaderView = header;
@@ -140,17 +148,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    WFSecondViewController *secondVC = [WFSecondViewController new];
-    WFPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
-    presentationController = [[WFPresentationController alloc] initWithPresentedViewController:secondVC presentingViewController:nil];
-    secondVC.transitioningDelegate = presentationController;
-    [self presentViewController:secondVC animated:YES completion:nil];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [UIView animateWithDuration:0.3 animations:^{
-        cell.transform = CGAffineTransformMakeRotation(0.1);
-    }];
+//    WFSecondViewController *secondVC = [WFSecondViewController new];
+//    WFPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
+//    presentationController = [[WFPresentationController alloc] initWithPresentedViewController:secondVC presentingViewController:nil];
+//    secondVC.transitioningDelegate = presentationController;
+//    [self presentViewController:secondVC animated:YES completion:nil];
+    WFPhotoBrowseViewController *photo = [[WFPhotoBrowseViewController alloc] init];
+    [self presentViewController:photo animated:YES completion:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
