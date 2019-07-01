@@ -155,7 +155,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     WFSubViewController *VC = [WFSubViewController new];
-    [self.navigationController pushViewController:VC animated:YES];
+    [self presentViewController:VC animated:YES completion:NULL];
 }
 
 - (NSMutableArray *)dataArray{

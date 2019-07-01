@@ -40,4 +40,8 @@
     self.layer.borderWidth = 1.f;
 }
 
+- (void)dealloc{
+    NSLog(@"当前卡片被释放了");
+}
+
 @end

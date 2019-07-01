@@ -18,7 +18,12 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"动画转场";
-    self.view.backgroundColor = [UIColor orangeColor];
+    self.view.backgroundColor = RandomColor;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    WFSubViewController *VC = [WFSubViewController new];
+    [self presentViewController:VC animated:YES completion:NULL];
 }
 
 //获取当前屏幕显示的viewcontroller

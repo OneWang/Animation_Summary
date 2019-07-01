@@ -56,7 +56,7 @@ static CGFloat const kAnimationDuration = 0.25f;
     _isCollapsed = YES;
     _collapseAfterSelection = YES;
     _animationDuration = kAnimationDuration;
-    self.layer.cornerRadius = 3.f;
+    self.layer.cornerRadius = self.height * 0.5;
     self.layer.masksToBounds = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_tap:)];
     tap.delegate = self;
@@ -242,6 +242,11 @@ static CGFloat const kAnimationDuration = 0.25f;
         switch (weakSelf.flexibleDirection) {
             case WFFlexibleButtonUp:
             {
+                if (idx == 3) {
+                    [UIView animateWithDuration:0.3 animations:^{
+                        self.frame = self.lastFrame;
+                    }];
+                }
                 finalPoition = CGPointMake(self.width * 0.5, self.height - self.contentView.height);
             }
                 break;
