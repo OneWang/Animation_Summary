@@ -12,6 +12,7 @@
 #import "WFPieChartItem.h"
 #import "WFPieChartView.h"
 #import "WFCircleAnimationView.h"
+#import "WFShimmerView.h"
 
 @interface WFProgressViewController ()
 /** 圆环进度条 */
@@ -28,6 +29,13 @@
     [self createSphereProgressView];
     [self createPieChartView];
     [self createCilcleAnimationView];
+    [self createShimmerView];
+}
+
+#pragma mark - 闪烁动画
+- (void)createShimmerView{
+    WFShimmerView *shimmerView = [[WFShimmerView alloc] initWithFrame:CGRectMake(50, 300, 100, 100)];
+    [self.view addSubview:shimmerView];
 }
 
 #pragma mark - 圆形动画

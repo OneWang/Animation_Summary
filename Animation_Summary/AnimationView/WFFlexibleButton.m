@@ -208,8 +208,12 @@ static CGFloat const kAnimationDuration = 0.25f;
     self.userInteractionEnabled = NO;
     [CATransaction begin];
     [CATransaction setAnimationDuration:_animationDuration];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            self.frame = self.lastFrame;
+//        } completion:nil];
+//    });
     [CATransaction setCompletionBlock:^{
-        self.frame = self.lastFrame;
         for (UIButton *button in self.buttonArray) {
             button.hidden = YES;
             button.transform = CGAffineTransformIdentity;
@@ -276,7 +280,6 @@ static CGFloat const kAnimationDuration = 0.25f;
         positionAnimation.fillMode = kCAFillModeForwards;
         positionAnimation.removedOnCompletion = NO;
         [lastButton.layer addAnimation:positionAnimation forKey:@"positionAnimation"];
-        
         lastButton.layer.position = originPosition;
     }];
     [CATransaction commit];
