@@ -20,11 +20,33 @@
     self.view.backgroundColor = [UIColor redColor];
     
     [self updatePreferredContentSizeWithTraitCollection:self.traitCollection];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(p_pan:)];
+    [self.view addGestureRecognizer:panGesture];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)p_pan:(UIPanGestureRecognizer *)panGesture{
+    bool isDisappear = NO;
+    if (panGesture.state == UIGestureRecognizerStateBegan) {
+//        CGPoint startPoint = [panGesture locationInView:panGesture.view];
+    }else if (panGesture.state == UIGestureRecognizerStateChanged){
+        CGPoint movePoint = [panGesture translationInView:panGesture.view];
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 620 - movePoint.y);
+    }else if (panGesture.state == UIGestureRecognizerStateEnded){
+        if ([panGesture translationInView:panGesture.view].y > 100) {
+            isDisappear = YES;
+        }
+        if (isDisappear) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 620);
+        }
+    }
 }
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 //| ----------------------------------------------------------------------------
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

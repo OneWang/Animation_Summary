@@ -148,13 +148,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    WFSecondViewController *secondVC = [WFSecondViewController new];
-//    WFPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
-//    presentationController = [[WFPresentationController alloc] initWithPresentedViewController:secondVC presentingViewController:nil];
-//    secondVC.transitioningDelegate = presentationController;
-//    [self presentViewController:secondVC animated:YES completion:nil];
-    WFPhotoBrowseViewController *photo = [[WFPhotoBrowseViewController alloc] init];
-    [self presentViewController:photo animated:YES completion:nil];
+    WFSecondViewController *secondVC = [WFSecondViewController new];
+    WFPresentationController *presentationController NS_VALID_UNTIL_END_OF_SCOPE;
+    presentationController = [[WFPresentationController alloc] initWithPresentedViewController:secondVC presentingViewController:nil];
+    secondVC.transitioningDelegate = presentationController;
+    [self presentViewController:secondVC animated:YES completion:nil];
+//    WFPhotoBrowseViewController *photo = [[WFPhotoBrowseViewController alloc] init];
+//    [self presentViewController:photo animated:YES completion:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
