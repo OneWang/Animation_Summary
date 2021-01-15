@@ -12,8 +12,9 @@
 #import "WFParabolaAnimation.h"
 #import "UIViewController+WFTransitionAnimation.h"
 #import "UIView+WFExtension.h"
+#import "WFPresentTransition.h"
 
-@interface WFNavigationViewController ()
+@interface WFNavigationViewController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UIButton *shoppingCartButton;
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationController.delegate = self;
     [self setUpUI];
 }
 
@@ -76,6 +77,12 @@
     [normalButton addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:normalButton];
     
+    UIButton *jump = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 50)];
+    [jump setTitle:@"跳转页面4" forState:UIControlStateNormal];
+    [jump setBackgroundColor:[UIColor blackColor]];
+    [jump addTarget:self action:@selector(Click:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:jump];
+    
     [self setSourceView:imageView andTag:@"imageView"];
     [self setSourceView:view andTag:@"view"];
     
@@ -102,6 +109,20 @@
 
 - (void)onClick:(id)sender {
     [self.navigationController pushViewController:[[WFNavigationSubViewController alloc] init] animated:YES];
+}
+
+- (void)Click:(id)sender{
+    [self.navigationController pushViewController:[[WFNavigationSubViewController alloc] init] animated:YES];
+}
+
+#pragma mark - UINavigationControllerDelegate
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
+    if (operation == UINavigationControllerOperationPush) {
+        return WFPresentTransition.new;
+    }else if (operation == UINavigationControllerOperationPop){
+        return nil;
+    }
+    return nil;
 }
 
 - (UILabel *)createHomeButtonView {

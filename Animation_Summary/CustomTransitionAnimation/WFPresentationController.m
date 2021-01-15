@@ -95,7 +95,7 @@ static CGFloat const kCornerRadius = 16.f;
 }
 
 - (void)dimmingViewTapped:(UITapGestureRecognizer*)sender{
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+//    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 //出现调用

@@ -1,0 +1,3 @@
+-[UIView(WFExtension) setSize:]
+-[WFDisplayView touchesMoved:withEvent:]
+-[WFDisplayView touchesEnded:withEvent:]
