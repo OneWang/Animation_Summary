@@ -66,6 +66,15 @@
     test = nil;
 }
 
+- (void)test{
+    NSNotificationQueue *queue = [NSNotificationQueue defaultQueue];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_test) name:@"123" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"123" object:nil queue:queue usingBlock:^(NSNotification * _Nonnull note) {
+        
+    }];
+}
+
 - (void)viewDidLoad {
     
     __block Test *test = [[Test alloc] init];
